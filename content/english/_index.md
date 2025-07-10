@@ -1,53 +1,36 @@
 ---
 # Banner
 banner:
-  title: "The Ultimate Starter Template You Need To Start Your Hugo Project"
-  content: "Hugoplate is a free starter template built with Hugo and TailwindCSS, providing everything you need to jumpstart your Hugo project and save valuable time."
-  image: "/images/banner.png"
+  title: "Confort Médical 68 Orthopédie et matériel médical à Cernay"
+  content: " Nous vous proposons pas que du matérial médical mais une véritable équipe réactive et à votre écoute. Nous sommes là pour vous !"
+  image: hidden
   button:
     enable: true
-    label: "Get Started For Free"
+    label: "Contactez-nous !"
     link: "https://github.com/zeon-studio/hugoplate"
 
 # Features
 features:
-  - title: "What's Included in Hugoplate"
+  - title: "Orthopédie et matériel médical dans le Haut-Rhin"
     image: "/images/service-1.png"
-    content: "Hugoplate is a comprehensive starter template that includes everything you need to get started with your Hugo project. What's Included in Hugoplate"
-    bulletpoints:
-      - "10+ Pre-build pages"
-      - "95+ Google Pagespeed Score"
-      - "Build with Hugo and TailwindCSS for easy and customizable styling"
-      - "Fully responsive on all devices"
-      - "SEO-optimized for better search engine rankings"
-      - "**Open-source and free** for personal and commercial use"
-    button:
-      enable: false
-      label: "Get Started Now"
-      link: "#"
+    content: "Créée en avril 2016, la société Confort Médical 68 fait partie de Médicalliance et se situe à Cernay dans le département du Haut-Rhin (68).<br><br> Plus que +30 d'expérience et de savoir-faire dans le domaine de l'orthopédie et du matériel médical, c'est ce qui caractérise Patrick PY, directeur de notre établissement, qui est réputé pour son attachement à la satisfaction de la clientèle."
 
-  - title: "Discover the Key Features Of Hugo"
+
+  - title: "Dépannage et la livraison d'urgence"
     image: "/images/service-2.png"
-    content: "Hugo is an all-in-one web framework for building fast, content-focused websites. It offers a range of exciting features for developers and website creators. Some of the key features are:"
+    content: "Notre équipe dynamique est à votre écoute et se met à votre disposition pour vous conseiller, vous accompagner dans le choix de votre matériel médical ou orthopédique, tout en tenant en compte de vos exigences. <br><br> De plus vous pouvez compter sur notre rapidité d'intervention pour assurer le dépannage et la livraison d'urgence dans les plus brefs délais. <br><br> Pour de plus amples informations, nous vous invitons à nous contacter !"
     bulletpoints:
-      - "Zero JS, by default: No JavaScript runtime overhead to slow you down."
-      - "Customizable: Tailwind, MDX, and 100+ other integrations to choose from."
-      - "UI-agnostic: Supports React, Preact, Svelte, Vue, Solid, Lit and more."
+      - "Livraison à domicile gratuite"
+      - "Devis gratuit"
     button:
       enable: true
-      label: "Get Started Now"
-      link: "https://github.com/zeon-studio/hugoplate"
+      label: "Contactez-nous !"
+      url: "/contact/"
 
-  - title: "The Top Reasons to Choose Hugo for Your Hugo Project"
+  - title: "Nos services"
     image: "/images/service-3.png"
-    content: "With Hugo, you can build modern and content-focused websites without sacrificing performance or ease of use."
+    content: "Orthopédie & Matérial médical"
     bulletpoints:
-      - "Instantly load static sites for better user experience and SEO."
-      - "Intuitive syntax and support for popular frameworks make learning and using Hugo a breeze."
-      - "Use any front-end library or framework, or build custom components, for any project size."
-      - "Built on cutting-edge technology to keep your projects up-to-date with the latest web standards."
-    button:
-      enable: false
-      label: ""
-      link: ""
+      - "Genouillère, coudière, collier cervical, ceinture lombaire..."
+      - "Lit médicalisé, fauteuil roulant, soulève-malade, verticalisateur... et plus Encore"
 ---
