@@ -2,12 +2,12 @@
 # Banner
 banner:
   title: "Confort Médical 68 Orthopédie et matériel médical à Cernay"
-  content: " Nous vous proposons pas que du matérial médical mais une véritable équipe réactive et à votre écoute. Nous sommes là pour vous !"
+  content: "Nous vous proposons pas que du matérial médical mais une véritable équipe réactive et à votre écoute. Nous sommes là pour vous !"
   image: hidden
   button:
     enable: true
     label: "Contactez-nous !"
-    link: "https://github.com/zeon-studio/hugoplate"
+    link: "contact/"
 
 # Features
 features:
@@ -25,7 +25,7 @@ features:
     button:
       enable: true
       label: "Contactez-nous !"
-      url: "/contact/"
+      link: "contact/"
 
   - title: "Nos services"
     image: "/images/service-3.png"

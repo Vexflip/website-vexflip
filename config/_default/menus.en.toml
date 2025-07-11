@@ -34,8 +34,10 @@ url = "/about"
 weight = 1
 
 [[footer]]
-name = "Privacy Policy"
-url = "/privacy-policy"
+name = "Mentions légales "
+url = "/mentions-legales "
 weight = 2
+
+
 
 
