@@ -2,6 +2,7 @@
 title: "Photos"
 meta_title: ""
 description: "This is meta description"
+layout: "photos"
 draft: false  
 ---
 <hr>

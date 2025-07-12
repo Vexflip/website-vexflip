@@ -3,6 +3,7 @@ title: "Bonjour, Je suis Patrick Py"
 meta_title: "À propos du fondateur"
 description: "this is meta description"
 image: "/images/avatar.png"
+layout: "about"
 draft: false
 ---
 

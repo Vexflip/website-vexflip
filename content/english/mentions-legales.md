@@ -1,6 +1,8 @@
 ---
 title: "Mentions Légals"
+image: none
 date: 2025-07-11T12:00:00+00:00
+layout: "mentions-legales"
 draft: false
 ---
 **Ce site est édité par :**  CONFORT MEDICAL 68
