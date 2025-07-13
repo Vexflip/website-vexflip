@@ -1,9 +1,8 @@
 ---
 # Banner
 banner:
-  title: "„Kneipe 80”"
   content: "Die „Kneipe 80” bringt den legendären Geist der Achtziger Jahre zurück. Die Verschmelzung von zwei gastronomischen Legenden kehren zurück : Tresznjewski x ZOOZIE’Z"
-  image: hidden
+  image: images/logo.png
 
 # Features
 features:

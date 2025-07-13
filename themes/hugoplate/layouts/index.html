@@ -16,9 +16,12 @@
       <div class="container relative z-20">
         <div class="row justify-center">
           <div class="lg:col-7 md:col-9 mb-8 text-center text-white">
-            <h1 class="mb-4 text-h3 lg:text-h1">
-              {{ .title | markdownify }}
-            </h1>
+            <div class="col-12">
+            {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[1200px]" "DisplayXL" "1200x") }}
+          </div>
+            <h1 class="mb-4 text-3xl lg:text-8xl">
+            {{ .title | markdownify }}
+          </h1>
             <p class="mb-8">
               {{ .content | markdownify }}
             </p>
@@ -36,9 +39,7 @@
               {{ end }}
             {{ end }}
           </div>
-          <div class="col-12">
-            {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[800px]" "DisplayXL" "800x") }}
-          </div>
+          
         </div>
       </div>
     </section>
