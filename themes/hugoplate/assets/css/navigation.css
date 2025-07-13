@@ -19,7 +19,7 @@
 }
 
 .nav-link {
-  @apply text-text-dark hover:text-primary   block p-3 cursor-pointer font-semibold transition lg:px-2 lg:py-3;
+  @apply hover:text-border  block p-3 cursor-pointer font-semibold transition lg:px-2 lg:py-3;
 }
 
 .nav-dropdown {

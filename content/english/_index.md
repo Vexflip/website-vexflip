@@ -1,36 +1,37 @@
 ---
 # Banner
 banner:
-  title: "Confort Médical 68 Orthopédie et matériel médical à Cernay"
-  content: "Nous vous proposons pas que du matérial médical mais une véritable équipe réactive et à votre écoute. Nous sommes là pour vous !"
+  title: "„Kneipe 80”"
+  content: "Die „Kneipe 80” bringt den legendären Geist der Achtziger Jahre zurück. Die Verschmelzung von zwei gastronomischen Legenden kehren zurück : Tresznjewski x ZOOZIE’Z"
   image: hidden
-  button:
-    enable: true
-    label: "Contactez-nous !"
-    link: "contact/"
 
 # Features
 features:
-  - title: "Orthopédie et matériel médical dans le Haut-Rhin"
-    image: "/images/service-1.png"
-    content: "Créée en avril 2016, la société Confort Médical 68 fait partie de Médicalliance et se situe à Cernay dans le département du Haut-Rhin (68).<br><br> Plus que +30 d'expérience et de savoir-faire dans le domaine de l'orthopédie et du matériel médical, c'est ce qui caractérise Patrick PY, directeur de notre établissement, qui est réputé pour son attachement à la satisfaction de la clientèle."
+  - title: "Deine Bar im Herzen Münchens "
+    image: "/images/gallery/01.jpg"
+    content: "Deine Bar im Herzen Münchens Lust auf ein kühles Bier, gute Gespräche und echte Kneipenatmosphäre? Dann bist du bei uns genau richtig!<br><br> Kneipe 80 ist nicht einfach nur eine Bar – wir sind ein Stück Münchner Kultur. Seit 2025 servieren wir ehrliche Drinks, frisch gezapftes Bier und leckere Kleinigkeiten in entspannter, ungezwungener Atmosphäre. Bei uns treffen sich Nachbarn, Freunde und neue Gesichter – immer mit einem Lächeln und einem offenen Ohr. <br><br> Ob du nach der Arbeit ein Feierabendbier brauchst, mit Freunden einen geselligen Abend planst oder einfach spontan vorbeischaust – wir freuen uns auf dich!"
 
 
-  - title: "Dépannage et la livraison d'urgence"
-    image: "/images/service-2.png"
-    content: "Notre équipe dynamique est à votre écoute et se met à votre disposition pour vous conseiller, vous accompagner dans le choix de votre matériel médical ou orthopédique, tout en tenant en compte de vos exigences. <br><br> De plus vous pouvez compter sur notre rapidité d'intervention pour assurer le dépannage et la livraison d'urgence dans les plus brefs délais. <br><br> Pour de plus amples informations, nous vous invitons à nous contacter !"
+  - title: "🍻 Komm vorbei – wir halten dir einen Platz frei!"
+    image: "/images/gallery/02.jpg"
+    content: "Bei Kneipe 80 erwartet dich eine vielfältige Auswahl an frisch gezapftem Bier aus der Region, spannende Craft- und Spezialbiere sowie klassische Longdrinks und kreative Cocktails, die unser Bar-Team mit viel Leidenschaft mixt. <br><br> Für alle, die es alkoholfrei mögen, bieten wir erfrischende hausgemachte Limonaden und regionale Säfte. Ob Feierabendbier oder ausgefallener Drink – bei uns findest du garantiert deinen Favoriten!"
     bulletpoints:
-      - "Livraison à domicile gratuite"
-      - "Devis gratuit"
+      - "Keine Reservierung notwendig"
+      - "Gruppenanfragen? Erst ab 10pax kontaktieren Sie uns"
     button:
       enable: true
-      label: "Contactez-nous !"
+      label: "Kontakt aufnehmen!"
       link: "contact/"
 
-  - title: "Nos services"
-    image: "/images/service-3.png"
-    content: "Orthopédie & Matérial médical"
+  - title: "Öffnungszeiten:"
+    image: "/images/gallery/04.jpg"
+    content: "Wir sind jeden Tag geöffnet:"
     bulletpoints:
-      - "Genouillère, coudière, collier cervical, ceinture lombaire..."
-      - "Lit médicalisé, fauteuil roulant, soulève-malade, verticalisateur... et plus Encore"
+      - "Montag:     16:00 - 22:00"
+      - "Dienstag:   16:00 - 23:00"
+      - "Mittwoch:   16:00 - 00:00"
+      - "Donnerstag: 16:00 - 01:00"
+      - "Freitag:    16:00 - 01:00"
+      - "Samstag:    14:00 - 01:00"
+      - "Sonntag:    14:00 - 22:00"
 ---

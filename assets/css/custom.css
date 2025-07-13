@@ -1,1 +1,22 @@
 /* Add your own custom styles here */
+.video-header-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* or however tall you want the header */
+  overflow: hidden;
+}
+
+.video-header-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.video-header-container header {
+  position: relative;
+  z-index: 10;
+}

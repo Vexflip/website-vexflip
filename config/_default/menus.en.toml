@@ -2,23 +2,23 @@
 
 # main menu
 [[main]]
-name = "Accueil"
+name = "Home"
 url = "/"
 weight = 1
 
 [[main]]
-name = "Orthopédie"
-url = "/orthopedie"
+name = "Events"
+url = "/event"
 weight = 2
-
-[[main]]
-name = "Vente et location de matériel médical"
-url = "/vente_et_location"
-weight = 3
 
 [[main]]
 name = "Photos"
 url = "/photos"
+weight = 4
+
+[[main]]
+name = "Team"
+url = "/team"
 weight = 4
 
 [[main]]
@@ -29,7 +29,7 @@ weight = 5
 
 # footer menu
 [[footer]]
-name = "À propos du fondateur"
+name = "About"
 url = "/about"
 weight = 1
 

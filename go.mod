@@ -14,6 +14,7 @@ require (
 	github.com/gethugothemes/hugo-modules/gallery-slider v0.0.0-20250702070945-cd8319c6b26e // indirect
 	github.com/gethugothemes/hugo-modules/gzip-caching v0.0.0-20250702070945-cd8319c6b26e // indirect
 	github.com/gethugothemes/hugo-modules/icons/font-awesome v0.0.0-20250702070945-cd8319c6b26e // indirect
+	github.com/gethugothemes/hugo-modules/icons/themify-icons v0.0.0-20250702070945-cd8319c6b26e // indirect
 	github.com/gethugothemes/hugo-modules/images v0.0.0-20250702070945-cd8319c6b26e // indirect
 	github.com/gethugothemes/hugo-modules/modal v0.0.0-20250702070945-cd8319c6b26e // indirect
 	github.com/gethugothemes/hugo-modules/pwa v0.0.0-20250702070945-cd8319c6b26e // indirect
@@ -27,4 +28,5 @@ require (
 	github.com/gethugothemes/hugo-modules/table-of-contents v0.0.0-20250702070945-cd8319c6b26e // indirect
 	github.com/gethugothemes/hugo-modules/videos v0.0.0-20250702070945-cd8319c6b26e // indirect
 	github.com/hugomods/mermaid v0.1.4 // indirect
+	github.com/zeon-studio/hugoplate v0.0.0-20250710100612-a0540d96e4b6 // indirect
 )

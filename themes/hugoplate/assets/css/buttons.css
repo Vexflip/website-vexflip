@@ -7,7 +7,7 @@
 }
 
 .btn-primary {
-  @apply border-primary bg-primary   text-white ;
+  @apply  bg-primary text-white hover:bg-border ;
 }
 
 .btn-outline-primary {

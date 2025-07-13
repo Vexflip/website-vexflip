@@ -1,10 +1,21 @@
 {{ define "main" }}
   <!-- Banner -->
   {{ with .Params.banner }}
-    <section class="section pt-14">
-      <div class="container">
+    <section class="relative overflow-hidden pt-14 h-screen flex items-center justify-center">
+      
+      <!-- Background Video -->
+      <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+        <source src="videos/banner-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Optional: Dark overlay -->
+      <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-0"></div>
+
+      <!-- Foreground Content -->
+      <div class="container relative z-20">
         <div class="row justify-center">
-          <div class="lg:col-7 md:col-9 mb-8 text-center">
+          <div class="lg:col-7 md:col-9 mb-8 text-center text-white">
             <h1 class="mb-4 text-h3 lg:text-h1">
               {{ .title | markdownify }}
             </h1>
@@ -26,7 +37,7 @@
             {{ end }}
           </div>
           <div class="col-12">
-            {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[800px]" "DisplayXL" "800x" ) }}
+            {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[800px]" "DisplayXL" "800x") }}
           </div>
         </div>
       </div>
@@ -35,15 +46,30 @@
   <!-- /Banner -->
 
   <!-- Features -->
-  {{ range $i, $e:= .Params.features }}
-    <section class="section-sm {{ if (modBool $i 2) }}bg-gradient{{ end }}">
-      <div class="container">
+  {{ range $i, $e := .Params.features }}
+  <section class="section-sm relative overflow-hidden {{ if not (modBool $i 2) }}has-video-bg{{ end }}">
+    
+    {{ if not (modBool $i 2) }}
+
+      <!-- Background video -->
+      <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+        <source src="videos/bg-home.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Optional dark overlay for text readability -->
+      <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-0"></div>
+    {{ end }}
+
+    <div class="container relative z-10">
         <div class="row items-center justify-between">
           <div
             class="mb:md-0 {{ if not (modBool $i 2) }}
               md:order-2
             {{ end }} md:col-5 mb-6">
-            {{ partial "image" (dict "Src" .image "Alt" "feature image" "DisplayXL" "520x" "DisplayLG" "425x" "DisplayMD" "360x") }}
+            <div class="rounded-md overflow-hidden">
+  {{ partial "image" (dict "Src" .image "Alt" "feature image" "DisplayXL" "520x" "DisplayLG" "425x" "DisplayMD" "360x") }}
+</div>
           </div>
           <div
             class="{{ if not (modBool $i 2) }}
