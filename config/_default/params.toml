@@ -53,8 +53,8 @@ content = "You must replace the **baseURL** in **hugo.toml** file when deploying
 # seo module: https://github.com/gethugothemes/hugo-modules/tree/master/seo-tools/basic-seo
 [metadata]
 keywords = ["Boilerplate", "Hugo"]
-description = "Confort Médical 68"
-author = "sylvain.picht"
+description = "Kneipe 80"
+author = "sylvain.pichot"
 image = "images/og-image.png"
 
 
