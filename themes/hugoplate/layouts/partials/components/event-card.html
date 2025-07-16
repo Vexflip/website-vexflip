@@ -16,9 +16,9 @@
   <!-- Content -->
   <div class="z-10 flex flex-col h-full justify-between">
     <div>
-      <h4 class="text-2xl font-semibold mb-3 text-text-light">{{ .name }}</h4>
+      <h4 class="text-2xl font-semibold mb-3">{{ .name }}</h4>
 
-      <p class="text-sm mb-4">
+      <p class="text-sm mb-4 text-primary">
         {{ if and .date_start .date_end }}
           {{ .date_start | time.Format "Jan 2, 2006" }} – {{ .date_end | time.Format "Jan 2, 2006" }}
         {{ else if .date_start }}
@@ -36,7 +36,7 @@
     <a href="{{ $.Page.RelPermalink }}"
       class="inline-block mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-light transition"
     >
-      Voir l'événement →
+      see event →
     </a>
   </div>
 

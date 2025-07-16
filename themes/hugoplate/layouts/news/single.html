@@ -4,9 +4,9 @@
     <main class="max-w-4xl mx-auto px-4 py-12">
     <article class="bg-white shadow-md rounded-2xl p-8 space-y-6">
         <!-- Event Title -->
-        <h1 class="text-4xl font-bold text-primary">{{ .name }}</h1>
+        <h1 class="text-4xl font-bold">{{ .name }}</h1>
 
-        <p class="text-sm mb-4">
+        <p class="text-sm mb-4 text-primary">
             {{ if and .date_start .date_end }}
             {{ .date_start | time.Format "Jan 2, 2006" }} – {{ .date_end | time.Format "Jan 2, 2006" }}
             {{ else if .date_start }}

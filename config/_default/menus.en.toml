@@ -15,11 +15,17 @@ weight = 2
 [[main]]
 name = "Seminar and Group"
 url = "/seminar_and_group"
+weight = 4
+
+
+[[main]]
+name = "News"
+url = "/news"
 weight = 3
 
 [[main]]
 name = "Practical information"
-url = "/contact"
+url = "/practical_information"
 weight = 5
 
 

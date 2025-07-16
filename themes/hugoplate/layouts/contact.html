@@ -6,52 +6,36 @@
     <div class="container">
       <div class="row">
         <div class="md:col-10 lg:col-6 mx-auto">
-          <form action="{{ site.Params.contact_form_action }}" method="POST">
-            <div class="mb-6">
-              <label for="name" class="form-label">
-                Nom Complet <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="name"
-                name="name"
-                class="form-input"
-                placeholder="Jean-Luc Verel"
-                type="text" />
+         <form action="{{ site.Params.contact_form_action }}" method="POST">
+            <div class="flex flex-col md:flex-row gap-6 items-stretch">
+
+              <!-- Left column -->
+              <div class="flex-1 flex flex-col justify-between  p-4 rounded-md">
+                <div class="mb-6">
+                  <label for="name" class="form-label">Nom Complet <span class="text-red-500">*</span></label>
+                  <input id="name" name="name" class="form-input" placeholder="Jean-Luc Verel" type="text" />
+                </div>
+                <div class="mb-6">
+                  <label for="email" class="form-label">Email <span class="text-red-500">*</span></label>
+                  <input id="email" name="email" class="form-input" placeholder="jean.luc@email.com" type="email" />
+                </div>
+                <div class="mb-6">
+                  <label for="phone" class="form-label">Téléphone <span class="text-red-500">*</span></label>
+                  <input id="phone" name="phone" class="form-input" placeholder="0XXXXXXXXX" type="phone" />
+                </div>
+              </div>
+
+              <!-- Right column (Message) -->
+              <div class="flex-1 flex flex-col  p-4 rounded-md">
+                <div class="mb-6 flex-1 flex flex-col">
+                  <label for="message" class="form-label">Message? <span class="text-red-500">*</span></label>
+                  <textarea id="message" name="message" class="form-input flex-1" placeholder="Placez votre message ici..." rows="8"></textarea>
+                </div>
+              </div>
+
             </div>
-            <div class="mb-6">
-              <label for="email" class="form-label">
-                Email <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="email"
-                name="email"
-                class="form-input"
-                placeholder="jean.luc@email.com"
-                type="email" />
-            </div>
-            <div class="mb-6">
-              <label for="phone" class="form-label">
-                Téléphone <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                class="form-input"
-                placeholder="0XXXXXXXXX"
-                type="phone" />
-            </div>
-            <div class="mb-6">
-              <label for="message" class="form-label">
-                Message? <span class="text-red-500">*</span>
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                class="form-input"
-                placeholder="Placez votre message ici..."
-                rows="8"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Envoyer un message</button>
+
+            <button type="submit" class="btn btn-primary mt-6 ml-4">Envoyer un message</button>
           </form>
           
            <!-- NEW CONTACT INFO BOX BELOW THE FORM -->
@@ -61,8 +45,8 @@
             <h3 class="text-xxxl font-semibold mb-4">Contactez-nous directement :</h3>
             <p class="mb-2">
               <strong>Téléphone :</strong>
-              <a href="tel:+3367262020" class="text-blue-600 hover:underline text-lg">
-                03 67 26 20 20
+              <a class="text-blue-600 ">
+                04 79 05 53 07
               </a>
             </p>
             <p>
@@ -77,74 +61,28 @@
     </div>
   </section>
 
-  <!-- google map -->
-  {{ with site.Params.google_map }}
-    {{ if .enable }}
-      <div
-        id="map"
-        style="height: 400px;"
-        data-latitude="{{ .map_latitude }}"
-        data-longitude="{{ .map_longitude }}"
-        data-marker="{{ .map_marker | relURL }}"
-        data-marker-name="{{ site.Title }}"></div>
-    {{ end }}
-  {{ end }}
-
-  {{ with site.Params.subscription }}
-    {{ if .enable }}
-      <!-- subscription form -->
-      <form
-        action="{{ .mailchimp_form_action | safeURL }}"
-        method="post"
-        id="mc-embedded-subscribe-form"
-        novalidate="novalidate">
-        <div class="input-group w-75 mx-auto mb-3">
-          <input
-            type="email"
-            name="EMAIL"
-            placeholder="Email"
-            class="form-control required email mce_inline_error"
-            id="mce-EMAIL"
-            aria-required="true"
-            autocomplete="off"
-            required />
-          <button
-            class="input-group-text"
-            name="subscribe"
-            id="mc-embedded-subscribe">
-            {{ .button_label }}
-          </button>
-        </div>
-        <input
-          type="hidden"
-          name="EMAILTYPE"
-          id="mce-EMAILTYPE-0"
-          value="html" />
-        <div style="position:absolute;left:-5000px" aria-hidden="true">
-          <input type="text" name="{{ .name }}" tabindex="-1" />
-        </div>
-      </form>
-      <div id="mce-responses" class="clear">
-        <div
-          class="response text-white"
-          id="mce-error-response"
-          style="display:none"></div>
-        <div
-          class="response text-white"
-          id="mce-success-response"
-          style="display:none"></div>
+  {{ with .Params.openstreet_map}}
+    {{if .enable}}
+}
+      <div class="aspect-w-16 aspect-h-9 w-full mb-6">
+        <iframe
+          width="100%"
+          height="450"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          src="https://www.openstreetmap.org/export/embed.html?bbox={{ sub .longitude 0.005 }},{{ sub .latitude 0.003 }},{{ add .longitude 0.005 }},{{ add .latitude 0.003 }}&layer=mapnik&marker={{ .latitude }},{{ .longitude }}">
+        </iframe>
+        <br />
+        <small>
+          <a
+            href="https://www.openstreetmap.org/?mlat={{ .latitude }}&mlon={{ .longitude }}#map={{.zoom }}/{{ .latitude }}/{{ .longitude }}">
+            View Larger Map
+          </a>
+        </small>
       </div>
-      <script
-        type="text/javascript"
-        src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-      <!-- /subscription form -->
     {{ end }}
-  {{ end }}
-
-  {{ if site.Params.google_map.enable }}
-    {{ $gmap:= resources.Get "plugins/maps/google-map.js" }}
-    <script defer src="{{ $gmap.RelPermalink }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.google_map.map_api_key }}&libraries=places"></script>
   {{ end }}
 
 {{ end }}

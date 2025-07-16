@@ -1,0 +1,31 @@
+{{ define "main" }}
+  {{ partial "page-header" . }}
+
+
+ <!-- Testimony -->
+  <section class="py-12 ">
+  <div class="container mx-auto px-4">
+
+    {{ $authors := site.GetPage "section" "testimony" }}
+    <!-- Centered Container -->
+    <div class="flex justify-center">
+      <!-- Section Title -->
+      <h2 class="text-5xl font-bold mb-8 cursor-pointer text-center text-primary"
+          onclick="window.location.href='{{ $authors.Permalink }}'">
+        {{ $authors.Title }}
+      </h2>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-8">
+
+      <!-- Section Cards -->
+      {{ range $authors.RegularPages }}
+        <div class="w-full sm:w-1/2 lg:w-1/3 max-w-sm">
+          {{ partial "components/testimony-card" . }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+  </section>
+
+{{ end }}

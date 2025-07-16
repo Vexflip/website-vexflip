@@ -1,0 +1,53 @@
+{{ with .Params.testimony }}
+  <div class="group relative bg-white rounded-xl overflow-hidden shadow-lg border border-transparent hover:border-primary transition-all duration-300">
+
+    <!-- 🏷️ Tags in top right -->
+    {{ with .tags }}
+        <div class="absolute top-4 right-4 flex flex-col gap-2 items-end z-20">
+        {{ range . }}
+            <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">
+            #{{ . }}
+            </span>
+        {{ end }}
+        </div>
+    {{ end }}
+
+    
+    <!-- Image section -->
+    <div class="overflow-hidden transition-all duration-300 h-48 group-hover:h-24">
+      <img 
+        src="{{ .image | relURL }}" 
+        alt="{{ .full_name }}" 
+        class="w-full h-full object-cover object-top transition-all duration-300" 
+      />
+    </div>
+
+    <!-- Content section -->
+    <div class="p-4 h-[calc(100%-3rem)] flex flex-col justify-start">
+
+      <!-- Company name -->
+      <h4 class="text-xl font-semibold text-text-light mb-1">
+        {{ .company_name }}
+      </h4>
+
+      <!-- Date -->
+      <p class="text-xs text-primary mb-2">
+        Publié le {{ .date }}
+      </p>
+
+      <!-- Reveal on hover -->
+      <div class="opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-[500px] transition-all duration-300 overflow-hidden">
+        <p class="text-sm text-black/90 mb-3">
+          {{ .description | truncate 300 | safeHTML }}
+        </p>
+
+        <a href="{{ $.Page.RelPermalink }}"
+          class="inline-block mt-auto px-4 py-2 bg-primary text-white rounded-lg hover:bg-light transition"
+        >
+          Read testimony →
+        </a>
+      </div>
+
+    </div>
+  </div>
+{{ end }}
