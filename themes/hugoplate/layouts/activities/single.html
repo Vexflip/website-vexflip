@@ -14,7 +14,7 @@
 
       <div class="container relative z-20">
         <div class="row justify-center">
-          <div class="lg:col-7 md:col-9 mb-8 text-center text-white">
+          <div class="bg-body rounded-4xl mb-8 text-center text-black p-8 max-w-[925px]">
             <h1 class="mb-4 text-h3 lg:text-h1">
               {{ .name | markdownify }}
             </h1>
@@ -37,9 +37,10 @@
           </div>
 
           <div class="container mt-8">
+            
             <div class="flex flex-col md:flex-row gap-8 justify-center">
                <!-- Horaire Box -->
-                <div class="bg-white p-6 rounded-4xl shadow-4xl basis-[35%] max-w-full">
+                <div class="bg-body p-6 rounded-4xl shadow-4xl basis-[35%] max-w-full">
                 <h2 class="text-xl font-semibold mb-4 text-center">Horaire</h2>
                 <ul class="list-disc list-inside space-y-2">
                     {{ range .horaire }}
@@ -49,7 +50,7 @@
                 </div>
 
                 <!-- Tarif Box -->
-                <div class="bg-white p-6 rounded-4xl shadow-4xl basis-[35%] max-w-full">
+                <div class="bg-body  p-6 rounded-4xl shadow-4xl basis-[35%] max-w-full">
                 <h2 class="text-xl font-semibold mb-4 text-center">Tarif</h2>
                 <ul class="list-disc list-inside space-y-2">
                     {{ range .tarif }}
@@ -69,6 +70,8 @@
     {{ with .gallery }}
       {{ $dir := . }}
       <div class="container mx-auto max-w-6xl p-8">
+        <!-- Gallery Title -->
+      <h2 class="text-3xl font-bold mb-6 text-center text-primary">Gallery</h2>
         <div class="gallery grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {{ $images := readDir (print "static/" $dir) }}
         {{ range $images }}
