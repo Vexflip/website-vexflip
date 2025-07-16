@@ -19,7 +19,7 @@ weight = 3
 
 [[main]]
 name = "Practical information"
-url = "/practical_information"
+url = "/contact"
 weight = 5
 
 
