@@ -1,0 +1,114 @@
+{{ define "main" }}
+  <!-- Banner -->
+  {{ with .Params.activity }}
+     <section class="relative overflow-hidden pt-14 h-screen flex items-center justify-center">
+      
+      <!-- Background Video -->
+      <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+        <source src= "../../videos/normaloops-bg.mp4"  type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Optional: Dark overlay -->
+      <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-0"></div>
+
+      <div class="container relative z-20">
+        <div class="row justify-center">
+          <div class="lg:col-7 md:col-9 mb-8 text-center text-white">
+            <h1 class="mb-4 text-h3 lg:text-h1">
+              {{ .name | markdownify }}
+            </h1>
+            <p class="mb-8">
+              {{ .description | markdownify }}
+            </p>
+            {{ with .button }}
+              {{ if .enable }}
+                <a
+                  class="btn btn-primary"
+                  href="{{ .link | absURL }}"
+                  {{ if strings.HasPrefix .link `http` }}
+                    target="_blank" rel="noopener"
+                  {{ end }}>
+                  {{ .label }}
+                  <i class="fa fa-arrow-right pl-2"></i>
+                </a>
+              {{ end }}
+            {{ end }}
+          </div>
+
+          <div class="container mt-8">
+            <div class="flex flex-col md:flex-row gap-8 justify-center">
+               <!-- Horaire Box -->
+                <div class="bg-white p-6 rounded-4xl shadow-4xl basis-[35%] max-w-full">
+                <h2 class="text-xl font-semibold mb-4 text-center">Horaire</h2>
+                <ul class="list-disc list-inside space-y-2">
+                    {{ range .horaire }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+                </div>
+
+                <!-- Tarif Box -->
+                <div class="bg-white p-6 rounded-4xl shadow-4xl basis-[35%] max-w-full">
+                <h2 class="text-xl font-semibold mb-4 text-center">Tarif</h2>
+                <ul class="list-disc list-inside space-y-2">
+                    {{ range .tarif }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+                </div>
+            </div>
+        </div>
+          
+        </div>
+      </div>
+    </section>
+  {{ end }}
+  <!-- /Banner -->
+
+  <!-- Features -->
+  {{ range $i, $e:= .Params.features }}
+    <section class="section-sm {{ if (modBool $i 2) }}bg-gradient{{ end }}">
+      <div class="container">
+        <div class="row items-center justify-between">
+          <div
+            class="mb:md-0 {{ if not (modBool $i 2) }}
+              md:order-2
+            {{ end }} md:col-5 mb-6">
+            {{ partial "image" (dict "Src" .image "Alt" "feature image" "DisplayXL" "520x" "DisplayLG" "425x" "DisplayMD" "360x") }}
+          </div>
+          <div
+            class="{{ if not (modBool $i 2) }}
+              md:order-1
+            {{ end }} md:col-7 lg:col-6">
+            <h2 class="mb-4">
+              {{ .title | markdownify }}
+            </h2>
+            <p class="mb-8 text-lg">
+              {{ .content | markdownify }}
+            </p>
+            <ul>
+              {{ range .bulletpoints }}
+                <li class="relative mb-4 pl-6">
+                  <i class="fa fa-check absolute left-0 top-1.5"></i>
+                  {{ . | markdownify }}
+                </li>
+              {{ end }}
+            </ul>
+            {{ with .button }}
+              {{ if .enable }}
+                <a class="btn btn-primary mt-6" href="{{ .link | absURL }}">
+                  {{ .label }}
+                  <i class="fa fa-arrow-right pl-2"></i>
+                </a>
+              {{ end }}
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+  <!-- /Features -->
+
+  
+{{ end }}

@@ -45,6 +45,19 @@
     </section>
   {{ end }}
   <!-- /Banner -->
+  <section class="section">
+    <div class="container">
+      <div class="row">
+        {{ $authors := site.GetPage "section" "activities" }}
+        {{ range $authors.RegularPages }}
+        <div class="md:col-6 lg:col-4 mb-14">
+          {{ partial "components/activity-card" . }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
 
   <!-- Features -->
   {{ range $i, $e := .Params.features }}

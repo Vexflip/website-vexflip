@@ -7,23 +7,19 @@ url = "/"
 weight = 1
 
 [[main]]
-name = "Events"
-url = "/event"
+name = "Activities"
+url = "/activities"
 weight = 2
 
+
 [[main]]
-name = "Photos"
-url = "/photos"
+name = "Seminar and Group"
+url = "/seminar_and_group"
 weight = 3
 
 [[main]]
-name = "Team"
-url = "/team"
-weight = 4
-
-[[main]]
-name = "Contact"
-url = "/contact"
+name = "Practical information"
+url = "/practical_information"
 weight = 5
 
 
@@ -37,6 +33,43 @@ weight = 1
 name = "Mentions légales "
 url = "/mentions-legales "
 weight = 2
+
+# drop down for activities
+[[main]]
+parent = "Activities"
+name = "Norma Loops"
+url = "activities/norma_loops"
+weight = 1
+
+[[main]]
+parent = "Activities"
+name = "Norma Zen"
+url = "activities/norma_zen"
+weight = 2
+
+[[main]]
+parent = "Activities"
+name = "Norma Kids"
+url = "activities/norma_kids"
+weight = 3
+
+[[main]]
+parent = "Activities"
+name = "Baignade"
+url = "activities/baignade"
+weight = 4
+
+[[main]]
+parent = "Activities"
+name = "Tennis"
+url = "activities/tennis"
+weight = 5
+
+[[main]]
+parent = "Activities"
+name = "Cinéma"
+url = "activities/cinema"
+weight = 6
 
 
 
