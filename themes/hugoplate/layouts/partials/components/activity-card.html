@@ -1,12 +1,13 @@
 {{ with .Params.activity }}
 <div
-  class="min-h-[300px] max-w-sm relative group rounded-xl overflow-hidden shadow-2xl "
+  class="min-h-[300px] max-w-sm relative group rounded-xl overflow-hidden shadow-2xl cursor-pointer"
+  onclick="window.location.href='{{ $.Page.RelPermalink }}'"
 >
 
   <!-- Background image with transparency -->
   <div
     class="absolute inset-0 bg-cover bg-center transition-opacity duration-300 group-hover:opacity-0"
-    style="background-image: url('{{ .image | absURL }}'); ;" 
+    style="background-image: url('{{ .image | absURL }}');"
   ></div>
 
   <!-- Bigger logo overlay centered with white circle -->
@@ -28,11 +29,9 @@
       {{ .description | truncate 500 | safeHTML }}
     </p>
 
-    <a href="{{ $.Page.RelPermalink }}"
-      class="inline-block mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-light transition"
-    >
+    <span class="inline-block mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-light transition ">
       Voir l'activité →
-    </a>
+    </span>
   </div>
 
 </div>
