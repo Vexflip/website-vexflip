@@ -1,0 +1,16 @@
+{{ define "main" }}
+  {{ partial "page-header" . }}
+
+
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-wrap justify-center gap-8">
+      {{ range .RegularPages }}
+        <div class="w-full sm:w-1/2 lg:w-1/3 max-w-sm">
+          {{ partial "components/event-card" . }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -15,7 +15,8 @@ activity:
         - "5 luges: 35€" 
         - "10 luges: 65€" 
     video: "videos/norma_loops-bg.mp4"
-    gallery: images/norma_loops-gallery
     image: images/normazen-1.jpg
     logo: images/normazen-logo.png
+    gallery: images/norma_loops-gallery
+
 ---

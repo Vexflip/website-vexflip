@@ -1,0 +1,30 @@
+{{ define "main" }}
+<main class="max-w-4xl mx-auto px-4 py-12">
+  <article class="bg-white shadow-md rounded-2xl p-8 space-y-6">
+    <!-- Event Title -->
+    <h1 class="text-4xl font-bold text-primary">{{ .Params.name }}</h1>
+
+    <!-- Event Dates -->
+    <div class="text-lg text-gray-600">
+      <p><strong>Start:</strong> {{ .Params.date_start | time.Format "Jan 2, 2006" }}</p>
+      <p><strong>End:</strong> {{ .Params.date_end | time.Format "Jan 2, 2006" }}</p>
+    </div>
+
+    <!-- Event Description -->
+    <div class="text-base text-gray-800 leading-relaxed">
+      {{ .Params.description }}
+    </div>
+
+    <!-- Event Tags -->
+    {{ with .Params.tags }}
+    <div class="flex flex-wrap gap-2 mt-4">
+      {{ range . }}
+        <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">
+          #{{ . }}
+        </span>
+      {{ end }}
+    </div>
+    {{ end }}
+  </article>
+</main>
+{{ end }}

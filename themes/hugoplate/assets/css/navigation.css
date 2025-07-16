@@ -4,7 +4,7 @@
 
 /* navbar items */
 .navbar {
-  @apply relative flex flex-wrap items-center justify-between;
+  @apply relative flex flex-wrap items-center justify-between ;
 }
 
 .navbar-brand {
@@ -19,7 +19,7 @@
 }
 
 .nav-link {
-  @apply hover:text-border  block p-3 cursor-pointer font-semibold transition lg:px-2 lg:py-3;
+  @apply hover:text-primary   block p-3 cursor-pointer font-semibold transition lg:px-2 lg:py-3;
 }
 
 .nav-dropdown {
@@ -43,7 +43,7 @@
 }
 
 .nav-dropdown-link {
-  @apply text-text-dark hover:text-primary   block py-1 font-semibold transition;
+  @apply text-text hover:text-primary   block py-1 font-semibold transition;
 }
 
 /* theme-switcher */

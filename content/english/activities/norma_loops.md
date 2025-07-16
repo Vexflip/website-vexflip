@@ -17,7 +17,7 @@ activity:
   video: "videos/norma_loops-bg.mp4"
   image: images/normaloops-1.jpg
   logo: images/normaloops-logo.png
-  gallery: images/gallery
+  gallery: images/norma_loops-gallery
 
 
 ---

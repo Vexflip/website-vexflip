@@ -15,7 +15,8 @@ activity:
         - "5 luges: 35€" 
         - "10 luges: 65€" 
     image: none
-    gallery:
     image: images/normakids-1.jpg
     logo: images/normakids-logo.png
+    gallery: images/norma_loops-gallery
+
 ---
