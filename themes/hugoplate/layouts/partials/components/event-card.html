@@ -5,8 +5,8 @@
     {{ with .tags }}
         <div class="absolute top-4 right-4 flex flex-wrap gap-2 justify-end z-20">
         {{ range . }}
-            <span class="bg-primary text-white text-xs font-medium px-2 py-1 rounded-full shadow-sm">
-            {{ . }}
+            <span class="bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full">
+            #{{ . }}
             </span>
         {{ end }}
         </div>
