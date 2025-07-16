@@ -2,5 +2,5 @@
 # Banner
 banner:
   content: 
-  image: images/text-logo.webp
+  image: images/text-logo.png
 ---
