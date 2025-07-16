@@ -9,37 +9,40 @@
         Your browser does not support the video tag.
       </video>
 
-      <!-- Optional: Dark overlay -->
-      <div class="absolute top-0 left-0 w-full h-full bg-white/20 z-0"></div>
 
       <!-- Foreground Content -->
       <div class="container relative z-20">
         <div class="row justify-center">
-          <div class="lg:col-7 md:col-9 mb-8 text-center text-white">
-            <div class="col-12">
-              {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[400px]" "DisplayXL" "400x") }}
-            </div>
-            <h1 class="mb-4 text-3xl lg:text-8xl">
-            {{ .title | markdownify }}
-          </h1>
-            <p class="mb-8">
-              {{ .content | markdownify }}
-            </p>
-            {{ with .button }}
-              {{ if .enable }}
-                <a
-                  class="btn btn-primary"
-                  href="{{ .link | absURL }}"
-                  {{ if strings.HasPrefix .link `http` }}
-                    target="_blank" rel="noopener"
-                  {{ end }}>
-                  {{ .label }}
-                  <i class="fa fa-arrow-right pl-2"></i>
-                </a>
+          <div class="lg:col-7 md:col-9 mb-8 text-center">
+            <!-- White transparent box -->
+            <div class="bg-white/50 text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md">
+              <div class="col-12 mb-6">
+                {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[400px]" "DisplayXL" "400x") }}
+              </div>
+              
+              <h1 class="mb-4 text-3xl lg:text-8xl">
+                {{ .title | markdownify }}
+              </h1>
+              
+              <p class="mb-8">
+                {{ .content | markdownify }}
+              </p>
+              
+              {{ with .button }}
+                {{ if .enable }}
+                  <a
+                    class="btn btn-primary"
+                    href="{{ .link | absURL }}"
+                    {{ if strings.HasPrefix .link `http` }}
+                      target="_blank" rel="noopener"
+                    {{ end }}>
+                    {{ .label }}
+                    <i class="fa fa-arrow-right pl-2"></i>
+                  </a>
+                {{ end }}
               {{ end }}
-            {{ end }}
+            </div>
           </div>
-          
         </div>
       </div>
     </section>
