@@ -6,7 +6,7 @@
   <!-- Background image with transparency -->
   <div
     class="absolute inset-0 bg-cover bg-center transition-opacity duration-300 group-hover:opacity-0"
-    style="background-image: url('{{ .image }}'); opacity: 0.7;" 
+    style="background-image: url('{{ .image | absURL }}'); opacity: 0.7;" 
   ></div>
 
   <!-- Bigger logo overlay centered with white circle -->
