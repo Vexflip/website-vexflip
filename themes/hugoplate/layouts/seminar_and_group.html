@@ -1,6 +1,17 @@
 {{ define "main" }}
   {{ partial "page-header" . }}
 
+  <div class="container mx-auto px-4">
+
+    <h2 class="text-xl font-semibold mb-4 text-center">Description</h2>
+
+    <p class="mb-8 ">
+      {{ .Params.description | markdownify }}
+    </p>
+
+    <!-- Contact form-->
+    {{ partial "components/contact_form" . }}
+  </div>
 
  <!-- Testimony -->
   <section class="py-12 ">
@@ -27,5 +38,6 @@
     </div>
   </div>
   </section>
+
 
 {{ end }}

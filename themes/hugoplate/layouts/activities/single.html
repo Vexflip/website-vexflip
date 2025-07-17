@@ -72,11 +72,19 @@
                 </div>
             </div>
             
-    <!-- Openstreet map -->
-    {{partial "components/openstreet_map" .}}
+      <div class="flex flex-col md:flex-row gap-8 justify-center items-stretch">
+  <div class="bg-body p-0 rounded-4xl shadow-4xl basis-[40%] h-full">
+    <h2 class="text-xl font-semibold mb-4 text-center">Map</h2>
+    {{ partial "components/openstreet_map" . }}
+  </div>
 
-    <!-- Gallery -->
-    {{partial "components/contact_form" .}}
+  <div class="bg-body p-0 rounded-4xl shadow-4xl basis-[60%] h-full">
+    <h2 class="text-xl font-semibold mb-4 text-center">Contact</h2>
+    {{ partial "components/contact_form" . }}
+  </div>
+</div>
+
+
 
     <!-- Gallery -->
     {{partial "components/gallery" .}}

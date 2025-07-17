@@ -11,12 +11,11 @@
           src="https://www.openstreetmap.org/export/embed.html?bbox={{ sub .longitude 0.005 }},{{ sub .latitude 0.003 }},{{ add .longitude 0.005 }},{{ add .latitude 0.003 }}&layer=mapnik&marker={{ .latitude }},{{ .longitude }}">
         </iframe>
         <br />
-        <small>
-          <a
+        
+          <a class = "btn btn-primary p-"
             href="https://www.openstreetmap.org/?mlat={{ .latitude }}&mlon={{ .longitude }}#map={{.zoom }}/{{ .latitude }}/{{ .longitude }}">
             View Larger Map
           </a>
-        </small>
       </div>
     {{ end }}
   {{ end }}
