@@ -14,9 +14,14 @@ activity:
         - "1 luge:5€" 
         - "5 luges: 35€" 
         - "10 luges: 65€" 
-    image: none
     image: images/normakids-1.jpg
     logo: images/normakids-logo.png
     gallery: images/norma_loops-gallery
+    contact_form_action: none
+    openstreet_map:
+        enable: true
+        latitude: 45.2011768133446 
+        longitude: 6.696381917465995
+        zoom : 15
 
 ---

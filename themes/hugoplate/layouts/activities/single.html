@@ -12,15 +12,16 @@
       <!-- Optional: Dark overlay -->
       <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-0"></div>
 
-      <div class="container relative z-20 px-4 sm:px-">
+      <!-- Foreground Content -->
+      <div class="container relative z-20">
         <div class="row justify-center">
-          <div class="bg-body rounded-4xl mb-8 text-center text-black p-8">
-            <h1 class="mb-4 text-h3 lg:text-h1">
-              {{ .name | markdownify }}
-            </h1>
-            <p class="mb-8">
-              {{ .description | markdownify }}
-            </p>
+          <div class="lg:col-7 md:col-9 mb-8 text-center">
+            <!-- White transparent box -->
+            <div class=" border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md">
+              <div class="col-12 mb-6">
+                {{ partial "image" (dict "Src" .logo "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[500px]" "DisplayXL" "500x") }}
+              </div>
+       
             {{ with .button }}
               {{ if .enable }}
                 <a
@@ -36,7 +37,18 @@
             {{ end }}
           </div>
 
-          <div class="container mt-8">
+        </div>
+          
+        </div>
+      </div>
+    </section>
+    <!-- /Banner -->
+    <div class="container mt-8 text-text">
+            <h2 class="text-xl font-semibold mb-4 text-center">Description</h2>
+
+            <p class="mb-8 ">
+              {{ .description | markdownify }}
+            </p>
             
             <div class="flex flex-col md:flex-row gap-8 justify-center">
                <!-- Horaire Box -->
@@ -59,46 +71,16 @@
                 </ul>
                 </div>
             </div>
-        </div>
-          
-        </div>
-      </div>
-    </section>
-    <!-- /Banner -->
+            
+    <!-- Openstreet map -->
+    {{partial "components/openstreet_map" .}}
 
     <!-- Gallery -->
-      {{ with .gallery }}
-        {{ $dir := . }}
-        <div class="container mx-auto max-w-md p-8">
-          <h2 class="text-3xl font-bold mb-6 text-center text-primary">Gallery</h2>
-          
-          <!-- Centered Gallery -->
-          <div class="flex justify-center">
-            <div class="gallery grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
-              {{ $images := readDir (print "static/" $dir) }}
-              {{ range $images }}
-                {{ if not .IsDir }}
-                  <div class="overflow-hidden rounded-xl shadow-lg">
-                    <img
-                      src="/website-la-norma/{{ $dir }}/{{ .Name }}"
-                      alt="{{ .Name }}"
-                      class="w-[400px] h-[400px] object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105"
-                      onclick="zoomImage(this)"
-                    />
-                  </div>
-                {{ end }}
-              {{ end }}
-            </div>
-          </div>
+    {{partial "components/contact_form" .}}
 
-          <script>
-            function zoomImage(img) {
-              const newTab = window.open();
-              newTab.document.write(`<img src="${img.src}" style="width:100%">`);
-            }
-          </script>
-        </div>
-      {{ end }}
+    <!-- Gallery -->
+    {{partial "components/gallery" .}}
+
   {{ end }}
 {{ end }}
 

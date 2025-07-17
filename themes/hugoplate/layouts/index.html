@@ -69,7 +69,7 @@
       <!-- Section Cards -->
       {{ range $authors.RegularPages }}
         <div class="w-full sm:w-1/2 lg:w-1/3 max-w-sm">
-          {{ partial "components/activity-card" . }}
+          {{ partial "components/card/activity-card" . }}
         </div>
       {{ end }}
     </div>
@@ -95,7 +95,7 @@
       <!-- Section Cards -->
       {{ range $authors.RegularPages }}
         <div class="w-auto max-w-none">
-          {{ partial "components/event-card" . }}
+          {{ partial "components/card/event-card" . }}
         </div>
       {{ end }}
     </div>

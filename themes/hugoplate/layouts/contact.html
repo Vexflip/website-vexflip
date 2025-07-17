@@ -1,42 +1,12 @@
 {{ define "main" }}
-  {{ partial "page-header" .}}
-
-
+  {{ partial "page-header" .}}  
   <section class="section-sm">
     <div class="container">
       <div class="row">
         <div class="md:col-10 lg:col-6 mx-auto">
-         <form action="{{ site.Params.contact_form_action }}" method="POST">
-            <div class="flex flex-col md:flex-row gap-6 items-stretch">
-
-              <!-- Left column -->
-              <div class="flex-1 flex flex-col justify-between  p-4 rounded-md">
-                <div class="mb-6">
-                  <label for="name" class="form-label">Nom Complet <span class="text-red-500">*</span></label>
-                  <input id="name" name="name" class="form-input" placeholder="Jean-Luc Verel" type="text" />
-                </div>
-                <div class="mb-6">
-                  <label for="email" class="form-label">Email <span class="text-red-500">*</span></label>
-                  <input id="email" name="email" class="form-input" placeholder="jean.luc@email.com" type="email" />
-                </div>
-                <div class="mb-6">
-                  <label for="phone" class="form-label">Téléphone <span class="text-red-500">*</span></label>
-                  <input id="phone" name="phone" class="form-input" placeholder="0XXXXXXXXX" type="phone" />
-                </div>
-              </div>
-
-              <!-- Right column (Message) -->
-              <div class="flex-1 flex flex-col  p-4 rounded-md">
-                <div class="mb-6 flex-1 flex flex-col">
-                  <label for="message" class="form-label">Message? <span class="text-red-500">*</span></label>
-                  <textarea id="message" name="message" class="form-input flex-1" placeholder="Placez votre message ici..." rows="8"></textarea>
-                </div>
-              </div>
-
-            </div>
-
-            <button type="submit" class="btn btn-primary mt-6 ml-4">Envoyer un message</button>
-          </form>
+         
+          <!-- Contact Form -->
+          {{partial "components/contact_form" .}}
           
            <!-- NEW CONTACT INFO BOX BELOW THE FORM -->
           <div class="mt-12 p-6 bg-gray-100 rounded-lg text-center shadow-md">
@@ -61,28 +31,8 @@
     </div>
   </section>
 
-  {{ with .Params.openstreet_map}}
-    {{if .enable}}
-}
-      <div class="aspect-w-16 aspect-h-9 w-full mb-6">
-        <iframe
-          width="100%"
-          height="450"
-          frameborder="0"
-          scrolling="no"
-          marginheight="0"
-          marginwidth="0"
-          src="https://www.openstreetmap.org/export/embed.html?bbox={{ sub .longitude 0.005 }},{{ sub .latitude 0.003 }},{{ add .longitude 0.005 }},{{ add .latitude 0.003 }}&layer=mapnik&marker={{ .latitude }},{{ .longitude }}">
-        </iframe>
-        <br />
-        <small>
-          <a
-            href="https://www.openstreetmap.org/?mlat={{ .latitude }}&mlon={{ .longitude }}#map={{.zoom }}/{{ .latitude }}/{{ .longitude }}">
-            View Larger Map
-          </a>
-        </small>
-      </div>
-    {{ end }}
-  {{ end }}
+  <!-- Openstreet_map -->
+  {{ partial "components/openstreet_map" .Params }}
+
 
 {{ end }}
