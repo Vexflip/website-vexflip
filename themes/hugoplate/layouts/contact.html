@@ -1,38 +1,49 @@
 {{ define "main" }}
-  {{ partial "page-header" .}}  
+  {{ partial "page-header" . }}  
+
   <section class="section-sm">
     <div class="container">
-      <div class="row">
-        <div class=" mx-auto">
-         
-          <!-- Contact Form -->
-          {{partial "components/contact_form" .}}
-          
-           <!-- NEW CONTACT INFO BOX BELOW THE FORM -->
-          <div class="mt-12 p-6 bg-gray-100 rounded-lg text-center shadow-md">
-             <h3 class="text-xxxl font-semibold mb-4">ou</h3>
-            <br />
-            <h3 class="text-xxxl font-semibold mb-4">Contactez-nous directement :</h3>
-            <p class="mb-2">
-              <strong>Téléphone :</strong>
-              <a class="text-blue-600 ">
-                04 79 05 53 07
-              </a>
-            </p>
-            <p>
-              <strong>Email :</strong>
-              <a href="mailto:contact@confortmedical68.f" class="text-blue-600 hover:underline text-lg">
-                contact@confortmedical68.f
-              </a>
-            </p>
-          </div>
+      <!-- Contact Form and Info -->
+      <div class="mx-auto max-w-4xl">
+        <!-- Contact Form -->
+        {{ partial "components/contact_form" . }}
+
+        <!-- Contact Info Box -->
+        <div class="mt-12 p-6 bg-gray-100 rounded-lg text-center shadow-md">
+          <h3 class="text-3xl font-semibold mb-4">ou</h3>
+
+          <h3 class="text-2xl font-semibold mb-4">Contactez-nous directement :</h3>
+
+          <p class="mb-2 text-lg">
+            <strong>Téléphone :</strong>
+            <a href="tel:0479055307" class="text-blue-600 hover:underline">
+              04 79 05 53 07
+            </a>
+          </p>
+
+          <p class="text-lg">
+            <strong>Email :</strong>
+            <a href="mailto:contact@confortmedical68.fr" class="text-blue-600 hover:underline">
+              contact@confortmedical68.fr
+            </a>
+          </p>
         </div>
       </div>
     </div>
+
+  <!-- OpenStreetMap -->
+  <div class="container">
+    <div class="bg-body p-6 rounded-4xl shadow-4xl mt-6">
+      <h2 class="text-xl font-semibold mb-4 text-center">Map</h2>
+      
+      <!-- Add height wrapper here -->
+      <div class="w-full h-[500px] md:h-[600px]">
+        {{ partial "components/openstreet_map" .Params }}
+      </div>
+    </div>
+  </div>
   </section>
 
-  <!-- Openstreet_map -->
-  {{ partial "components/openstreet_map" .Params }}
 
 
 {{ end }}

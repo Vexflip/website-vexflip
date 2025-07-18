@@ -72,22 +72,27 @@
                 </div>
             </div>
             
-      <div class="flex flex-col md:flex-row gap-8 justify-center items-stretch">
-  <div class="bg-body p-0 rounded-4xl shadow-4xl basis-[40%] h-full">
+<div class="flex flex-col md:flex-row gap-8 justify-center items-stretch">
+  <div class="bg-body p-6 rounded-4xl shadow-4xl basis-[40%] flex flex-col">
     <h2 class="text-xl font-semibold mb-4 text-center">Map</h2>
-    {{ partial "components/openstreet_map" . }}
+    <div class="flex-grow">
+      {{ partial "components/openstreet_map" . }}
+    </div>
   </div>
 
-  <div class="bg-body p-0 rounded-4xl shadow-4xl basis-[60%] h-full">
+  <div class="bg-body p-6 rounded-4xl shadow-4xl basis-[60%] flex flex-col">
     <h2 class="text-xl font-semibold mb-4 text-center">Contact</h2>
-    {{ partial "components/contact_form" . }}
+    <div class="flex-grow">
+      {{ partial "components/contact_form" . }}
+    </div>
   </div>
 </div>
 
 
 
     <!-- Gallery -->
-    {{partial "components/gallery" .}}
+
+    {{ partial "components/gallery" . }}
 
   {{ end }}
 {{ end }}
