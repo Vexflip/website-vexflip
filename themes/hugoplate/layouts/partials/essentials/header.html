@@ -38,17 +38,18 @@
         {{ if .HasChildren }}
           <li class="nav-item nav-dropdown group relative">
             <a
-              class="nav-link {{ range .Children }}
+              class="nav-link parent-link {{ range .Children }}
                 {{ $childURL := .URL | absLangURL }}
                 {{ $active := eq $childURL $pageURL }}
                 {{ if $active }}active{{ end }}
-              {{ end }} inline-flex items-center " href="{{- if findRE `^#` .URL -}}
+              {{ end }} inline-flex items-center "
+              href="{{- if findRE `^#` .URL -}}
                 {{- if not $.IsHome -}}
                   {{- site.Home.RelPermalink -}}
                 {{- end }}{{- .URL -}}
               {{- else -}}
                 {{- .URL | relLangURL -}}
-              {{- end -}}" >
+              {{- end -}}">
               {{ .Name }}
               <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
                 <path
@@ -105,7 +106,7 @@
       {{ if site.Params.navigation_button.enable }}
         <li class="mt-4 inline-block lg:hidden">
           <a
-            class="btn btn-outline-primary btn-sm"
+            class="btn btn-primary btn-sm"
             href="{{ site.Params.navigation_button.link | relLangURL }}">
             {{ site.Params.navigation_button.label }}
           </a>
@@ -124,6 +125,7 @@
             {{ if not (or site.Params.navigation_button.enable site.Params.theme_switcher) }}
               lg:border-r-0 lg:pr-0
             {{ end }}"
+
             data-target="search-modal">
             <i class="fa-solid fa-search"></i>
           </button>
@@ -131,8 +133,6 @@
       {{ end }}
 
       {{ partial "components/language-switcher" (dict "Context" . "Class" "mr-5 pl-2 py-1  rounded") }}
-      
-
 
       <!-- navigation btn -->
       {{ if site.Params.navigation_button.enable }}
@@ -144,4 +144,43 @@
       {{ end }}
     </div>
   </nav>
+
+  <style>
+    /* Hide submenu by default on mobile */
+    .nav-dropdown-list {
+      display: none;
+    }
+    /* Show submenu on hover desktop */
+    @media(min-width:1024px) {
+      .nav-dropdown:hover > .nav-dropdown-list {
+        display: block !important;
+      }
+    }
+    /* Show submenu when toggled open on mobile */
+    @media(max-width:1023px) {
+      li.nav-item.nav-dropdown.submenu-open > .nav-dropdown-list {
+        display: block !important;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navToggle = document.getElementById('nav-toggle');
+      const parentLinks = document.querySelectorAll('.parent-link');
+
+      parentLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          if (navToggle.checked) {
+            e.preventDefault(); // prevent page navigation
+
+            const parentLi = link.closest('li.nav-item.nav-dropdown');
+            if (parentLi) {
+              parentLi.classList.toggle('submenu-open');
+            }
+          }
+        });
+      });
+    });
+  </script>
 </header>
