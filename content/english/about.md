@@ -2,7 +2,7 @@
 title: "Kneipe 80"
 meta_title: "À propos du fondateur"
 description: "this is meta description"
-image: "/images/about-creators.jpg"
+image: "images/testimony/about-creators.jpg"
 layout: "about"
 draft: false
 ---

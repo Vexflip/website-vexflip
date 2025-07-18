@@ -1,0 +1,36 @@
+backend:
+  name: test-repo
+  branch: main # Branch to update (optional; defaults to master)
+media_folder: static/images
+public_folder: /images
+
+collections:
+  - name: 'news'
+    label: 'News'
+    folder: 'content/news'
+    create: true
+    editor:
+      preview: false
+    fields:
+      - label: "Event"
+        name: "event"
+        widget: "object"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Starting Date", name: "date_start", widget: "datetime" }
+          - { label: "Ending Date", name: "date_end", widget: "datetime" }
+          - { label: "Description", name: "description", widget: "markdown" }
+          - { label: "Main Image", name: "image", widget: "image" }
+          - { label: "Logo", name: "logo", widget: "image" }
+          - label: "Gallery"
+            name: "gallery"
+            widget: "list"
+            field: { label: "Image", name: "image", widget: "image" }
+          - label: "Tags"
+            name: "tags"
+            widget: "select"
+            options:
+              - Event
+              - Kids
+              - Adventure
+              - Family
