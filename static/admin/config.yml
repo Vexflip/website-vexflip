@@ -35,7 +35,7 @@ collections:
     create: true
     slug: "{{date_start}}-{{fields.event.name}}"
     summary: "{{fields.event.name}}"
-    filename: "{{date_start}}-{{fields.event.name}}"
+    filename: "{{fields.event.date_start}}-{{fields.event.name}}"
     editor:
       preview: false
     fields:
@@ -55,6 +55,8 @@ collections:
             field: { label: "Image", name: "image", widget: "image" }
           - label: "Tags"
             name: "tags"
+            multiple: true
+
             widget: "select"
             options:
               - Event

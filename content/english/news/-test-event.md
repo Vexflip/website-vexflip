@@ -6,5 +6,6 @@ event:
   description: Test
   image: /images/no-search-found.png
   logo: /images/no-search-found.png
-  tags: Event
+  tags: 
+    - Event
 ---
