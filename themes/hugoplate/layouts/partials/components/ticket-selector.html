@@ -1,35 +1,86 @@
 {{ $tickets := where .Site.RegularPages "Section" "tickets" }}
 {{ $grouped := $tickets.GroupByParam "group" }}
 
-{{ range $grouped }}
-  <h2>{{ .Key }}</h2>
-  <table class="w-full mb-6 border-collapse table-auto">
-    <thead>
-      <tr>
-        <th class="p-2 border-b text-left">Ticket</th>
-        <th class="p-2 border-b text-right w-24">Price</th>
-        <th class="p-2 border-b text-right w-32">Quantity</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{ range .Pages }}
-      <tr>
-        <td class="p-2 border-b">
-          <strong>{{ .Title }}</strong><br>
-          <small>{{ .Params.info }}</small>
-        </td>
-        <td class="p-2 border-b text-right align-middle w-24">${{ .Params.price }}</td>
-        <td class="p-2 border-b text-right align-middle w-32">
-          <input 
-            type="number" 
-            name="{{ .Params.id }}" 
-            min="0" 
-            value="0" 
-            class="w-full max-w-[5rem] p-1 border rounded text-right"
-          >
-        </td>
-      </tr>
-      {{ end }}
-    </tbody>
-  </table>
-{{ end }}
+<form class="container" id="ticketForm">
+  {{ range $grouped }}
+    <h2 class="text-xl font-semibold mb-2">{{ .Key }}</h2>
+    <table class="w-full mb-6 border-collapse table-auto ticket-table">
+      <thead>
+        <tr class=>
+          <th class="p-2 border-b text-left text-primary">Ticket</th>
+          <th class="p-2 border-b text-right min-w-[8rem] text-primary">Price</th>
+          <th class="p-2 border-b text-right min-w-[10rem] text-primary">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range .Pages }}
+        <tr>
+          <td class="p-2 border-b w-full">
+            <strong>{{ .Title }}</strong><br>
+            <small>{{ .Params.info }}</small>
+          </td>
+          <td class="p-2 border-b text-right align-middle min-w-[8rem]">
+            $<span class="ticket-price">{{ .Params.price }}</span>
+          </td>
+          <td class="p-2 border-b text-right align-middle min-w-[10rem]">
+            <input 
+              type="number" 
+              name="{{ .Params.id }}" 
+              min="0" 
+              value="0" 
+              class="w-full max-w-[6rem] p-1 border rounded text-right ticket-quantity"
+              data-price="{{ .Params.price }}"
+            >
+          </td>
+        </tr>
+        {{ end }}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="p-2 border-t font-bold text-right" colspan="2">Group Total:</td>
+          <td class="p-2 border-t text-right font-bold">$<span class="group-total">0.00</span></td>
+        </tr>
+      </tfoot>
+    </table>
+  {{ end }}
+
+  <!-- Overall Total and Checkout -->
+  <div class="flex justify-end items-center mt-6 gap-4">
+    <div class="text-lg font-bold">Total: $<span id="total-sum">0.00</span></div>
+    <button 
+      type="submit"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Checkout
+    </button>
+  </div>
+</form>
+
+<!-- JavaScript for dynamic totals -->
+<script>
+  function updateTotals() {
+    let totalSum = 0;
+    document.querySelectorAll('.ticket-table').forEach(table => {
+      let groupTotal = 0;
+      table.querySelectorAll('.ticket-quantity').forEach(input => {
+        const price = parseFloat(input.dataset.price);
+        const qty = parseInt(input.value) || 0;
+        groupTotal += price * qty;
+      });
+      table.querySelector('.group-total').textContent = groupTotal.toFixed(2);
+      totalSum += groupTotal;
+    });
+    document.getElementById('total-sum').textContent = totalSum.toFixed(2);
+  }
+
+  // Listen for input changes
+  document.querySelectorAll('.ticket-quantity').forEach(input => {
+    input.addEventListener('input', updateTotals);
+  });
+
+  // Prevent form submission for now
+  document.getElementById('ticketForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Proceeding to checkout with total: $' + document.getElementById('total-sum').textContent);
+  });
+</script>

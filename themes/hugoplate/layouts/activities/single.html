@@ -51,25 +51,68 @@
             </p>
             
             <div class="flex flex-col md:flex-row gap-8 justify-center">
-               <!-- Horaire Box -->
-                <div class="bg-body p-6 rounded-4xl shadow-4xl basis-[51%] max-w-full">
-                <h2 class="text-xl font-semibold mb-4 text-center">Horaire</h2>
-                <ul class="list-disc list-inside space-y-2">
-                    {{ range .horaire }}
-                    <li>{{ . }}</li>
-                    {{ end }}
-                </ul>
-                </div>
+              <!-- Horaire Table -->
+<div class="bg-body p-6 rounded-4xl shadow-4xl basis-[51%] max-w-full">
+  <h2 class="text-xl font-semibold mb-4 text-center">Horaire</h2>
 
-                <!-- Tarif Box -->
-                <div class="bg-body  p-6 rounded-4xl shadow-4xl basis-[51%] max-w-full">
-                <h2 class="text-xl font-semibold mb-4 text-center">Tarif</h2>
-                <ul class="list-disc list-inside space-y-2">
-                    {{ range .tarif }}
-                    <li>{{ . }}</li>
-                    {{ end }}
-                </ul>
-                </div>
+  <table class="w-full table-auto border-collapse">
+    <thead>
+      <tr>
+        <th class="text-left p-2 border-b">Jour</th>
+        <th class="text-left p-2 border-b">Heures d'ouverture</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{ $today := now | dateFormat "Monday" }}
+      {{ range .horaire }}
+        {{ $isToday := eq .day $today }}
+        <tr class="{{ if $isToday }}bg-yellow font-semibold{{ end }}">
+          <td class="p-2 border-b">{{ .day }}</td>
+          <td class="p-2 border-b">{{ .hours }}</td>
+        </tr>
+      {{ end }}
+    </tbody>
+  </table>
+
+  {{ if not .horaire }}
+    <p class="text-center text-gray-500">Aucun horaire disponible.</p>
+  {{ end }}
+</div>
+
+
+              <!-- Tarif Table (Filtered by group == activity title) -->
+<div class="bg-body p-6 rounded-4xl shadow-4xl basis-[51%] max-w-full">
+  <h2 class="text-xl font-semibold mb-4 text-center">Tarifs</h2>
+
+  {{ $tickets := where site.RegularPages "Section" "tickets" }}
+  {{ $activityName := .name }}
+  {{ $filtered := where $tickets "Params.group" $activityName }}
+
+  {{ if gt (len $filtered) 0 }}
+    <table class="w-full mb-4 border-collapse table-auto">
+      <thead>
+        <tr>
+          <th class="p-2 border-b text-left">Ticket</th>
+          <th class="p-2 border-b text-right min-w-[8rem]">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range $filtered }}
+        <tr>
+          <td class="p-2 border-b">
+            <strong>{{ .Title }}</strong><br>
+            <small>{{ .Params.info }}</small>
+          </td>
+          <td class="p-2 border-b text-right">${{ .Params.price }}</td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  {{ else }}
+    <p class="text-center text-gray-500">Aucun tarif disponible pour cette activité.</p>
+  {{ end }}
+</div>
+
             </div>
             
 <div class="flex flex-col md:flex-row gap-8 justify-center items-stretch">
