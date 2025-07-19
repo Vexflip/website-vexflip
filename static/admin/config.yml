@@ -67,7 +67,7 @@ collections:
     label: "Tickets"
     folder: "content/english/tickets"
     slug: "{{fields.title}}-{{fields.id}}"
-    summary: "{{fields.info}}"
+    summary: "{{fields.title}}"
     filename: "{{fields.title}}-{{fields.id}}"
     create: true
     editor:

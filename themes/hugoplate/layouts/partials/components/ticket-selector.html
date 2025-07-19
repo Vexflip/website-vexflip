@@ -3,12 +3,12 @@
 
 {{ range $grouped }}
   <h2>{{ .Key }}</h2>
-  <table class="w-full mb-6 border-collapse">
+  <table class="w-full mb-6 border-collapse table-auto">
     <thead>
       <tr>
         <th class="p-2 border-b text-left">Ticket</th>
-        <th class="p-2 border-b text-left">Price</th>
-        <th class="p-2 border-b text-left">Quantity</th>
+        <th class="p-2 border-b text-right w-24">Price</th>
+        <th class="p-2 border-b text-right w-32">Quantity</th>
       </tr>
     </thead>
     <tbody>
@@ -18,9 +18,15 @@
           <strong>{{ .Title }}</strong><br>
           <small>{{ .Params.info }}</small>
         </td>
-        <td class="p-2 border-b">${{ .Params.price }}</td>
-        <td class="p-2 border-b">
-          <input type="number" name="{{ .Params.id }}" min="0" value="0" class="w-16 p-1 border rounded">
+        <td class="p-2 border-b text-right align-middle w-24">${{ .Params.price }}</td>
+        <td class="p-2 border-b text-right align-middle w-32">
+          <input 
+            type="number" 
+            name="{{ .Params.id }}" 
+            min="0" 
+            value="0" 
+            class="w-full max-w-[5rem] p-1 border rounded text-right"
+          >
         </td>
       </tr>
       {{ end }}
