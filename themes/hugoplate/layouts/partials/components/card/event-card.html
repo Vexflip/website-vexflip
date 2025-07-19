@@ -18,15 +18,29 @@
     <div>
       <h4 class="text-2xl font-semibold mb-3">{{ .name }}</h4>
 
-      <p class="text-sm mb-4 text-primary">
-        {{ if and .date_start .date_end }}
-          {{ .date_start | time.Format "Jan 2, 2006" }} – {{ .date_end | time.Format "Jan 2, 2006" }}
-        {{ else if .date_start }}
-          {{ .date_start | time.Format "Jan 2, 2006" }}
-        {{ else }}
-          Date TBA
-        {{ end }}
-      </p>
+<p class="text-sm mb-4 text-primary">
+  {{ $dateFormat := "Jan 2, 2006" }}
+  {{ $timeFormat := "3:04 PM" }}
+
+  {{ if and .date_start .date_end }}
+    {{ $start := time .date_start }}
+    {{ $end := time .date_end }}
+    {{ $start | time.Format $dateFormat }}
+    {{ if or (ne ($start.Hour) 0) (ne ($start.Minute) 0) }} {{ $start | time.Format $timeFormat }}{{ end }}
+    –
+    {{ $end | time.Format $dateFormat }}
+    {{ if or (ne ($end.Hour) 0) (ne ($end.Minute) 0) }} {{ $end | time.Format $timeFormat }}{{ end }}
+
+  {{ else if .date_start }}
+    {{ $start := time .date_start }}
+    {{ $start | time.Format $dateFormat }}
+    {{ if or (ne ($start.Hour) 0) (ne ($start.Minute) 0) }} {{ $start | time.Format $timeFormat }}{{ end }}
+
+  {{ else }}
+    Date TBA
+  {{ end }}
+</p>
+
 
       <p class="text-black/90">
         {{ .description | truncate 500 | safeHTML }}

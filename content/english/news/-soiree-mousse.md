@@ -13,6 +13,6 @@ event:
   logo: /images/no-search-found.png
   tags:
     - Event
-  date_start: 2025-07-19T11:57:00.000+02:00
+  date_start: 2025-07-19T00:01:00.000+02:00
   date_end: 2025-07-19T11:57:00.000+02:00
 ---
