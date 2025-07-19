@@ -1,0 +1,29 @@
+{{ $tickets := where .Site.RegularPages "Section" "tickets" }}
+{{ $grouped := $tickets.GroupByParam "group" }}
+
+{{ range $grouped }}
+  <h2>{{ .Key }}</h2>
+  <table class="w-full mb-6 border-collapse">
+    <thead>
+      <tr>
+        <th class="p-2 border-b text-left">Ticket</th>
+        <th class="p-2 border-b text-left">Price</th>
+        <th class="p-2 border-b text-left">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range .Pages }}
+      <tr>
+        <td class="p-2 border-b">
+          <strong>{{ .Title }}</strong><br>
+          <small>{{ .Params.info }}</small>
+        </td>
+        <td class="p-2 border-b">${{ .Params.price }}</td>
+        <td class="p-2 border-b">
+          <input type="number" name="{{ .Params.id }}" min="0" value="0" class="w-16 p-1 border rounded">
+        </td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+{{ end }}

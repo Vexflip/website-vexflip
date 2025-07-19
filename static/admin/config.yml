@@ -63,3 +63,18 @@ collections:
               - Kids
               - Adventure
               - Family
+  - name: "tickets"
+    label: "Tickets"
+    folder: "content/english/tickets"
+    slug: "{{fields.title}}-{{fields.id}}"
+    summary: "{{fields.info}}"
+    filename: "{{fields.title}}-{{fields.id}}"
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { name: "title", label: "Title", widget: "string" }
+      - { name: "id", label: "ID", widget: "string"}
+      - { name: "group", label: "Group", widget: "string" }
+      - { name: "price", label: "Price", widget: "number" }
+      - { name: "info", label: "Info", widget: "text" }
