@@ -33,8 +33,9 @@ collections:
     label: 'News'
     folder: 'content/english/news'
     create: true
-    slug: "{{date_start}}-{{name}}"
+    slug: "{{date_start}}-{{fields.event.name}}"
     summary: "{{fields.event.name}}"
+    filename: "{{date_start}}-{{fields.event.name}}"
     editor:
       preview: false
     fields:
