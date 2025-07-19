@@ -12,4 +12,5 @@ event:
   gallery: null
   tags:
     - Event
+    - Kids
 ---
