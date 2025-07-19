@@ -33,6 +33,7 @@ collections:
     label: 'News'
     folder: 'content/english/news'
     create: true
+    slug: "{{date_start}}-{{name}}"
     summary: "{{fields.event.name}}"
     editor:
       preview: false
@@ -40,7 +41,6 @@ collections:
       - label: "Event"
         name: "event"
         widget: "object"
-        slug: "{{fields.date_start}}-{{fields.name}}"
         fields:
           - { label: "Name", name: "name", widget: "string" }
           - { label: "Starting Date", name: "date_start", widget: "datetime" }
