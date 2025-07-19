@@ -1,5 +1,5 @@
 backend:
-  name: test-repo
+  name: git-gateway
   repo: Vexflip/website-la-norma
   branch: main
   identity_url: https://auth.decapbridge.com/sites/0f527a0d-527c-4363-99aa-75cb7c8d0656
