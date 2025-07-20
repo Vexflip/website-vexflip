@@ -16,11 +16,7 @@ activity:
         - day: Saturday
           hours: "10:30 - 19:00"
         - day: Sunday
-          hours: "10:30 - 19:00"
-    tarif:
-        - "1 luge:5€" 
-        - "5 luges: 35€" 
-        - "10 luges: 65€" 
+          hours: "10:30 - 19:00" 
     image: images/activities/norma_kids/normakids-1.jpg
     logo: images/activities/norma_kids/normakids-logo.png
     gallery: images/activities/norma_loops/norma_loops-gallery

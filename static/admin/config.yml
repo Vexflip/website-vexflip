@@ -29,6 +29,51 @@ public_folder: /images
 
 
 collections:
+  - name: "activities"
+    label: "Activities"
+    folder: "content/english/activities"
+    create: true
+    slug: "{{fields.activity.name}}"
+    summary: "{{fields.activity.name}}"
+
+    editor:
+      preview: false
+    fields:
+      - label: "Activity"
+        name: "activity"
+        widget: "object"
+        fields:
+        - { label: "Name", name: "name", widget: "string" }
+        - { label: "Description", name: "description", widget: "text" }
+        - label: "Horaire"
+          name: "horaire"
+          widget: "list"
+          fields:
+            - label: "Day"
+              name: "day"
+              widget: "select"
+              options:
+                - "Monday"
+                - "Tuesday"
+                - "Wednesday"
+                - "Thursday"
+                - "Friday"
+                - "Saturday"
+                - "Sunday"
+            - { label: "Hours", name: "hours", widget: "string" }
+        - { label: "Image", name: "image", widget: "image" }
+        - { label: "Logo", name: "logo", widget: "image" }
+        - { label: "Gallery", name: "gallery", widget: "string" }
+        - { label: "Contact Form Action", name: "contact_form_action", widget: "string", required: false }
+        - label: "OpenStreetMap"
+          name: "openstreet_map"
+          widget: "object"
+          fields:
+            - { label: "Enable", name: "enable", widget: "boolean", default: false }
+            - { label: "Latitude", name: "latitude", widget: "number", value_type: "float", step: 0.0000001 }
+            - { label: "Longitude", name: "longitude", widget: "number", value_type: "float", step: 0.0000001 }
+            - { label: "Zoom", name: "zoom", widget: "number", value_type: "int", default: 15 }
+
   - name: 'news'
     label: 'News'
     folder: 'content/english/news'
@@ -56,13 +101,14 @@ collections:
           - label: "Tags"
             name: "tags"
             multiple: true
-
             widget: "select"
             options:
               - Event
               - Kids
               - Adventure
               - Family
+
+
   - name: "tickets"
     label: "Tickets"
     folder: "content/english/tickets"
@@ -78,3 +124,4 @@ collections:
       - { name: "group", label: "Group", widget: "string" }
       - { name: "price", label: "Price", widget: "number" }
       - { name: "info", label: "Info", widget: "text" }
+
