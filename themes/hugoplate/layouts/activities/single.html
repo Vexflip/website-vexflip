@@ -51,33 +51,51 @@
             </p>
             
             <div class="flex flex-col md:flex-row gap-8 justify-center">
-              <!-- Horaire Table -->
-<div class="bg-body p-6 rounded-4xl shadow-4xl basis-[51%] max-w-full">
-  <h2 class="text-xl font-semibold mb-4 text-center">Horaire</h2>
+     
+      <!-- Horaire Table -->
+      <div class="bg-body p-6 rounded-4xl shadow-4xl basis-[51%] max-w-full">
+        <h2 class="text-xl font-semibold mb-4 text-center">Horaire</h2>
 
-  <table class="w-full table-auto border-collapse">
-    <thead>
-      <tr>
-        <th class="text-left p-2 border-b">Jour</th>
-        <th class="text-left p-2 border-b">Heures d'ouverture</th>
-      </tr>
-    </thead>
-    <tbody>
-    {{ $today := now | dateFormat "Monday" }}
-      {{ range .horaire }}
-        {{ $isToday := eq .day $today }}
-        <tr class="{{ if $isToday }}bg-yellow font-semibold{{ end }}">
-          <td class="p-2 border-b">{{ .day }}</td>
-          <td class="p-2 border-b">{{ .hours }}</td>
-        </tr>
-      {{ end }}
-    </tbody>
-  </table>
+        <!-- Tab Buttons -->
+        <div class="flex flex-wrap justify-center gap-2 mb-4">
+          {{ range $index, $set := .horaire }}
+            <button 
+              class="tab-btn px-4 py-2 rounded-lg border  hover:bg-yellow-200 transition w-full
+              {{ if eq $index 0 }}bg-primary text-white font-semibold{{ end }}"
+              data-target="horaire-{{ $index }}">
+              {{ $set.window }}
+            </button> 
+          {{ end }}
+        </div>
 
-  {{ if not .horaire }}
-    <p class="text-center text-gray-500">Aucun horaire disponible.</p>
-  {{ end }}
-</div>
+        <!-- Tab Contents -->
+        {{ range $index, $set := .horaire }}
+          <div id="horaire-{{ $index }}" class="tab-content {{ if eq $index 0 }}block{{ else }}hidden{{ end }}">
+            <table class="w-full table-auto border-collapse">
+              <thead>
+                <tr>
+                  <th class="text-left p-2 border-b">Jour</th>
+                  <th class="text-left p-2 border-b">Heures d'ouverture</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{ $today := now | dateFormat "Monday" }}
+                {{ range $set.entries }}
+                  {{ $isToday := eq .day $today }}
+                  <tr class="{{ if $isToday }} font-semibold{{ end }}">
+                    <td class="p-2 border-b">{{ .day }}</td>
+                    <td class="p-2 border-b">{{ .hours }}</td>
+                  </tr>
+                {{ end }}
+              </tbody>
+            </table>
+          </div>
+        {{ end }}
+
+        {{ if not .horaire }}
+          <p class="text-center text-gray-500">Aucun horaire disponible.</p>
+        {{ end }}
+      </div>
 
 
               <!-- Tarif Table (Filtered by group == activity title) -->
@@ -130,6 +148,35 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-target');
+
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+      });
+
+      // Show the selected tab content
+      document.getElementById(target).classList.remove('hidden');
+
+      // Reset all tab button styles
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-primary', 'font-semibold', 'text-white');
+        btn.classList.add('bg-white', 'hover:bg-yellow-200');
+      });
+
+      // Highlight the active tab button
+      button.classList.remove('bg-white', 'hover:bg-yellow-200');
+      button.classList.add('bg-primary', 'font-semibold', 'text-white');
+    });
+  });
+
+</script>
+
+
 
 
 

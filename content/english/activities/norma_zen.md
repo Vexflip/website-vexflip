@@ -1,18 +1,19 @@
 ---
 activity:
   horaire:
-    - day: Tuesday
-      hours: Closed
-    - day: Wednesday
-      hours: 10:30 - 22:00
-    - day: Thursday
-      hours: 10:30 - 19:00
-    - day: Friday
-      hours: 10:30 - 19:00
-    - day: Saturday
-      hours: 10:30 - 19:00
-    - day: Sunday
-      hours: 10:30 - 19:00
+    - window: "27.05.2025 - 18.06.2025"
+      entries:
+        - day: "Monday"
+          hours: "10:00 - 18:00"
+        - day: "Tuesday"
+          hours: "11:00 - 17:00"
+
+    - window: "19.06.2025 - 18.08.2025"
+      entries:
+        - day: "Monday"
+          hours: "12:00 - 20:00"
+        - day: "Tuesday"
+          hours: "10:00 - 16:00"
   openstreet_map:
     enable: true
     latitude: 45.2011768133446

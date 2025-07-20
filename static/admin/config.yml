@@ -35,7 +35,6 @@ collections:
     create: true
     slug: "{{fields.activity.name}}"
     summary: "{{fields.activity.name}}"
-
     editor:
       preview: false
     fields:
@@ -49,18 +48,14 @@ collections:
           name: "horaire"
           widget: "list"
           fields:
-            - label: "Day"
-              name: "day"
-              widget: "select"
-              options:
-                - "Monday"
-                - "Tuesday"
-                - "Wednesday"
-                - "Thursday"
-                - "Friday"
-                - "Saturday"
-                - "Sunday"
-            - { label: "Hours", name: "hours", widget: "string" }
+            - { label: "Window", name: "window", widget: "string", hint: "Ex: 27.05.2025 - 18.08.2025" }
+            - label: "Entries"
+              name: "entries"
+              widget: "list"
+              fields:
+                - { label: "Day", name: "day", widget: "select", options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] }
+                - { label: "Hours", name: "hours", widget: "string" }
+
         - { label: "Image", name: "image", widget: "image" }
         - { label: "Logo", name: "logo", widget: "image" }
         - { label: "Gallery", name: "gallery", widget: "string" }
