@@ -148,41 +148,8 @@
         </div>
       </div>
 
-      {{ if .notifications }}
-        <div class="mt-6 flex flex-wrap gap-4 justify-center">
-          {{ range .notifications }}
-            {{ $color := "" }}
-            {{ $icon := "" }}
-            {{ if eq .type "attention" }}
-              {{ $color = "red" }}{{ $icon = "⚠️" }}
-            {{ end }}
-            {{ if eq .type "warning" }}
-              {{ $color = "yellow" }}{{ $icon = "🟡" }}
-            {{ end }}
-            {{ if eq .type "success" }}
-              {{ $color = "green" }}{{ $icon = "✅" }}
-            {{ end }}
-            {{ if eq .type "info" }}
-              {{ $color = "blue" }}{{ $icon = "ℹ️" }}
-            {{ end }}
-            {{ if eq .type "remark" }}
-              {{ $color = "purple" }}{{ $icon = "💬" }}
-            {{ end }}
-
-
-            <div
-              class="border border-3 border-{{ $color }}-500 bg-{{ $color }}-100 text-{{ $color }}-800 px-4 py-2 rounded-xl text-sm flex items-center gap-2 max-w-xs">
-              <span class="text-xl">{{ $icon }}</span>
-              <div>
-                <div class="font-semibold">{{ .title }}</div>
-                <div class="text-xs leading-snug">
-                  {{ .content | markdownify }}
-                </div>
-              </div>
-            </div>
-          {{ end }}
-        </div>
-      {{ end }}
+           <!--Notifications-->
+       {{ partial "components/notifications.html" .notifications }}
 
 
       <div class="flex flex-col md:flex-row gap-8 justify-center items-stretch">
