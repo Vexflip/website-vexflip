@@ -3,13 +3,21 @@ activity:
     name: Norma Zen
     description: "Norma Zen is a tranquil escape nestled in the heart of the La Norma alpine resort, designed to harmonize mountain energy with modern mindfulness." 
     horaire:
-        - "Monday:         10:30 - 19:00"
-        - "Tuesday:        10:30 - 19:00"
-        - "Wednesday:      10:30 - 22:00"
-        - "Thurdays:       10:30 - 19:00"
-        - "Friday:         10:30 - 19:00"
-        - "Saturday:       10:30 - 19:00"
-        - "Sunday:         10:30 - 19:00"
+    horaire:
+        - day: Monday
+          hours: "10:30 - 19:00"
+        - day: Tuesday
+          hours: "10:30 - 19:00"
+        - day: Wednesday
+          hours: "10:30 - 22:00"
+        - day: Thursday
+          hours: "10:30 - 19:00"
+        - day: Friday
+          hours: "10:30 - 19:00"
+        - day: Saturday
+          hours: "10:30 - 19:00"
+        - day: Sunday
+          hours: "10:30 - 19:00"
     tarif:
         - "1 luge:5€" 
         - "5 luges: 35€" 

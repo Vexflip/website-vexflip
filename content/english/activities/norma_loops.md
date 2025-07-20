@@ -3,13 +3,20 @@ activity:
     name: Norma Loops
     description: "Norma Loops (also spelled NormaLoops) is an exhilarating four‑seasons mountain coaster located at the entrance of the La Norma ski resort in the French Alps—Villarodin‑Bourget, Savoie.Norma Loops (also spelled NormaLoops) is an exhilarating four‑seasons mountain coaster." 
     horaire:
-      - "Monday:         10:30 - 19:00"
-      - "Tuesday:        10:30 - 19:00"
-      - "Wednesday:      10:30 - 22:00"
-      - "Thurdays:       10:30 - 19:00"
-      - "Friday:         10:30 - 19:00"
-      - "Saturday:       10:30 - 19:00"
-      - "Sunday:         10:30 - 19:00"
+        - day: Monday
+          hours: "10:30 - 19:00"
+        - day: Tuesday
+          hours: "10:30 - 19:00"
+        - day: Wednesday
+          hours: "10:30 - 22:00"
+        - day: Thursday
+          hours: "10:30 - 19:00"
+        - day: Friday
+          hours: "10:30 - 19:00"
+        - day: Saturday
+          hours: "10:30 - 19:00"
+        - day: Sunday
+          hours: "10:30 - 19:00"
     tarif:
       - "1 luge:5€" 
       - "5 luges: 35€" 
