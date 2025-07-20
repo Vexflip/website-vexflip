@@ -23,9 +23,9 @@
           <div class="lg:col-7 md:col-9 mb-8 text-center">
             <!-- White transparent box -->
             <div
-              class=" border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md">
-              <div class="col-12 mb-6">
-                {{ partial "image" (dict "Src" .logo "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[500px]" "DisplayXL" "500x") }}
+              class=" border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md object-contain">
+              <div class="col-12 mb-6 ">
+                {{ partial "image" (dict "Src" .logo "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:w-[300px]" "DisplayXL" "500x") }}
               </div>
 
               {{ with .button }}
