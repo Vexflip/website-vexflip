@@ -19,7 +19,6 @@ activity:
         entries:
           - day: "Monday"
             hours: "10:00 - 18:00"
-
       - window: "19.09.2025 - 18.09.2025"
         entries:
           - day: "Monday"
@@ -35,5 +34,20 @@ activity:
         latitude: 45.2011768133446 
         longitude: 6.696381917465995
         zoom : 15
-
+    notifications:
+      - title: "Attention"
+        type: "attention"
+        content: "Please arrive **15 minutes early**."
+      - title: "Remarks"
+        type: "remark"
+        content: "This activity may be rescheduled in case of bad weather."
+      - title: "Warning"
+        type: "warning"
+        content: "This activity may be rescheduled in case of bad weather."
+      - title: "Success"
+        type: "success"
+        content: "This activity may be rescheduled in case of bad weather."
+      - title: "Info"
+        type: "info"
+        content: "This activity may be rescheduled in case of bad weather."
 ---

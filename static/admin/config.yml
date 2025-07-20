@@ -35,6 +35,7 @@ collections:
     create: true
     slug: "{{fields.activity.name}}"
     summary: "{{fields.activity.name}}"
+    exclude: "_index.md"
     editor:
       preview: false
     fields:
@@ -42,32 +43,54 @@ collections:
         name: "activity"
         widget: "object"
         fields:
-        - { label: "Name", name: "name", widget: "string" }
-        - { label: "Description", name: "description", widget: "text" }
-        - label: "Horaire"
-          name: "horaire"
-          widget: "list"
-          fields:
-            - { label: "Window", name: "window", widget: "string", hint: "Ex: 27.05.2025 - 18.08.2025" }
-            - label: "Entries"
-              name: "entries"
-              widget: "list"
-              fields:
-                - { label: "Day", name: "day", widget: "select", options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] }
-                - { label: "Hours", name: "hours", widget: "string" }
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
 
-        - { label: "Image", name: "image", widget: "image" }
-        - { label: "Logo", name: "logo", widget: "image" }
-        - { label: "Gallery", name: "gallery", widget: "string" }
-        - { label: "Contact Form Action", name: "contact_form_action", widget: "string", required: false }
-        - label: "OpenStreetMap"
-          name: "openstreet_map"
-          widget: "object"
-          fields:
-            - { label: "Enable", name: "enable", widget: "boolean", default: false }
-            - { label: "Latitude", name: "latitude", widget: "number", value_type: "float", step: 0.0000001 }
-            - { label: "Longitude", name: "longitude", widget: "number", value_type: "float", step: 0.0000001 }
-            - { label: "Zoom", name: "zoom", widget: "number", value_type: "int", default: 15 }
+          - label: "Horaire"
+            name: "horaire"
+            widget: "list"
+            fields:
+              - { label: "Window", name: "window", widget: "string", hint: "Ex: 27.05.2025 - 18.08.2025" }
+              - label: "Entries"
+                name: "entries"
+                widget: "list"
+                fields:
+                  - { label: "Day", name: "day", widget: "select", options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] }
+                  - { label: "Hours", name: "hours", widget: "string" }
+
+          - label: "Notifications"
+            name: "notifications"
+            widget: "list"
+            summary: "{{fields.title}} ({{fields.type}})"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: true }
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options:
+                  - { label: "Attention", value: "attention" }
+                  - { label: "Warning", value: "warning" }
+                  - { label: "Success", value: "success" }
+                  - { label: "Info", value: "info" }
+                  - { label: "Remark", value: "remark" }
+                default: "info"
+                required: true
+              - { label: "Content", name: "content", widget: "markdown", required: true }
+
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "Logo", name: "logo", widget: "image" }
+          - { label: "Gallery", name: "gallery", widget: "string" }
+          - { label: "Contact Form Action", name: "contact_form_action", widget: "string", required: false }
+
+          - label: "OpenStreetMap"
+            name: "openstreet_map"
+            widget: "object"
+            fields:
+              - { label: "Enable", name: "enable", widget: "boolean", default: false }
+              - { label: "Latitude", name: "latitude", widget: "number", value_type: "float", step: 0.0000001 }
+              - { label: "Longitude", name: "longitude", widget: "number", value_type: "float", step: 0.0000001 }
+              - { label: "Zoom", name: "zoom", widget: "number", value_type: "int", default: 15 }
+
 
   - name: 'news'
     label: 'News'
@@ -78,6 +101,7 @@ collections:
     filename: "{{fields.event.name}}-{{fields.event.date_start}}"
     editor:
       preview: false
+    exclude: "_index.md"
     fields:
       - label: "Event"
         name: "event"
