@@ -1,30 +1,28 @@
-<header
-  class="header {{ if site.Params.navbar_fixed }} top-0{{ end }} z-30">
+<header class="header {{ if site.Params.navbar_fixed }} top-0{{ end }} z-30">
   <nav class="navbar container">
     <!-- logo -->
     <div class="order-0">
-      <!-- navbar brand/logo -->
       <a class="navbar-brand block" href="{{ site.Home.RelPermalink }}">
         {{ partial "logo" }}
       </a>
     </div>
+
     <!-- navbar toggler -->
     <input id="nav-toggle" type="checkbox" class="hidden" />
     <label
       for="nav-toggle"
-      class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark  lg:order-1">
+      class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark lg:order-1">
       <svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20">
         <title>Menu Open</title>
         <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
       </svg>
-      <svg id="hide-button" class="h-6 fill-current hidden " viewBox="0 0 20 20">
+      <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20">
         <title>Menu Close</title>
         <polygon
           points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
           transform="rotate(45 10 10)"></polygon>
       </svg>
     </label>
-    <!-- /navbar toggler -->
 
     <!-- main navbar -->
     <ul
@@ -33,76 +31,81 @@
       {{ $currentPage := . }}
       {{ range site.Menus.main }}
         {{ $menuURL := .URL | absLangURL }}
-        {{ $pageURL:= $currentPage.Permalink | absLangURL }}
+        {{ $pageURL := $currentPage.Permalink | absLangURL }}
         {{ $active := eq $menuURL $pageURL }}
         {{ if .HasChildren }}
           <li class="nav-item nav-dropdown group relative">
             <a
-              class="nav-link parent-link {{ range .Children }}
-                {{ $childURL := .URL | absLangURL }}
-                {{ $active := eq $childURL $pageURL }}
-                {{ if $active }}active{{ end }}
-              {{ end }} inline-flex items-center "
-              href="{{- if findRE `^#` .URL -}}
-                {{- if not $.IsHome -}}
-                  {{- site.Home.RelPermalink -}}
-                {{- end }}{{- .URL -}}
-              {{- else -}}
-                {{- .URL | relLangURL -}}
-              {{- end -}}">
+              class="nav-link parent-link {{ if eq .Name "Activities" }}
+                {{ $activities := where site.RegularPages "Section" "activities" }}
+                {{ range $activities }}
+                  {{ if eq .Permalink $currentPage.Permalink }}active{{ end }}
+                {{ end }}
+              {{ else }}
+                {{ range .Children }}
+                  {{ $childURL := .URL | absLangURL }}
+                  {{ if eq $childURL $pageURL }}active{{ end }}
+                {{ end }}
+              {{ end }} inline-flex items-center"
+              href="{{ if findRE `^#` .URL }}
+                {{ if not $.IsHome }}{{ site.Home.RelPermalink }}{{ end }}{{ .URL }}
+              {{ else }}
+                {{ .URL | relLangURL }}
+              {{ end }}">
               {{ .Name }}
               <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
-                <path
-                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
               </svg>
             </a>
-            
-            <ul
-              class="nav-dropdown-list lg:group-hover:visible lg:group-hover:opacity-100">
-              {{ range .Children }}
-                {{ $childURL := .URL | absLangURL }}
-                {{ $active := eq $childURL $pageURL }}
-                <li class="nav-dropdown-item">
-                  <a
-                    class="nav-dropdown-link {{ if $active }}
-                      active
-                    {{- end -}}"
-                    {{ if findRE `^http` .URL }}
-                      target="_blank" rel="noopener"
-                    {{ end }}
-                    href="{{- if findRE `^#` .URL -}}
-                      {{- if not $.IsHome -}}
-                        {{- site.Home.RelPermalink -}}
-                      {{- end }}
-                      {{- .URL -}}
-                    {{- else -}}
-                      {{- .URL | relLangURL -}}
-                    {{- end -}}">
-                    {{ .Name }}
-                  </a>
-                </li>
+
+            <ul class="nav-dropdown-list lg:group-hover:visible lg:group-hover:opacity-100">
+              {{ if eq .Name "Activities" }}
+                {{ $activities := where site.RegularPages "Section" "activities" }}
+                {{ range $activities}}
+                  <li class="nav-dropdown-item">
+                    <a
+                      class="nav-dropdown-link text-dark {{ if eq .Permalink $currentPage.Permalink }}active{{ end }}"
+                      href="{{ .RelPermalink }}">
+                      {{ .Params.activity.name }}
+                    </a>
+                  </li>
+                {{ end }}
+              {{ else }}
+                {{ range .Children }}
+                  {{ $childURL := .URL | absLangURL }}
+                  {{ $active := eq $childURL $pageURL }}
+                  <li class="nav-dropdown-item">
+                    <a
+                      class="nav-dropdown-link {{ if $active }}active{{ end }}"
+                      {{ if findRE `^http` .URL }} target="_blank" rel="noopener" {{ end }}
+                      href="{{ if findRE `^#` .URL }}
+                        {{ if not $.IsHome }}{{ site.Home.RelPermalink }}{{ end }}{{ .URL }}
+                      {{ else }}
+                        {{ .URL | relLangURL }}
+                      {{ end }}">
+                      {{ .Name }}
+                    </a>
+                  </li>
+                {{ end }}
               {{ end }}
             </ul>
           </li>
         {{ else }}
           <li class="nav-item">
             <a
-              class="nav-link {{ if $active }}active{{- end -}}"
-              {{ if findRE `^http` .URL }}
-                target="_blank" rel="noopener"
-              {{ end }}
-              href="{{- if findRE `^#` .URL -}}
-                {{- if not $.IsHome -}}
-                  {{- site.Home.RelPermalink -}}
-                {{- end }}{{- .URL -}}
-              {{- else -}}
-                {{- .URL | relLangURL -}}
-              {{- end -}}"
-              >{{ .Name }}</a
-            >
+              class="nav-link {{ if $active }}active{{ end }}"
+              {{ if findRE `^http` .URL }} target="_blank" rel="noopener" {{ end }}
+              href="{{ if findRE `^#` .URL }}
+                {{ if not $.IsHome }}{{ site.Home.RelPermalink }}{{ end }}{{ .URL }}
+              {{ else }}
+                {{ .URL | relLangURL }}
+              {{ end }}">
+              {{ .Name }}
+            </a>
           </li>
         {{ end }}
       {{ end }}
+
       {{ if site.Params.navigation_button.enable }}
         <li class="mt-4 inline-block lg:hidden">
           <a
@@ -119,22 +122,18 @@
         {{ if .enable }}
           <button
             aria-label="search"
-            class="border-border text-text-dark hover:text-primary
-             mr-5 inline-block border-r pr-5
-            text-xl  cursor-pointer 
+            class="border-border text-text-dark hover:text-primary mr-5 inline-block border-r pr-5 text-xl cursor-pointer
             {{ if not (or site.Params.navigation_button.enable site.Params.theme_switcher) }}
               lg:border-r-0 lg:pr-0
             {{ end }}"
-
             data-target="search-modal">
             <i class="fa-solid fa-search"></i>
           </button>
         {{ end }}
       {{ end }}
 
-      {{ partial "components/language-switcher" (dict "Context" . "Class" "mr-5 pl-2 py-1  rounded") }}
+      {{ partial "components/language-switcher" (dict "Context" . "Class" "mr-5 pl-2 py-1 rounded") }}
 
-      <!-- navigation btn -->
       {{ if site.Params.navigation_button.enable }}
         <a
           href="{{ site.Params.navigation_button.link | relLangURL }}"
@@ -146,17 +145,14 @@
   </nav>
 
   <style>
-    /* Hide submenu by default on mobile */
     .nav-dropdown-list {
       display: none;
     }
-    /* Show submenu on hover desktop */
     @media(min-width:1024px) {
       .nav-dropdown:hover > .nav-dropdown-list {
         display: block !important;
       }
     }
-    /* Show submenu when toggled open on mobile */
     @media(max-width:1023px) {
       li.nav-item.nav-dropdown.submenu-open > .nav-dropdown-list {
         display: block !important;
@@ -172,8 +168,7 @@
       parentLinks.forEach(link => {
         link.addEventListener('click', (e) => {
           if (navToggle.checked) {
-            e.preventDefault(); // prevent page navigation
-
+            e.preventDefault();
             const parentLi = link.closest('li.nav-item.nav-dropdown');
             if (parentLi) {
               parentLi.classList.toggle('submenu-open');
