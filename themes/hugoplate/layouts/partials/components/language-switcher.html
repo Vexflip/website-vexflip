@@ -1,35 +1,31 @@
-<!-- Language List -->
 {{ if hugo.IsMultilingual }}
-{{ $class := .Class }}
-{{ $context := .Context }}
-{{ $pageLang := $context.Lang }}
-{{ $pageTranslations := newScratch }}
-{{/* First, fill all translations of the Home page (failsafe) */}}
-{{ range site.Home.AllTranslations }}
-  {{ $pageTranslations.Set .Language.Lang .Permalink }}
-{{ end }}
-{{/* Second, if a translation exists for the current page for the target language, replace failsafe */}}
-{{ range $context.AllTranslations }}
-  {{ $pageTranslations.Set .Language.Lang .Permalink }}
-{{ end }}
+  {{ $context := .Context }}
+  {{ $pageLang := $context.Lang }}
+  {{ $pageTranslations := newScratch }}
 
-<select class="{{ $class }}" onchange="location = this.value">
-  {{ range site.Languages }}
-    {{/* Fill the dropdown with all known languages */}}
-    {{ $link := $pageTranslations.Get .Lang }}
-    {{ if $link }}
-      <option
-        id="{{ .Lang }}"
-        value="{{ $link }}"
-      {{ if eq .Lang $pageLang }}
-        selected
-      {{ end }}
-        >
-        {{ .LanguageName }}
-      </option>
-    {{ else }}
-      {{/* if we can't safely redirect the user to the translated page or at least to translated home, discard the language from options */}}
-    {{ end }}
+  {{ range site.Home.AllTranslations }}
+    {{ $pageTranslations.Set .Language.Lang .Permalink }}
   {{ end }}
-</select>
+
+  {{ range $context.AllTranslations }}
+    {{ $pageTranslations.Set .Language.Lang .Permalink }}
+  {{ end }}
+
+  <div class="lang-dropdown mr-4"  tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+    {{ with site.Language }}
+      <button class="lang-dropdown-btn" aria-label="Select language">
+        <img class="lang-dropdown-img" src="{{ .Params.flag | relURL }}" alt="{{ .LanguageName }} flag" />
+      </button>
+    {{ end }}
+
+    <div class="lang-dropdown-list" role="listbox">
+      {{ range site.Languages }}
+        {{ if and (ne .Lang $pageLang) ($pageTranslations.Get .Lang) }}
+          <a href="{{ $pageTranslations.Get .Lang }}" role="option" aria-selected="false" title="{{ .LanguageName }}" class="lang-dropdown-item">
+            <img src="{{ .Params.flag | relURL }}" alt="{{ .LanguageName }} flag" width="32" height="22" />
+          </a>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
 {{ end }}

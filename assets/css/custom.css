@@ -25,3 +25,103 @@
   transition-property: border-color, border-width;
   transition-duration: 0.5s;
 }
+
+
+.lang-dropdown {
+  position: relative;
+  width: auto;       /* fixed width, adjust as needed */
+  height: auto;       /* container height, button will fill this */
+  font-family: Arial, sans-serif;
+  user-select: none;
+  outline: none;
+}
+
+.lang-dropdown-btn {
+  height: 100%;       /* fill container height */
+  width: 100%;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0 4px;    /* horizontal padding only */
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* vertical center content */
+  gap: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.lang-dropdown-btn:hover,
+.lang-dropdown:focus-within > .lang-dropdown-btn {
+  background-color: #e0e0e0;
+  border-color: #999;
+}
+
+.lang-dropdown-img {
+  height: 70%;       /* fill about 70% of button height */
+  width: auto;       /* keep aspect ratio */
+  border-radius: 3px;
+  object-fit: cover;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+
+.lang-dropdown-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.lang-dropdown-arrow {
+  font-size: 18px;
+  color: #666;
+  user-select: none;
+}
+
+/* Dropdown list styling */
+.lang-dropdown-list {
+  position: absolute;
+  top: calc(100%);
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 6px 0;
+  display: none;
+  z-index: 1000;
+}
+
+/* Show dropdown on focus-within or hover */
+.lang-dropdown:focus-within .lang-dropdown-list,
+.lang-dropdown:hover .lang-dropdown-list {
+  display: block;
+}
+
+.lang-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.lang-dropdown-item:hover,
+.lang-dropdown-item:focus {
+  background-color: #f0f0f0;
+  outline: none;
+}
+
+.lang-dropdown-item img {
+  width: 32px;
+  height: 22px;
+  border-radius: 3px;
+  object-fit: cover;
+  flex-shrink: 0;
+}

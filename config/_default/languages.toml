@@ -1,6 +1,34 @@
-################ English language ##################
 [en]
-languageName = "En"
-languageCode = "en-us"
-contentDir = "content/english"
+languageName = "English"
 weight = 1
+contentDir = "content/english"
+[en.params]
+flag = "images/flags/gb.svg"
+
+[fr]
+languageName = "Français"
+weight = 2
+contentDir = "content/english"
+[fr.params]
+flag = "images/flags/fr.svg"
+
+[nl]
+languageName = "Nederlands"
+weight = 3
+contentDir = "content/dutch"
+[nl.params]
+flag = "images/flags/nl.svg"
+
+[de]
+languageName = "Deutsch"
+weight = 4
+contentDir = "content/german"
+[de.params]
+flag = "images/flags/de.svg"
+
+[it]
+languageName = "Italiano"
+weight = 5
+contentDir = "content/italian"
+[it.params]
+flag = "images/flags/it.svg"

@@ -1,0 +1,77 @@
+############# French navigation ##############
+
+# main menu
+[[main]]
+name = "Accueil"
+url = "/"
+weight = 1
+
+[[main]]
+name = "Activités"
+url = "/activities"
+weight = 2
+
+[[main]]
+name = "Séminaire et Groupe"
+url = "/seminar_and_group"
+weight = 4
+
+[[main]]
+name = "Actualités"
+url = "/news"
+weight = 3
+
+[[main]]
+name = "Informations pratiques"
+url = "/practical_information"
+weight = 5
+
+
+# footer menu
+[[footer]]
+name = "À propos"
+url = "/about"
+weight = 1
+
+[[footer]]
+name = "Mentions légales"
+url = "/mentions-legales"
+weight = 2
+
+
+# drop down for activities
+[[main]]
+parent = "Activités"
+name = "Norma Loops"
+url = "activities/norma_loops"
+weight = 1
+
+[[main]]
+parent = "Activités"
+name = "Norma Zen"
+url = "activities/norma_zen"
+weight = 2
+
+[[main]]
+parent = "Activités"
+name = "Norma Kids"
+url = "activities/norma_kids"
+weight = 3
+
+[[main]]
+parent = "Activités"
+name = "Baignade"
+url = "activities/baignade"
+weight = 4
+
+[[main]]
+parent = "Activités"
+name = "Tennis"
+url = "activities/tennis"
+weight = 5
+
+[[main]]
+parent = "Activités"
+name = "Cinéma"
+url = "activities/cinema"
+weight = 6

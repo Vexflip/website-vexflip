@@ -1,33 +1,38 @@
 {{ define "main" }}
   <!-- Banner -->
   {{ with .Params.banner }}
-    <section class="relative overflow-hidden pt-14 h-screen flex items-center justify-center">
-      
+    <section
+      class="relative overflow-hidden pt-14 h-screen flex items-center justify-center">
       <!-- Background Video -->
-      <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
-        <source src="videos/banner-bg.mp4" type="video/mp4">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        class="absolute top-0 left-0 w-full h-full object-cover z-0">
+        <source src="{{ "videos/banner-bg.mp4" | relURL }}" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-
 
       <!-- Foreground Content -->
       <div class="container relative z-20">
         <div class="row justify-center">
           <div class="lg:col-7 md:col-9 mb-8 text-center">
             <!-- White transparent box -->
-            <div class=" border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md">
+            <div
+              class=" border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md">
               <div class="col-12 mb-6">
                 {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[500px]" "DisplayXL" "500x") }}
               </div>
-              
+
               <h1 class="mb-4 text-3xl lg:text-8xl">
                 {{ .title | markdownify }}
               </h1>
-              
+
               <p class="mb-8">
                 {{ .content | markdownify }}
               </p>
-              
+
               {{ with .button }}
                 {{ if .enable }}
                   <a
@@ -49,59 +54,57 @@
   {{ end }}
   <!-- /Banner -->
 
-
   <section class="py-12">
-  <div class="container mx-auto px-4">
-
-    {{ $authors := site.GetPage "section" "activities" }}
-    <!-- Centered Container -->
-    <div class="flex justify-center">
-      <!-- Section Title -->
-      <h2 class="text-5xl font-bold mb-8 cursor-pointer text-center text-primary"
+    <div class="container mx-auto px-4">
+      {{ $authors := site.GetPage "section" "activities" }}
+      <!-- Centered Container -->
+      <div class="flex justify-center">
+        <!-- Section Title -->
+        <h2
+          class="text-5xl font-bold mb-8 cursor-pointer text-center text-primary"
           onclick="window.location.href='{{ $authors.Permalink }}'">
-        {{ $authors.Title }}
-      </h2>
+          {{ $authors.Title }}
+        </h2>
+      </div>
+
+      <div
+        class="grid gap-8 justify-items-center"
+        style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <!-- Section Cards -->
+        {{ range $authors.RegularPages }}
+          <div class="w-full max-w-sm">
+            {{ partial "components/card/activity-card" . }}
+          </div>
+        {{ end }}
+
+      </div>
     </div>
-
-    <div class="grid gap-8 justify-items-center"
-         style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-
-      <!-- Section Cards -->
-      {{ range $authors.RegularPages }}
-        <div class="w-full max-w-sm">
-          {{ partial "components/card/activity-card" . }}
-        </div>
-      {{ end }}
-
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- Event -->
   <section class="py-12">
-  <div class="container mx-auto px-4">
-    {{ $authors := site.GetPage "section" "news" }}
-    
-    <!-- Centered Container -->
-    <div class="flex justify-center">
-      <!-- Section Title -->
-      <h2 class="text-5xl font-bold mb-8 cursor-pointer text-center text-primary"
+    <div class="container mx-auto px-4">
+      {{ $authors := site.GetPage "section" "news" }}
+
+
+      <!-- Centered Container -->
+      <div class="flex justify-center">
+        <!-- Section Title -->
+        <h2
+          class="text-5xl font-bold mb-8 cursor-pointer text-center text-primary"
           onclick="window.location.href='{{ $authors.Permalink }}'">
-        {{ $authors.Title }}
-      </h2>
-    </div>
+          {{ $authors.Title }}
+        </h2>
+      </div>
 
-    <div class="flex flex-wrap justify-center gap-8 text-primary">
-      <!-- Section Cards -->
-      {{ range $authors.RegularPages }}
-        <div class="w-auto max-w-none">
-          {{ partial "components/card/event-card" . }}
-        </div>
-      {{ end }}
+      <div class="flex flex-wrap justify-center gap-8 text-primary">
+        <!-- Section Cards -->
+        {{ range $authors.RegularPages }}
+          <div class="w-auto max-w-none">
+            {{ partial "components/card/event-card" . }}
+          </div>
+        {{ end }}
+      </div>
     </div>
-  </div>
   </section>
-
-
 {{ end }}
