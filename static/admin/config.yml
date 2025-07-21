@@ -81,7 +81,7 @@ collections:
           - { label: Logo, name: logo, widget: image, hint: "Téléchargez un logo lié à l’activité." }
           - label: Gallery
             name: gallery
-            widget: multiimagefolder
+            widget: gallery-upload
             required: false
             summary: "{{fields.image}}"
             media_folder: "static/images/activities/{{slug}}/{{slug}}-gallery"

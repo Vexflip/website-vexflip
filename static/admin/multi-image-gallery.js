@@ -1,142 +1,83 @@
-const MultiImageFolderControl = window.createClass({
-  getInitialState() {
-    const value = this.props.value || {};
-    return {
-      images: value.images || [],
-      folder: value.folder || '',
-    };
-  },
+CMS.registerWidget('gallery-upload', createGalleryControl, createGalleryPreview);
 
-  openMediaLibrary() {
-    const mediaLib = window.CMS.getMediaLibrary();
+function createGalleryControl({ value, onChange, entry }) {
+  const folderSlug = entry?.get('slug') || 'default-slug';
+  const folderPath = `images/activities/${folderSlug}/${folderSlug}-gallery`;
+  const publicPath = `/images/activities/${folderSlug}/${folderSlug}-gallery`;
 
-    mediaLib.show({ allowMultiple: true });
+  let currentImages = [];
+  if (value && typeof value === 'object') {
+    if (Array.isArray(value.images)) {
+      currentImages = value.images;
+    }
+  }
 
-    mediaLib.on('insert', selectedAssets => {
-      const newImagePaths = selectedAssets.map(asset => asset.url || asset.path);
+  function handleUpload(e) {
+    const files = Array.from(e.target.files);
+    const uploaded = [];
 
-      // Derive common folder path (basic version)
-      const folder = this.deriveFolderFromImage(newImagePaths[0]);
-
-      this.setState(
-        state => ({
-          images: [...state.images, ...newImagePaths],
-          folder: folder || state.folder,
-        }),
-        () => this.emitChange()
-      );
+    files.forEach((file) => {
+      const path = `${publicPath}/${file.name}`;
+      uploaded.push(path);
     });
-  },
 
-  deriveFolderFromImage(imageUrl) {
-    // Example: "/images/activities/my-event/my-event-gallery/img1.jpg"
-    // => "/images/activities/my-event/my-event-gallery"
-    if (!imageUrl) return '';
-    const parts = imageUrl.split('/');
-    return parts.slice(0, -1).join('/');
-  },
+    const updatedImages = [...currentImages, ...uploaded];
 
-  emitChange() {
-    const { folder, images } = this.state;
-    this.props.onChange({ folder, images });
-  },
+    onChange({
+      folder: folderPath,
+      images: updatedImages,
+    });
+  }
 
-  removeImage(index) {
-    this.setState(
-      state => {
-        const newImages = [...state.images];
-        newImages.splice(index, 1);
-        return { images: newImages };
-      },
-      () => this.emitChange()
-    );
-  },
+  function handleDelete(index) {
+    const updated = currentImages.filter((_, i) => i !== index);
+    onChange({
+      folder: folderPath,
+      images: updated,
+    });
+  }
 
-  render() {
-    const { images, folder } = this.state;
+  return h('div', {},
+    h('p', {}, `Folder: ${folderPath}`),
+    h('input', {
+      type: 'file',
+      multiple: true,
+      onChange: handleUpload,
+    }),
+    h('ul', {},
+      currentImages.map((img, i) =>
+        h('li', { key: i, style: { listStyle: 'none', margin: '10px 0' } },
+          h('img', {
+            src: img,
+            style: { maxWidth: '100px', marginRight: '10px', display: 'inline-block' }
+          }),
+          h('button', {
+            onClick: () => handleDelete(i),
+            style: {
+              display: 'inline-block',
+              background: '#e74c3c',
+              color: '#fff',
+              border: 'none',
+              padding: '5px 10px',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }
+          }, 'Delete')
+        )
+      )
+    )
+  );
+}
 
-    return window.h('div', {}, [
-      window.h(
-        'button',
-        {
-          type: 'button',
-          onClick: this.openMediaLibrary,
-          style: {
-            backgroundColor: '#2196f3',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '4px',
-            padding: '10px 16px',
-            cursor: 'pointer',
-            marginBottom: '10px',
-          },
-        },
-        'Add Images from Media Library'
-      ),
-      images.length > 0 &&
-        window.h(
-          'div',
-          { style: { display: 'flex', flexWrap: 'wrap', gap: '10px' } },
-          images.map((src, index) =>
-            window.h('div', { key: index, style: { position: 'relative' } }, [
-              window.h('img', {
-                src,
-                style: {
-                  width: '100px',
-                  height: '100px',
-                  objectFit: 'cover',
-                  borderRadius: '4px',
-                },
-              }),
-              window.h(
-                'button',
-                {
-                  onClick: () => this.removeImage(index),
-                  style: {
-                    position: 'absolute',
-                    top: '4px',
-                    right: '4px',
-                    background: 'rgba(0,0,0,0.6)',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '20px',
-                    height: '20px',
-                    cursor: 'pointer',
-                    textAlign: 'center',
-                  },
-                },
-                '×'
-              ),
-            ])
-          )
-        ),
-      folder &&
-        window.h('p', {
-          style: {
-            marginTop: '10px',
-            fontStyle: 'italic',
-            color: '#666',
-          },
-        }, `Folder: ${folder}`),
-    ]);
-  },
-});
-
-const MultiImageFolderPreview = window.createClass({
-  render() {
-    const { images = [], folder = '' } = this.props.value || {};
-    return window.h('div', {}, [
-      window.h('p', {}, `Folder: ${folder}`),
-      images.map((src, i) =>
-        window.h('img', {
-          key: i,
-          src,
-          style: { maxWidth: '80px', marginRight: '5px', marginBottom: '5px' },
-        })
-      ),
-    ]);
-  },
-});
-
-CMS.registerWidget('multiimagefolder', MultiImageFolderControl, MultiImageFolderPreview);
+function createGalleryPreview({ value }) {
+  const images = (value && value.images) || [];
+  return h('div', {},
+    images.map((src, i) =>
+      h('img', {
+        src,
+        key: i,
+        style: { maxWidth: '100px', margin: '5px' }
+      })
+    )
+  );
+}
