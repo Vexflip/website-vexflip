@@ -29,7 +29,7 @@ collections:
     label: Activités
     folder: content/english/activities
     create: true
-    slug: "{{fields.activity.name | slug}}"
+    slug: "{{fields.activity.name}}"
     summary: "{{fields.activity.name}}"
     exclude: _index.md
     editor:
@@ -79,21 +79,16 @@ collections:
 
           - { label: Image, name: image, widget: image, hint: "Téléchargez une image principale représentant l’activité." }
           - { label: Logo, name: logo, widget: image, hint: "Téléchargez un logo lié à l’activité." }
-          - label: "Galerie"
-            required: false
-            name: gallery-image
-            widget: "list"
-            hint: "Ajoutez plusieurs images pour la galerie."
-            fields:
-              - label: "Image"
-                name: "image"
-                widget: "image"
-                media_folder: "static/images/activities/{{fields.activity.name}}/{{fields.activity.name}}-gallery"
-                public_folder: "/images/activities/{{fields.activity.name}}/{{fields.activity.name}}-gallery"
-          - label: Galerie Url
+          - label: Gallery
             name: gallery
-            widget: hidden
-            default: "/images/activities/{{fields.activity.name}}/{{fields.activity.name}}-gallery"
+            widget: multiimagegallery
+            required: false
+            summary: "{{fields.image}}"
+            media_folder: "static/images/activities/{{slug}}/{{slug}}-gallery"
+            public_folder: "/images/activities/{{slug}}/{{slug}}-gallery"
+            hint: "Ajoutez plusieurs images pour la galerie."
+  
+
           - { label: Action du formulaire de contact, name: contact_form_action, widget: string, required: false, hint: "Addresse mail : ex : « joesph@gmail.com »" }
 
           - label: OpenStreetMap
