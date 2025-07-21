@@ -1,6 +1,6 @@
 CMS.registerWidget('gallery-upload', createGalleryControl, createGalleryPreview);
 
-function createGalleryControl({ value, onChange, entry, mediaPaths, mediaLibrary }) {
+function createGalleryControl({ value, onChange, entry, mediaLibrary }) {
   const folderSlug = entry?.get('slug') || 'default-slug';
   const folderPath = `images/activities/${folderSlug}/${folderSlug}-gallery`;
   const publicPath = `/images/activities/${folderSlug}/${folderSlug}-gallery`;
@@ -17,9 +17,9 @@ function createGalleryControl({ value, onChange, entry, mediaPaths, mediaLibrary
     const uploadedUrls = [];
 
     for (const file of files) {
-      // Upload via DecapCMS media library
+      // Upload file using DecapCMS mediaLibrary API
       const uploaded = await mediaLibrary.persistMedia(file);
-      uploadedUrls.push(uploaded.public_path); // gets the correct public URL
+      uploadedUrls.push(uploaded.public_path);
     }
 
     const updatedImages = [...currentImages, ...uploadedUrls];
@@ -37,29 +37,46 @@ function createGalleryControl({ value, onChange, entry, mediaPaths, mediaLibrary
     });
   }
 
-  return h('div', {},
-    h('p', {}, `Folder: ${folderPath}`),
+  return h('div', { style: { fontFamily: 'Arial, sans-serif' } },
+    h('p', { style: { fontWeight: 'bold' } }, `Folder: ${folderPath}`),
     h('input', {
       type: 'file',
       multiple: true,
       onChange: handleUpload,
+      style: { marginBottom: '10px' }
     }),
-    h('ul', {},
+    h('ul', { style: { padding: 0 } },
       currentImages.map((img, i) =>
-        h('li', { key: i, style: { listStyle: 'none', margin: '10px 0' } },
+        h('li', {
+          key: i,
+          style: {
+            listStyle: 'none',
+            marginBottom: '10px',
+            display: 'flex',
+            alignItems: 'center'
+          }
+        },
           h('img', {
             src: img,
-            style: { maxWidth: '100px', marginRight: '10px' }
+            alt: `Gallery image ${i + 1}`,
+            style: {
+              maxWidth: '100px',
+              maxHeight: '100px',
+              marginRight: '10px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+              objectFit: 'cover'
+            }
           }),
           h('button', {
             onClick: () => handleDelete(i),
             style: {
-              background: '#e74c3c',
-              color: '#fff',
+              backgroundColor: '#e74c3c',
               border: 'none',
+              color: 'white',
               padding: '5px 10px',
-              borderRadius: '4px',
               cursor: 'pointer',
+              borderRadius: '4px'
             }
           }, 'Delete')
         )
@@ -69,13 +86,31 @@ function createGalleryControl({ value, onChange, entry, mediaPaths, mediaLibrary
 }
 
 function createGalleryPreview({ value }) {
-  const images = (value && value.images) || [];
-  return h('div', {},
+  const images = (value && Array.isArray(value.images)) ? value.images : [];
+
+  return h('div', {
+    style: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '10px',
+      padding: '10px',
+      border: '1px solid #ccc',
+      borderRadius: '8px',
+      fontFamily: 'Arial, sans-serif'
+    }
+  },
     images.map((src, i) =>
       h('img', {
-        src,
         key: i,
-        style: { maxWidth: '100px', margin: '5px' }
+        src,
+        alt: `Gallery preview ${i + 1}`,
+        style: {
+          maxWidth: '100px',
+          maxHeight: '100px',
+          objectFit: 'cover',
+          borderRadius: '4px',
+          border: '1px solid #ddd'
+        }
       })
     )
   );
