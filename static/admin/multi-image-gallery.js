@@ -1,6 +1,6 @@
 CMS.registerWidget('gallery-upload', createGalleryControl, createGalleryPreview);
 
-function createGalleryControl({ value, onChange, entry }) {
+function createGalleryControl({ value, onChange, entry, mediaPaths, mediaLibrary }) {
   const folderSlug = entry?.get('slug') || 'default-slug';
   const folderPath = `images/activities/${folderSlug}/${folderSlug}-gallery`;
   const publicPath = `/images/activities/${folderSlug}/${folderSlug}-gallery`;
@@ -12,17 +12,17 @@ function createGalleryControl({ value, onChange, entry }) {
     }
   }
 
-  function handleUpload(e) {
-    const files = Array.from(e.target.files);
-    const uploaded = [];
+  async function handleUpload(event) {
+    const files = Array.from(event.target.files);
+    const uploadedUrls = [];
 
-    files.forEach((file) => {
-      const path = `${publicPath}/${file.name}`;
-      uploaded.push(path);
-    });
+    for (const file of files) {
+      // Upload via DecapCMS media library
+      const uploaded = await mediaLibrary.persistMedia(file);
+      uploadedUrls.push(uploaded.public_path); // gets the correct public URL
+    }
 
-    const updatedImages = [...currentImages, ...uploaded];
-
+    const updatedImages = [...currentImages, ...uploadedUrls];
     onChange({
       folder: folderPath,
       images: updatedImages,
@@ -49,18 +49,17 @@ function createGalleryControl({ value, onChange, entry }) {
         h('li', { key: i, style: { listStyle: 'none', margin: '10px 0' } },
           h('img', {
             src: img,
-            style: { maxWidth: '100px', marginRight: '10px', display: 'inline-block' }
+            style: { maxWidth: '100px', marginRight: '10px' }
           }),
           h('button', {
             onClick: () => handleDelete(i),
             style: {
-              display: 'inline-block',
               background: '#e74c3c',
               color: '#fff',
               border: 'none',
               padding: '5px 10px',
+              borderRadius: '4px',
               cursor: 'pointer',
-              borderRadius: '4px'
             }
           }, 'Delete')
         )
