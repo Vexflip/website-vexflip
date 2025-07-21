@@ -1,189 +1,141 @@
 const MultiImageFolderControl = window.createClass({
   getInitialState() {
+    const value = this.props.value || {};
     return {
-      uploadingPreviews: [], // base64 previews of newly added files
-      uploadingFiles: [],    // actual File objects to upload later (if needed)
-      images: [],            // list of image URLs (or paths) to show (both existing and newly added)
+      images: value.images || [],
+      folder: value.folder || '',
     };
   },
 
-  componentDidMount() {
-    // On mount, try to fetch the list of images in the folder path if possible
-    // NOTE: Without backend API, this is not possible in default DecapCMS widget environment.
-    // So if you can provide an array of existing images in frontmatter or via props, initialize state here.
-    if (this.props.value && Array.isArray(this.props.value.images)) {
-      this.setState({ images: this.props.value.images });
-    }
+  openMediaLibrary() {
+    const mediaLib = window.CMS.getMediaLibrary();
+
+    mediaLib.show({ allowMultiple: true });
+
+    mediaLib.on('insert', selectedAssets => {
+      const newImagePaths = selectedAssets.map(asset => asset.url || asset.path);
+
+      // Derive common folder path (basic version)
+      const folder = this.deriveFolderFromImage(newImagePaths[0]);
+
+      this.setState(
+        state => ({
+          images: [...state.images, ...newImagePaths],
+          folder: folder || state.folder,
+        }),
+        () => this.emitChange()
+      );
+    });
   },
 
-  handleFiles(event) {
-    const files = Array.from(event.target.files);
-    if (files.length === 0) return;
-
-    const previews = [];
-    const filesToAdd = [];
-    let loadedCount = 0;
-
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        previews.push(e.target.result);
-        filesToAdd.push(file);
-        loadedCount++;
-        if (loadedCount === files.length) {
-          this.setState(state => ({
-            uploadingPreviews: [...state.uploadingPreviews, ...previews],
-            uploadingFiles: [...state.uploadingFiles, ...filesToAdd],
-            images: [...state.images, ...previews], // temporarily show previews as image URLs
-          }));
-          // Update frontmatter with folder path and images list
-          // You may only want to store folder path, but storing images array helps preview
-          this.emitChange();
-        }
-      };
-      reader.readAsDataURL(file);
-    });
+  deriveFolderFromImage(imageUrl) {
+    // Example: "/images/activities/my-event/my-event-gallery/img1.jpg"
+    // => "/images/activities/my-event/my-event-gallery"
+    if (!imageUrl) return '';
+    const parts = imageUrl.split('/');
+    return parts.slice(0, -1).join('/');
   },
 
   emitChange() {
-    // Save just the folder path to frontmatter (this.props.value.folder)
-    // Optionally, save images array if you want to store list of images for preview
-    this.props.onChange({
-      folder: this.props.value?.folder || 'gallery-uploads',
-      images: this.state.images,
-    });
+    const { folder, images } = this.state;
+    this.props.onChange({ folder, images });
   },
 
   removeImage(index) {
-    this.setState(state => {
-      const newImages = [...state.images];
-      newImages.splice(index, 1);
-
-      // Also remove from uploadingPreviews if it's a preview image
-      const newUploadingPreviews = [...state.uploadingPreviews];
-      if (index < newUploadingPreviews.length) {
-        newUploadingPreviews.splice(index, 1);
-      }
-
-      return {
-        images: newImages,
-        uploadingPreviews: newUploadingPreviews,
-      };
-    }, () => this.emitChange());
-  },
-
-  triggerFileInput() {
-    this.fileInput.click();
+    this.setState(
+      state => {
+        const newImages = [...state.images];
+        newImages.splice(index, 1);
+        return { images: newImages };
+      },
+      () => this.emitChange()
+    );
   },
 
   render() {
-    return window.h('div', { style: { fontFamily: 'sans-serif' } }, [
+    const { images, folder } = this.state;
+
+    return window.h('div', {}, [
       window.h(
         'button',
         {
           type: 'button',
-          onClick: () => this.triggerFileInput(),
+          onClick: this.openMediaLibrary,
           style: {
-            backgroundColor: '#ff4081',
-            color: 'white',
+            backgroundColor: '#2196f3',
+            color: '#fff',
             border: 'none',
-            borderRadius: '6px',
-            padding: '10px 20px',
+            borderRadius: '4px',
+            padding: '10px 16px',
             cursor: 'pointer',
-            fontSize: '16px',
-            boxShadow: '0 4px 8px rgba(255, 64, 129, 0.3)',
-            transition: 'background-color 0.3s ease',
             marginBottom: '10px',
           },
-          onMouseOver: e => (e.currentTarget.style.backgroundColor = '#e73370'),
-          onMouseOut: e => (e.currentTarget.style.backgroundColor = '#ff4081'),
         },
-        'Add Images'
+        'Add Images from Media Library'
       ),
-      window.h('input', {
-        type: 'file',
-        multiple: true,
-        accept: 'image/*',
-        style: { display: 'none' },
-        ref: input => (this.fileInput = input),
-        onChange: e => this.handleFiles(e),
-      }),
-      this.state.images.length > 0 &&
+      images.length > 0 &&
         window.h(
           'div',
-          {
-            style: {
-              display: 'flex',
-              gap: '10px',
-              flexWrap: 'wrap',
-              marginTop: '10px',
-            },
-          },
-          this.state.images.map((src, i) =>
-            window.h(
-              'div',
-              {
-                key: i,
+          { style: { display: 'flex', flexWrap: 'wrap', gap: '10px' } },
+          images.map((src, index) =>
+            window.h('div', { key: index, style: { position: 'relative' } }, [
+              window.h('img', {
+                src,
                 style: {
-                  position: 'relative',
                   width: '100px',
                   height: '100px',
+                  objectFit: 'cover',
+                  borderRadius: '4px',
                 },
-              },
-              [
-                window.h('img', {
-                  src,
-                  alt: '',
+              }),
+              window.h(
+                'button',
+                {
+                  onClick: () => this.removeImage(index),
                   style: {
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '6px',
-                    boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+                    position: 'absolute',
+                    top: '4px',
+                    right: '4px',
+                    background: 'rgba(0,0,0,0.6)',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '20px',
+                    height: '20px',
+                    cursor: 'pointer',
+                    textAlign: 'center',
                   },
-                }),
-                window.h(
-                  'button',
-                  {
-                    type: 'button',
-                    onClick: () => this.removeImage(i),
-                    style: {
-                      position: 'absolute',
-                      top: '4px',
-                      right: '4px',
-                      background: 'rgba(0,0,0,0.6)',
-                      border: 'none',
-                      borderRadius: '50%',
-                      width: '20px',
-                      height: '20px',
-                      color: 'white',
-                      cursor: 'pointer',
-                      fontWeight: 'bold',
-                      lineHeight: '20px',
-                      textAlign: 'center',
-                    },
-                    title: 'Delete image',
-                  },
-                  '×'
-                ),
-              ]
-            )
+                },
+                '×'
+              ),
+            ])
           )
         ),
-      this.props.value?.folder &&
-        window.h(
-          'p',
-          { style: { marginTop: '1rem', fontStyle: 'italic', color: '#666' } },
-          `Current gallery folder: ${this.props.value.folder}`
-        ),
+      folder &&
+        window.h('p', {
+          style: {
+            marginTop: '10px',
+            fontStyle: 'italic',
+            color: '#666',
+          },
+        }, `Folder: ${folder}`),
     ]);
   },
 });
 
 const MultiImageFolderPreview = window.createClass({
   render() {
-    const folder = this.props.value?.folder || 'No folder selected';
-    return window.h('p', {}, folder);
+    const { images = [], folder = '' } = this.props.value || {};
+    return window.h('div', {}, [
+      window.h('p', {}, `Folder: ${folder}`),
+      images.map((src, i) =>
+        window.h('img', {
+          key: i,
+          src,
+          style: { maxWidth: '80px', marginRight: '5px', marginBottom: '5px' },
+        })
+      ),
+    ]);
   },
 });
 

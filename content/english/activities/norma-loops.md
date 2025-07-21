@@ -19,7 +19,9 @@ activity:
     video: "videos/activities/norma-loops/norma-loops-bg.mp4"
     image: images/activities/norma-loops/norma-loops-1.jpg
     logo: images/activities/norma-loops/norma-loops-logo.png
-    gallery: images/activities/norma-loops/norma-loops-gallery
+    gallery:
+      folder: images/activities/norma-loops/norma-loops-gallery
+      images: []
     contact_form_action: none       
     openstreet_map:
         enable: true

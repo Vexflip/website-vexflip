@@ -22,7 +22,12 @@ activity:
   logo: images/activities/norma-zen/norma-zen-logo.png
   name: Norma Zen
   contact_form_action: none
-  gallery: images/activities/norma-loops/norma-loops-gallery
+  gallery:
+    folder: images/activities/norma-loops/norma-loops-gallery
+    images: 
+      - /images/activities/my-event/my-event-gallery/img1.jpg
+      - /images/activities/my-event/my-event-gallery/img2.jpg
+     
   video: videos/activities/norma-loops/norma-loops-bg.mp4
   image: images/activities/norma-zen/norma-zen-1.jpg
   description: Norma Zen is a tranquil escape nestled in the heart of the La Norma

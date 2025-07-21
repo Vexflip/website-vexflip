@@ -50,7 +50,7 @@ activity:
   name: Norma Kids
   contact_form_action: none
   gallery:
-    folder: gallery-uploads
+    folder: images/activities/norma-loops/norma-loops-gallery
     images: []
   image: images/activities/norma-kids/norma-kids-1.jpg
   description: Welcome to Norma Kids, the ultimate mountain playground where
