@@ -79,12 +79,21 @@ collections:
 
           - { label: Image, name: image, widget: image, hint: "Téléchargez une image principale représentant l’activité." }
           - { label: Logo, name: logo, widget: image, hint: "Téléchargez un logo lié à l’activité." }
-          - label: Galerie
-            name: gallery
-            widget: list
-            hint: "Téléchargez plusieurs images liées à l'activité."
+          - label: "Galerie"
+            required: false
+            name: gallery-image
+            widget: "list"
+            hint: "Ajoutez plusieurs images pour la galerie."
             fields:
-              - { label: Image, name: image, widget: image }
+              - label: "Image"
+                name: "image"
+                widget: "image"
+                media_folder: "static/images/activities/{{fields.activity.name}}/{{fields.activity.name}}-gallery"
+                public_folder: "/images/activities/{{fields.activity.name}}/{{fields.activity.name}}-gallery"
+          - label: Galerie Url
+            name: gallery
+            widget: hidden
+            default: "/images/activities/{{fields.activity.name}}/{{fields.activity.name}}-gallery"
           - { label: Action du formulaire de contact, name: contact_form_action, widget: string, required: false, hint: "Addresse mail : ex : « joesph@gmail.com »" }
 
           - label: OpenStreetMap
@@ -119,12 +128,21 @@ collections:
           - { label: Description, name: description, widget: markdown, required: true, hint: "Description détaillée de l’événement." }
           - { label: Image principale, name: image, widget: image, required: false, hint: "Image principale de l’événement." }
           - { label: Logo, name: logo, widget: image, required: false, hint: "Logo optionnel de l’événement." }
-          - label: Galerie
-            name: gallery
-            widget: list
-            hint: "Téléchargez plusieurs images liées à l’événement."
+          - label: "Galérie"
+            required: false
+            name: gallery-image
+            widget: "list"
+            hint: "Ajoutez plusieurs images pour la galérie."
             fields:
-              - { label: Image, name: image, widget: image }
+              - label: "Image"
+                name: "image"
+                widget: "image"
+                media_folder: "static/images/event/{{fields.event.name}}/{{fields.event.name}}-gallery"
+                public_folder: "/images/event/{{fields.event.name}}/{{fields.event.name}}-gallery"
+          - label: Galerie Url
+            name: gallery
+            widget: hidden
+            default: "/images/event/{{fields.event.name}}/{{fields.event.name}}-gallery"
           - label: Tags
             name: tags
             widget: select

@@ -28,6 +28,8 @@ activity:
     image: images/activities/norma-kids/norma-kids-1.jpg
     logo: images/activities/norma-kids/norma-kids-logo.png
     gallery: images/activities/norma-loops/norma-loops-gallery
+    gallery-image: 
+      - test.jpg
     contact_form_action: none
     openstreet_map:
         enable: true
