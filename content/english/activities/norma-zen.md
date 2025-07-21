@@ -19,12 +19,12 @@ activity:
     latitude: 45.2011768133446
     longitude: 6.696381917465995
     zoom: 15
-  logo: images/activities/norma_zen/normazen-logo.png
+  logo: images/activities/norma-zen/norma-zen-logo.png
   name: Norma Zen
   contact_form_action: none
-  gallery: images/activities/norma_loops/norma_loops-gallery
-  video: videos/activities/norma_loops/norma_loops-bg.mp4
-  image: images/activities/norma_zen/normazen-1.jpg
+  gallery: images/activities/norma-loops/norma-loops-gallery
+  video: videos/activities/norma-loops/norma-loops-bg.mp4
+  image: images/activities/norma-zen/norma-zen-1.jpg
   description: Norma Zen is a tranquil escape nestled in the heart of the La Norma
     alpine resort, designed to harmonize mountain energy with modern
     mindfulness.

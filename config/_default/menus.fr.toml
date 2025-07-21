@@ -43,19 +43,19 @@ weight = 2
 [[main]]
 parent = "Activités"
 name = "Norma Loops"
-url = "activities/norma_loops"
+url = "activities/norma-loops"
 weight = 1
 
 [[main]]
 parent = "Activités"
 name = "Norma Zen"
-url = "activities/norma_zen"
+url = "activities/norma-zen"
 weight = 2
 
 [[main]]
 parent = "Activités"
 name = "Norma Kids"
-url = "activities/norma_kids"
+url = "activities/norma-kids"
 weight = 3
 
 [[main]]

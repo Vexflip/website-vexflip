@@ -16,10 +16,10 @@ activity:
             hours: "12:00 - 20:00"
           - day: "Tuesday"
             hours: "10:00 - 16:00"
-    video: "videos/activities/norma_loops/norma_loops-bg.mp4"
-    image: images/activities/norma_loops/normaloops-1.jpg
-    logo: images/activities/norma_loops/normaloops-logo.png
-    gallery: images/activities/norma_loops/norma_loops-gallery
+    video: "videos/activities/norma-loops/norma-loops-bg.mp4"
+    image: images/activities/norma-loops/norma-loops-1.jpg
+    logo: images/activities/norma-loops/norma-loops-logo.png
+    gallery: images/activities/norma-loops/norma-loops-gallery
     contact_form_action: none       
     openstreet_map:
         enable: true

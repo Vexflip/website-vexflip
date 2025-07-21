@@ -1,3 +1,4 @@
 ---
 title: "Activities"
+NoCMS: True
 ---

@@ -25,9 +25,9 @@ activity:
             hours: "12:00 - 20:00"
           - day: "Tuesday"
             hours: "10:00 - 16:00"
-    image: images/activities/norma_kids/normakids-1.jpg
-    logo: images/activities/norma_kids/normakids-logo.png
-    gallery: images/activities/norma_loops/norma_loops-gallery
+    image: images/activities/norma-kids/norma-kids-1.jpg
+    logo: images/activities/norma-kids/norma-kids-logo.png
+    gallery: images/activities/norma-loops/norma-loops-gallery
     contact_form_action: none
     openstreet_map:
         enable: true
