@@ -1,65 +1,75 @@
-const MultiImageControl = window.createClass({
+const MultiImageFolderControl = window.createClass({
   getInitialState() {
-    return { fileNames: [], previews: [], images: [] };
+    return {
+      uploadingPreviews: [], // base64 previews of newly added files
+      uploadingFiles: [],    // actual File objects to upload later (if needed)
+      images: [],            // list of image URLs (or paths) to show (both existing and newly added)
+    };
+  },
+
+  componentDidMount() {
+    // On mount, try to fetch the list of images in the folder path if possible
+    // NOTE: Without backend API, this is not possible in default DecapCMS widget environment.
+    // So if you can provide an array of existing images in frontmatter or via props, initialize state here.
+    if (this.props.value && Array.isArray(this.props.value.images)) {
+      this.setState({ images: this.props.value.images });
+    }
   },
 
   handleFiles(event) {
     const files = Array.from(event.target.files);
+    if (files.length === 0) return;
 
-    // Append new files to existing ones
-    const allFiles = this.state.images.concat(files);
-
-    // Update fileNames and images state
-    const fileNames = allFiles.map(f => f.name);
-
-    // Read all files as data URLs for preview
     const previews = [];
-    let filesProcessed = 0;
+    const filesToAdd = [];
+    let loadedCount = 0;
 
-    allFiles.forEach((file, index) => {
+    files.forEach(file => {
       const reader = new FileReader();
       reader.onload = e => {
-        previews[index] = e.target.result;
-        filesProcessed++;
-        if (filesProcessed === allFiles.length) {
-          this.setState({ previews, fileNames, images: allFiles });
-          // Update frontmatter data
-          const paths = allFiles.map(file => ({ image: file.name, alt: '' }));
-          this.props.onChange(paths);
+        previews.push(e.target.result);
+        filesToAdd.push(file);
+        loadedCount++;
+        if (loadedCount === files.length) {
+          this.setState(state => ({
+            uploadingPreviews: [...state.uploadingPreviews, ...previews],
+            uploadingFiles: [...state.uploadingFiles, ...filesToAdd],
+            images: [...state.images, ...previews], // temporarily show previews as image URLs
+          }));
+          // Update frontmatter with folder path and images list
+          // You may only want to store folder path, but storing images array helps preview
+          this.emitChange();
         }
       };
       reader.readAsDataURL(file);
     });
   },
 
-  removeImage(index) {
-    const images = [...this.state.images];
-    images.splice(index, 1);
-
-    // Update previews and fileNames accordingly
-    const fileNames = images.map(f => f.name);
-    const previews = [];
-
-    if (images.length === 0) {
-      this.setState({ images: [], previews: [], fileNames: [] });
-      this.props.onChange([]);
-      return;
-    }
-
-    let filesProcessed = 0;
-    images.forEach((file, i) => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        previews[i] = e.target.result;
-        filesProcessed++;
-        if (filesProcessed === images.length) {
-          this.setState({ images, previews, fileNames });
-          const paths = images.map(file => ({ image: file.name, alt: '' }));
-          this.props.onChange(paths);
-        }
-      };
-      reader.readAsDataURL(file);
+  emitChange() {
+    // Save just the folder path to frontmatter (this.props.value.folder)
+    // Optionally, save images array if you want to store list of images for preview
+    this.props.onChange({
+      folder: this.props.value?.folder || 'gallery-uploads',
+      images: this.state.images,
     });
+  },
+
+  removeImage(index) {
+    this.setState(state => {
+      const newImages = [...state.images];
+      newImages.splice(index, 1);
+
+      // Also remove from uploadingPreviews if it's a preview image
+      const newUploadingPreviews = [...state.uploadingPreviews];
+      if (index < newUploadingPreviews.length) {
+        newUploadingPreviews.splice(index, 1);
+      }
+
+      return {
+        images: newImages,
+        uploadingPreviews: newUploadingPreviews,
+      };
+    }, () => this.emitChange());
   },
 
   triggerFileInput() {
@@ -88,7 +98,7 @@ const MultiImageControl = window.createClass({
           onMouseOver: e => (e.currentTarget.style.backgroundColor = '#e73370'),
           onMouseOut: e => (e.currentTarget.style.backgroundColor = '#ff4081'),
         },
-        'Upload Images'
+        'Add Images'
       ),
       window.h('input', {
         type: 'file',
@@ -98,7 +108,7 @@ const MultiImageControl = window.createClass({
         ref: input => (this.fileInput = input),
         onChange: e => this.handleFiles(e),
       }),
-      this.state.previews.length > 0 &&
+      this.state.images.length > 0 &&
         window.h(
           'div',
           {
@@ -109,7 +119,7 @@ const MultiImageControl = window.createClass({
               marginTop: '10px',
             },
           },
-          this.state.previews.map((src, i) =>
+          this.state.images.map((src, i) =>
             window.h(
               'div',
               {
@@ -118,43 +128,41 @@ const MultiImageControl = window.createClass({
                   position: 'relative',
                   width: '100px',
                   height: '100px',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
-                  overflow: 'hidden',
                 },
               },
               [
                 window.h('img', {
                   src,
-                  alt: this.state.fileNames[i],
+                  alt: '',
                   style: {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    display: 'block',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
                   },
                 }),
                 window.h(
                   'button',
                   {
+                    type: 'button',
                     onClick: () => this.removeImage(i),
                     style: {
                       position: 'absolute',
                       top: '4px',
                       right: '4px',
-                      backgroundColor: 'rgba(0,0,0,0.6)',
+                      background: 'rgba(0,0,0,0.6)',
                       border: 'none',
                       borderRadius: '50%',
                       width: '20px',
                       height: '20px',
                       color: 'white',
-                      fontWeight: 'bold',
                       cursor: 'pointer',
-                      lineHeight: '18px',
-                      padding: 0,
+                      fontWeight: 'bold',
+                      lineHeight: '20px',
+                      textAlign: 'center',
                     },
-                    title: 'Remove image',
-                    type: 'button',
+                    title: 'Delete image',
                   },
                   '×'
                 ),
@@ -162,21 +170,21 @@ const MultiImageControl = window.createClass({
             )
           )
         ),
+      this.props.value?.folder &&
+        window.h(
+          'p',
+          { style: { marginTop: '1rem', fontStyle: 'italic', color: '#666' } },
+          `Current gallery folder: ${this.props.value.folder}`
+        ),
     ]);
   },
 });
 
-const MultiImagePreview = window.createClass({
+const MultiImageFolderPreview = window.createClass({
   render() {
-    const images = this.props.value || [];
-    return window.h(
-      'ul',
-      {},
-      images.map((img, index) =>
-        window.h('li', { key: index }, img.image || 'No file name')
-      )
-    );
+    const folder = this.props.value?.folder || 'No folder selected';
+    return window.h('p', {}, folder);
   },
 });
 
-CMS.registerWidget('multiimagegallery', MultiImageControl, MultiImagePreview);
+CMS.registerWidget('multiimagefolder', MultiImageFolderControl, MultiImageFolderPreview);
