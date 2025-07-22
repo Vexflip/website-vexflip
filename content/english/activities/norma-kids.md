@@ -50,8 +50,8 @@ activity:
   name: Norma Kids
   contact_form_action: none
   gallery:
-      - image: /images/activities/norma-loops/norma-loops-gallery/01.jpg
-
+    - image: /images/activities/norma-loops/norma-loops-gallery/01.jpg
+    - image: /images/activities/map-activity-map-gallery-image-list-test-jpg-horaire-list-map-window-27-05-2025-19-06-2025-entries-list-map-day-monday-hours-10-00-18-00-map-day-tuesday-hours-11-00-17-00-map/map-activity-map-gallery-image-list-test-jpg-horaire-list-map-window-27-05-2025-19-06-2025-entries-list-map-day-monday-hours-10-00-18-00-map-day-tuesday-hours-11-00-17-00-map-gallery/no-search-found.png
   image: images/activities/norma-kids/norma-kids-1.jpg
   description: Welcome to Norma Kids, the ultimate mountain playground where
     curiosity meets adventure! Specially designed for children aged 3 to 12,
