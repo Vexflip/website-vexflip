@@ -1,109 +1,139 @@
-(function registerGalleryWidgetWhenReady() {
-  function register() {
-    const GalleryControl = ({ value, onChange, entry, forID, className }) => {
-      const slug = entry?.get('slug') || 'default-slug';
-      const generatedFolder = `images/activities/${slug}/${slug}-gallery`;
-      const images = value?.get('images') || [];
+CMS.registerWidget('gallery', GalleryControl, GalleryPreview);
 
-      React.useEffect(() => {
-        if (!value?.get('folder') || value.get('folder') !== generatedFolder) {
-          onChange(value.set('folder', generatedFolder));
-        }
-      }, [slug]);
+function GalleryControl({ value, onChange, forID, className }) {
+  // Default structure
+  const data = value || { folder: '', images: [] };
+  const folder = data.folder || '';
+  const images = data.images || [];
 
-      const handleImageAdd = (imagePath) => {
-        const updatedImages = images.push(imagePath);
-        onChange(value.set('images', updatedImages));
-      };
+  // Add new image path to images list
+  function handleImageAdd(event) {
+    const file = event.target.files[0];
+    if (!file) return;
 
-      const handleImageDelete = (index) => {
-        const updatedImages = images.delete(index);
-        onChange(value.set('images', updatedImages));
-      };
+    // Ensure no trailing slash on folder
+    const cleanFolder = folder.replace(/\/+$/, '');
 
-      return (
-        <div id={forID} className={className}>
-          <input type="hidden" value={generatedFolder} readOnly />
-          <div style={{ marginBottom: '1em' }}>
-            <strong>Gallery Folder:</strong> <code>{generatedFolder}</code>
-          </div>
+    // Create image path with leading slash
+    const imagePath = `/${cleanFolder}/${file.name}`;
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-            {images.map((img, idx) => (
-              <div key={idx} style={{ position: 'relative' }}>
-                <img
-                  src={img}
-                  alt=""
-                  style={{
-                    width: '100px',
-                    height: '100px',
-                    objectFit: 'cover',
-                    borderRadius: '4px',
-                    boxShadow: '0 0 3px rgba(0,0,0,0.2)',
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => handleImageDelete(idx)}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    background: 'rgba(255, 0, 0, 0.8)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '0 4px 0 4px',
-                    cursor: 'pointer',
-                    padding: '2px 6px',
-                  }}
-                  title="Remove image"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
+    // Append new image path
+    const newImages = [...images, imagePath];
+    onChange({ folder, images: newImages });
 
-          <div style={{ marginTop: '1em' }}>
-            <NetlifyCmsWidgetImage
-              onChange={(e) => {
-                const imagePath = e?.toJS?.().value || e;
-                if (imagePath) handleImageAdd(imagePath);
-              }}
-            />
-          </div>
-        </div>
-      );
-    };
-
-    const GalleryPreview = ({ value }) => {
-      const images = value?.get('images') || [];
-      return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-          {images.map((img, idx) => (
-            <img
-              key={idx}
-              src={img}
-              alt=""
-              style={{ width: '100px', height: '100px', objectFit: 'cover' }}
-            />
-          ))}
-        </div>
-      );
-    };
-
-    window.CMS.registerWidget('gallery', GalleryControl, GalleryPreview);
+    // Reset file input value so same file can be uploaded again if needed
+    event.target.value = null;
   }
 
-  if (window.CMS) {
-    register();
-  } else {
-    window.addEventListener('load', () => {
-      if (window.CMS) {
-        register();
-      } else {
-        console.error('DecapCMS not found when trying to register custom widget.');
+  // Delete image at index
+  function handleImageDelete(index) {
+    const newImages = images.slice();
+    newImages.splice(index, 1);
+    onChange({ folder, images: newImages });
+  }
+
+  return h('div', { id: forID, className, style: { fontFamily: 'sans-serif' } },
+    h('label', { htmlFor: forID + '-folder' }, 'Gallery Folder:'),
+    h('input', {
+      id: forID + '-folder',
+      type: 'text',
+      value: folder,
+      placeholder: 'e.g. images/activities/norma-loops/norma-loops-gallery',
+      style: { width: '100%', marginBottom: '10px', padding: '6px', fontSize: '14px' },
+      onInput: e => onChange({ folder: e.target.value, images }),
+    }),
+
+    h('div', { style: { marginBottom: '10px' } }, 'Images:'),
+
+    h('ul', {
+      style: {
+        listStyle: 'none',
+        padding: 0,
+        marginBottom: '10px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '10px'
       }
-    });
-  }
-})();
+    },
+      images.map((img, idx) => {
+        const src = img.startsWith('/') ? img : '/' + img;
+        return h('li', {
+          key: idx,
+          style: {
+            position: 'relative',
+            width: '120px',
+            height: '90px',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            overflow: 'hidden',
+          }
+        },
+          h('img', {
+            src,
+            alt: `Gallery Image ${idx + 1}`,
+            style: {
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block'
+            }
+          }),
+          h('button', {
+            type: 'button',
+            onClick: () => handleImageDelete(idx),
+            style: {
+              position: 'absolute',
+              top: '4px',
+              right: '4px',
+              backgroundColor: 'rgba(255, 0, 0, 0.7)',
+              border: 'none',
+              borderRadius: '2px',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '12px',
+              padding: '2px 6px',
+            }
+          }, '×')
+        );
+      })
+    ),
+
+    h('input', {
+      type: 'file',
+      accept: 'image/*',
+      onChange: handleImageAdd,
+      style: { fontSize: '14px' },
+    }),
+  );
+}
+
+function GalleryPreview({ value }) {
+  const data = value || {};
+  const images = data.images || [];
+
+  return h('div', { style: { fontFamily: 'sans-serif' } },
+    h('h4', {}, 'Gallery Preview'),
+    h('div', {
+      style: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '10px',
+      }
+    },
+      images.map((img, idx) => {
+        const src = img.startsWith('/') ? img : '/' + img;
+        return h('img', {
+          key: idx,
+          src,
+          alt: `Gallery Preview ${idx + 1}`,
+          style: {
+            width: '150px',
+            height: '100px',
+            objectFit: 'cover',
+            borderRadius: '4px',
+          }
+        });
+      })
+    )
+  );
+}
