@@ -50,8 +50,6 @@ activity:
   name: Norma Kids
   contact_form_action: none
   gallery:
-    folder: ""
-    images:
       - //avatar.png
       - //about-creators.jpg
   image: images/activities/norma-kids/norma-kids-1.jpg

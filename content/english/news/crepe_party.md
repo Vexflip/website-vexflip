@@ -6,7 +6,9 @@ event:
     description: "Welcome to Norma Kids, the ultimate mountain playground where curiosity meets adventure! Specially designed for children aged 3 to 12, Norma Kids transforms the magic of the Alps into a wonderland of laughter, exploration, and snowy (or sunny!) surprises. " 
     image: images/activities/norma-kids/normakids-1.jpg
     logo: images/activities/norma-kids/normakids-logo.png
-    gallery: images/activities/norma-loops/norma-loops-gallery
+    gallery: 
+        - images/activities/norma-loops/norma-loops-gallery/01.jpg
+        - images/activities/norma-loops/norma-loops-gallery/02.jpg
     tags:
         - Event
         - 12-15 age

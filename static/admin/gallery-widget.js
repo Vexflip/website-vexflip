@@ -1,148 +1,110 @@
 const MultiImageFolderControl = window.createClass({
   getInitialState() {
     return {
-      folder: '', // folder path string
-      images: [], // array of image URLs
+      uploading: false,
+      previews: [],
     };
   },
 
   componentDidMount() {
-    this.syncStateWithProps(this.props);
+    const value = this.props.value;
+    if (value && Array.isArray(value.images)) {
+      this.setState({ previews: value.images });
+    }
   },
 
   componentDidUpdate(prevProps) {
-    if (prevProps.value !== this.props.value) {
-      this.syncStateWithProps(this.props);
+    if (prevProps.value !== this.props.value && this.props.value && Array.isArray(this.props.value.images)) {
+      this.setState({ previews: this.props.value.images });
     }
   },
 
-  syncStateWithProps(props) {
-    const value = props.value || {};
-    const folder = value.folder || '';
-    const images = Array.isArray(value.images) ? value.images : [];
-    this.setState({ folder, images });
+  getFolderPath() {
+    const slug = this.props.entry && this.props.entry.getIn(['data', 'slug']) || 'default-slug';
+    return `images/activities/${slug}/${slug}-gallery`;
   },
 
-  getSlug() {
-    // Try to get the slug from entry or fallback
-    const slug = this.props.entry ? this.props.entry.get('slug') : '';
-    if (slug) return slug.toLowerCase().replace(/[^a-z0-9\-]/g, '-');
-    return '';
-  },
+  handleFiles(event) {
+    const files = Array.from(event.target.files);
+    if (!files.length) return;
 
-  handleFolderChange(e) {
-    const folder = e.target.value;
-    this.setState({ folder }, () => {
+    this.setState({ uploading: true });
+
+    this.props.onUpload(files).then(uploadedFiles => {
+      // uploadedFiles: array of { path: 'relative path', url: 'full url' }
+      const folder = this.getFolderPath();
+      const newImagePaths = uploadedFiles.map(f => '/' + f.path);
+      const currentImages = (this.props.value && this.props.value.images) || [];
+      const updatedImages = [...currentImages, ...newImagePaths];
+
       this.props.onChange({
         folder,
-        images: this.state.images,
+        images: updatedImages,
       });
+
+      this.setState({ previews: updatedImages, uploading: false });
+    }).catch(err => {
+      console.error('Upload failed:', err);
+      alert('Upload failed, check console');
+      this.setState({ uploading: false });
+    });
+
+    event.target.value = '';
+  },
+
+
+
+  handleDeletePreview(index) {
+    const previews = [...this.state.previews];
+    previews.splice(index, 1);
+    this.setState({ previews });
+
+    this.props.onChange({
+      folder: this.props.value && this.props.value.folder || this.getFolderPath(),
+      images: previews,
     });
   },
 
-  openMediaLibrary() {
-    if (!this.props.mediaLibrary || !this.props.mediaLibrary.open) {
-      alert('Media library not available');
-      return;
-    }
-    // Open media library with multiple selection
-    this.props.mediaLibrary
-      .open({ allowMultiple: true })
-      .then(selectedAssets => {
-        if (!selectedAssets || selectedAssets.length === 0) return;
-
-        const currentImages = this.state.images || [];
-
-        // Map selected asset URLs to be relative to public_folder
-        // We expect uploads to happen automatically inside folder configured media_folder
-        // So URLs will be like /images/activities/slug/slug-gallery/filename.jpg
-
-        // Just add the URLs (they should already be correct)
-        const newImages = selectedAssets.map(asset => asset.url);
-
-        // Merge with existing, avoid duplicates
-        const mergedImages = [...currentImages];
-        newImages.forEach(url => {
-          if (!mergedImages.includes(url)) mergedImages.push(url);
-        });
-
-        this.setState({ images: mergedImages }, () => {
-          this.props.onChange({
-            folder: this.state.folder,
-            images: mergedImages,
-          });
-        });
-      })
-      .catch(err => {
-        console.error('Media library error:', err);
-      });
-  },
-
-  handleDeleteImage(index) {
-    const images = [...this.state.images];
-    images.splice(index, 1);
-    this.setState({ images }, () => {
-      this.props.onChange({
-        folder: this.state.folder,
-        images,
-      });
-    });
+  triggerFileInput() {
+    this.fileInput.click();
   },
 
   render() {
-    const { folder, images } = this.state;
-    const slug = this.getSlug();
-
-    // If no folder set, suggest default folder based on slug
-    const defaultFolder = slug
-      ? `images/activities/${slug}/${slug}-gallery`
-      : '';
-
     return window.h('div', { style: { fontFamily: 'sans-serif' } }, [
-      window.h(
-        'label',
-        { htmlFor: 'folder-input', style: { fontWeight: 'bold' } },
-        'Gallery Folder Path'
-      ),
-      window.h('input', {
-        id: 'folder-input',
-        type: 'text',
-        value: folder || defaultFolder,
-        onChange: e => this.handleFolderChange(e),
-        placeholder: 'images/activities/your-slug/your-slug-gallery',
-        style: {
-          width: '100%',
-          padding: '8px',
-          marginBottom: '10px',
-          borderRadius: '4px',
-          border: '1px solid #ccc',
-          fontSize: '14px',
-        },
-      }),
       window.h(
         'button',
         {
           type: 'button',
-          onClick: () => this.openMediaLibrary(),
+          onClick: () => this.triggerFileInput(),
+          disabled: this.state.uploading,
           style: {
-            backgroundColor: '#ff4081',
+            backgroundColor: this.state.uploading ? '#ccc' : '#ff4081',
             color: 'white',
             border: 'none',
             borderRadius: '6px',
             padding: '10px 20px',
-            cursor: 'pointer',
+            cursor: this.state.uploading ? 'not-allowed' : 'pointer',
             fontSize: '16px',
             boxShadow: '0 4px 8px rgba(255, 64, 129, 0.3)',
             transition: 'background-color 0.3s ease',
             marginBottom: '10px',
           },
-          onMouseOver: e => (e.currentTarget.style.backgroundColor = '#e73370'),
-          onMouseOut: e => (e.currentTarget.style.backgroundColor = '#ff4081'),
+          onMouseOver: e => !this.state.uploading && (e.currentTarget.style.backgroundColor = '#e73370'),
+          onMouseOut: e => !this.state.uploading && (e.currentTarget.style.backgroundColor = '#ff4081'),
         },
-        'Add Images via Media Library'
+        this.state.uploading ? 'Uploading...' : 'Upload Images'
       ),
 
-      images.length > 0 &&
+      window.h('input', {
+        type: 'file',
+        multiple: true,
+        accept: 'image/*',
+        style: { display: 'none' },
+        ref: input => (this.fileInput = input),
+        onChange: e => this.handleFiles(e),
+      }),
+
+      this.state.previews.length > 0 &&
         window.h(
           'div',
           {
@@ -153,12 +115,16 @@ const MultiImageFolderControl = window.createClass({
               marginTop: '10px',
             },
           },
-          images.map((src, i) =>
+          this.state.previews.map((src, i) =>
             window.h(
               'div',
               {
                 key: i,
-                style: { position: 'relative', width: '100px', height: '100px' },
+                style: {
+                  position: 'relative',
+                  width: '100px',
+                  height: '100px',
+                },
               },
               [
                 window.h('img', {
@@ -176,7 +142,7 @@ const MultiImageFolderControl = window.createClass({
                   'button',
                   {
                     type: 'button',
-                    onClick: () => this.handleDeleteImage(i),
+                    onClick: () => this.handleDeletePreview(i),
                     style: {
                       position: 'absolute',
                       top: '4px',
@@ -203,11 +169,11 @@ const MultiImageFolderControl = window.createClass({
           )
         ),
 
-      images.length === 0 &&
+      this.props.value &&
         window.h(
           'p',
-          { style: { fontStyle: 'italic', color: '#666' } },
-          'No images added yet.'
+          { style: { marginTop: '1rem', fontStyle: 'italic', color: '#666' } },
+          `Current gallery folder: ${this.props.value.folder || this.getFolderPath()}`
         ),
     ]);
   },
@@ -215,34 +181,34 @@ const MultiImageFolderControl = window.createClass({
 
 const MultiImageFolderPreview = window.createClass({
   render() {
-    const value = this.props.value || {};
-    const folder = value.folder || 'No folder set';
-    const images = Array.isArray(value.images) ? value.images : [];
-
-    if (images.length === 0) {
-      return window.h('p', {}, `Folder: ${folder} (no images)`);
+    const value = this.props.value;
+    if (!value || !value.images || value.images.length === 0) {
+      return window.h('p', {}, 'No images in gallery');
     }
-
-    return window.h('div', { style: { fontFamily: 'sans-serif' } }, [
-      window.h('p', {}, `Folder: ${folder}`),
-      window.h(
-        'div',
-        { style: { display: 'flex', gap: '10px', flexWrap: 'wrap' } },
-        images.map((src, i) =>
-          window.h('img', {
-            key: i,
-            src,
-            alt: '',
-            style: {
-              width: '60px',
-              height: '60px',
-              objectFit: 'cover',
-              borderRadius: '4px',
-            },
-          })
-        )
-      ),
-    ]);
+    return window.h(
+      'div',
+      {
+        style: {
+          display: 'flex',
+          gap: '10px',
+          flexWrap: 'wrap',
+        },
+      },
+      value.images.map((src, i) =>
+        window.h('img', {
+          key: i,
+          src,
+          alt: '',
+          style: {
+            width: '80px',
+            height: '80px',
+            objectFit: 'cover',
+            borderRadius: '4px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+          },
+        })
+      )
+    );
   },
 });
 

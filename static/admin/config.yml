@@ -81,13 +81,19 @@ collections:
 
           - { label: Image, name: image, widget: image, hint: "Téléchargez une image principale représentant l’activité." }
           - { label: Logo, name: logo, widget: image, hint: "Téléchargez un logo lié à l’activité." }
-          - label: Gallery
+          
+          - label: Gallery Images
             name: gallery
-            widget: galleryWidget
+            widget: list
             required: false
-
-            hint: "Ajoutez plusieurs images pour la galerie."
-  
+            hint: "Add multiple images for the gallery"
+            fields:
+              - label: Image
+                name: image
+                widget: image
+                media_folder: "images/activities/{{slug}}/{{slug}}-gallery"
+                public_folder: "/images/activities/{{slug}}/{{slug}}-gallery"
+            
 
           - { label: Action du formulaire de contact, name: contact_form_action, widget: string, required: false, hint: "Addresse mail : ex : « joesph@gmail.com »" }
 

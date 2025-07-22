@@ -22,8 +22,6 @@ activity:
   name: Norma Loops
   contact_form_action: none
   gallery:
-    folder: images/activities/norma-loops/norma-loops-gallery
-    images:
       - /images/activities/norma-loops/norma-loops-gallery/01.jpg
       - /images/activities/norma-loops/norma-loops-gallery/02.jpg
   video: videos/activities/norma-loops/norma-loops-bg.mp4
