@@ -28,4 +28,6 @@ activity:
   description: Norma Zen is a tranquil escape nestled in the heart of the La Norma
     alpine resort, designed to harmonize mountain energy with modern
     mindfulness.
+  visibleInCMS: true
+
 ---

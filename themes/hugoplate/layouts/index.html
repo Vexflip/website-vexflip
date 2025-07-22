@@ -19,8 +19,8 @@
         <div class="row justify-center">
           <div class="lg:col-7 md:col-9 mb-8 text-center">
             <!-- White transparent box -->
-            <div
-              class=" border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md">
+            <div class=""></div>
+              <!-- White transparent box border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md -->
               <div class="col-12 mb-6">
                 {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[500px]" "DisplayXL" "500x") }}
               </div>
@@ -99,11 +99,11 @@
 
       <div class="flex flex-wrap justify-center gap-8 text-primary">
         <!-- Section Cards -->
-        {{ range $authors.RegularPages }}
-          <div class="w-auto max-w-none">
-            {{ partial "components/card/event-card" . }}
-          </div>
-        {{ end }}
+        {{ range sort (where $authors.RegularPages "Params.event.archive" "ne" true) "Params.event.date_start" "desc" }}
+        <div class="w-auto max-w-none">
+          {{ partial "components/card/event-card" . }}
+        </div>
+      {{ end }}
       </div>
     </div>
   </section>

@@ -30,4 +30,6 @@ activity:
     four‑seasons mountain coaster located at the entrance of the La Norma ski
     resort in the French Alps—Villarodin‑Bourget, Savoie.Norma Loops (also
     spelled NormaLoops) is an exhilarating four‑seasons mountain coaster.
+  visibleInCMS: true
+
 ---

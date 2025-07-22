@@ -7,10 +7,10 @@ event:
     image: images/activities/norma-kids/normakids-1.jpg
     logo: images/activities/norma-kids/normakids-logo.png
     gallery: 
-        - images/activities/norma-loops/norma-loops-gallery/01.jpg
-        - images/activities/norma-loops/norma-loops-gallery/02.jpg
     tags:
         - Event
         - 12-15 age
+    archive: false
+
 
 ---

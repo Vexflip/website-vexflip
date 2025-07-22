@@ -1,4 +1,4 @@
 ---
 title: "Activities"
-NoCMS: True
+visibleInCMS: false
 ---
