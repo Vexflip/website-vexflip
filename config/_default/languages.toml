@@ -8,7 +8,7 @@ flag = "images/flags/gb.svg"
 [fr]
 languageName = "Français"
 weight = 2
-contentDir = "content/english"
+contentDir = "content/french"
 [fr.params]
 flag = "images/flags/fr.svg"
 

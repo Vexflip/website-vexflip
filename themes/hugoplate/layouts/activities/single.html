@@ -10,7 +10,9 @@
         loop
         playsinline
         class="absolute top-0 left-0 w-full h-full object-cover z-0">
-          <source src="{{ "videos/norma-loops-bg.mp4" | relURL }}" type="video/mp4" />
+        <source
+          src="{{ "videos/norma-loops-bg.mp4" | relURL }}"
+          type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -93,11 +95,24 @@
                 </thead>
                 <tbody>
                   {{ $today := now | dateFormat "Monday" }}
-                  {{ range $set.entries }}
-                    {{ $isToday := eq .day $today }}
+                  {{ $weekdays := slice "Monday" "Tuesday" "Wednesday" "Thursday" "Friday" "Saturday" "Sunday" }}
+                  {{ range $i, $day := $weekdays }}
+                    {{ $matches := where $set.entries "day" $day }}
+                    {{ $entry := cond (gt (len $matches) 0) (index $matches 0) nil }}
+                    {{ $isToday := eq $day $today }}
                     <tr class="{{ if $isToday }}font-semibold{{ end }}">
-                      <td class="p-2 border-b">{{ .day }}</td>
-                      <td class="p-2 border-b">{{ .hours }}</td>
+                      <td class="p-2 border-b">{{ $day }}</td>
+                      <td class="p-2 border-b">
+                        {{ if $entry }}
+                          {{ if $entry.hours }}
+                            {{ $entry.hours }}
+                          {{ else }}
+                            Fermé
+                          {{ end }}
+                        {{ else }}
+                          Fermé
+                        {{ end }}
+                      </td>
                     </tr>
                   {{ end }}
                 </tbody>
@@ -140,16 +155,23 @@
                 {{ end }}
               </tbody>
             </table>
+              <!-- Button Link -->
+
           {{ else }}
             <p class="text-center text-gray-500">
               Aucun tarif disponible pour cette activité.
             </p>
           {{ end }}
+                    <div class="text-center mt-4">
+            <a href="{{ "practical-information" | relURL }}" class="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-dark transition">
+              Voir tous les tarifs
+            </a>
+          </div>
         </div>
       </div>
 
-           <!--Notifications-->
-       {{ partial "components/notifications.html" .notifications }}
+      <!--Notifications-->
+      {{ partial "components/notifications.html" .notifications }}
 
 
       <div class="flex flex-col md:flex-row gap-8 justify-center items-stretch">
