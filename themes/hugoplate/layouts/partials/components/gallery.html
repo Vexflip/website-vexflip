@@ -5,15 +5,17 @@
     <div class="grid gap-6 justify-items-center"
          style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
       {{ range . }}
-        <div class="w-full h-64 overflow-hidden rounded-xl shadow-lg">
-          <img
-            src="/website-la-norma/{{ . }}"
-            alt="{{ . | urlize }}"
-            class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105"
-            loading="lazy"
-            onclick="zoomImage(this)"
-          />
-        </div>
+        {{ with .image }}
+          <div class="w-full h-64 overflow-hidden rounded-xl shadow-lg">
+            <img
+              src="/website-la-norma/{{ . }}"
+              alt="{{ . | urlize }}"
+              class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105"
+              loading="lazy"
+              onclick="zoomImage(this)"
+            />
+          </div>
+        {{ end }}
       {{ end }}
     </div>
 
