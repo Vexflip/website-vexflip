@@ -50,8 +50,7 @@ activity:
   name: Norma Kids
   contact_form_action: none
   gallery:
-      - //avatar.png
-      - //about-creators.jpg
+
   image: images/activities/norma-kids/norma-kids-1.jpg
   description: Welcome to Norma Kids, the ultimate mountain playground where
     curiosity meets adventure! Specially designed for children aged 3 to 12,

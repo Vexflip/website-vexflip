@@ -22,8 +22,8 @@ activity:
   name: Norma Loops
   contact_form_action: none
   gallery:
-      - /images/activities/norma-loops/norma-loops-gallery/01.jpg
-      - /images/activities/norma-loops/norma-loops-gallery/02.jpg
+      - image: /images/activities/norma-loops/norma-loops-gallery/01.jpg
+      - image: /images/activities/norma-loops/norma-loops-gallery/02.jpg
   video: videos/activities/norma-loops/norma-loops-bg.mp4
   image: images/activities/norma-loops/norma-loops-1.jpg
   description: Norma Loops (also spelled NormaLoops) is an exhilarating
