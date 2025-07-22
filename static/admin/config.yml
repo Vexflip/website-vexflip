@@ -89,8 +89,8 @@ collections:
               - label: Image
                 name: image
                 widget: image
-                media_folder: "images/activities/{{slug}}/{{slug}}-gallery"
-                public_folder: "/images/activities/{{slug}}/{{slug}}-gallery"
+                media_folder: "/static/images/activities/{{fields.activity.name}}/{{fields.activity.name}}-gallery"
+                public_folder: "/images/activities/{{fields.activity.name}}/{{fields.activity.name}}-gallery"
             
 
           - { label: Action du formulaire de contact, name: contact_form_action, widget: string, required: false, hint: "Addresse mail : ex : « joesph@gmail.com »" }
