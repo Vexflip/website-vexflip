@@ -39,7 +39,7 @@ for root, _, files in os.walk(SOURCE_DIR):
             translated_filename = f"{base}.{TARGET_SUFFIX}{ext}"
             translated_path = os.path.join(root, translated_filename)
 
-            with open(translated_path, "w", encoding="utf-8") as f:
+            with open(translated_path, "wb") as f:
                 frontmatter.dump(new_post, f)
 
             print(f"✅ Saved: {translated_path}")
