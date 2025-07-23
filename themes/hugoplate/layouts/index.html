@@ -22,16 +22,9 @@
             <div class=""></div>
               <!-- White transparent box border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md -->
               <div class="col-12 mb-6">
-                {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[500px]" "DisplayXL" "500x") }}
+                {{ partial "image" (dict "Src" .logo "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[500px]" "DisplayXL" "500x") }}
               </div>
 
-              <h1 class="mb-4 text-3xl lg:text-8xl">
-                {{ .title | markdownify }}
-              </h1>
-
-              <p class="mb-8">
-                {{ .content | markdownify }}
-              </p>
 
               {{ with .button }}
                 {{ if .enable }}
@@ -54,8 +47,19 @@
   {{ end }}
   <!-- /Banner -->
 
+
   <section class="py-12">
     <div class="container mx-auto px-4">
+<div class="text-center mt-16 mb-30">
+  <h1 class="mb-4 text-3xl lg:text-8xl">
+    {{ .Params.banner.title | markdownify }}
+  </h1>
+
+  <p class="mb-8">
+    {{ .Params.banner.content | markdownify }}
+  </p>
+</div>
+
       {{ $authors := site.GetPage "section" "activities" }}
       <!-- Centered Container -->
       <div class="flex justify-center">

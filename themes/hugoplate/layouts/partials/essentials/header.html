@@ -1,5 +1,5 @@
-<header class="header {{ if site.Params.navbar_fixed }} top-0{{ end }} z-30">
-<nav class="navbar container flex items-center justify-between">
+<header class="header {{ if site.Params.navbar_fixed }}top-0{{ end }} z-30">
+  <nav class="navbar container flex items-center justify-between">
     <!-- logo -->
     <div class="order-0">
       <a class="navbar-brand block" href="{{ site.Home.RelPermalink }}">
@@ -30,41 +30,67 @@
       class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8">
       {{ $currentPage := . }}
       {{ range site.Menus.main }}
-        {{ $menuURL := .URL | absLangURL }}
-        {{ $pageURL := $currentPage.Permalink | absLangURL }}
-        {{ $active := eq $menuURL $pageURL }}
+        {{ $menuPage := site.GetPage .URL }}
+        {{ $menuURL := "" }}
+        {{ if $menuPage }}
+          {{ $menuURL = $menuPage.RelPermalink }}
+        {{ else }}
+          {{ $menuURL = .URL }}
+        {{ end }}
+
+        {{ $currentPageURL := $currentPage.RelPermalink }}
+        {{ $active := eq $menuURL $currentPageURL }}
+
         {{ if .HasChildren }}
           <li class="nav-item nav-dropdown group relative">
             <a
-              class="nav-link parent-link {{ if eq .Name "Activities" }}
+              class="nav-link parent-link
+              {{ if eq .Name "Activities" }}
                 {{ $activities := where site.RegularPages "Section" "activities" }}
                 {{ range $activities }}
                   {{ if eq .Permalink $currentPage.Permalink }}active{{ end }}
                 {{ end }}
               {{ else }}
                 {{ range .Children }}
-                  {{ $childURL := .URL | absLangURL }}
-                  {{ if eq $childURL $pageURL }}active{{ end }}
+                  {{ $childPage := site.GetPage .URL }}
+                  {{ $childURL := "" }}
+                  {{ if $childPage }}
+                    {{ $childURL = $childPage.RelPermalink }}
+                  {{ else }}
+                    {{ $childURL = .URL }}
+                  {{ end }}
+                  {{ if eq $childURL $currentPageURL }}active{{ end }}
                 {{ end }}
-              {{ end }} inline-flex items-center"
+              {{ end }}
+              inline-flex items-center"
               href="{{ if findRE `^#` .URL }}
-                {{ if not $.IsHome }}{{ site.Home.RelPermalink }}{{ end }}{{ .URL }}
+                {{ if not $.IsHome }}
+                  {{ site.Home.RelPermalink }}
+                {{ end }}{{ .URL }}
               {{ else }}
-                {{ .URL | relLangURL }}
+                {{ if $menuPage }}
+                  {{ $menuPage.RelPermalink }}
+                {{ else }}
+                  {{ .URL }}
+                {{ end }}
               {{ end }}">
               {{ .Name }}
               <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                <path
+                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
               </svg>
             </a>
 
-            <ul class="nav-dropdown-list lg:group-hover:visible lg:group-hover:opacity-100">
-              {{ if eq .Name "Activities" }}
+            <ul
+              class="nav-dropdown-list lg:group-hover:visible lg:group-hover:opacity-100">
+              {{ if or (eq .Name "Activities") (eq .Name "Activités") }}
                 {{ $activities := where site.RegularPages "Section" "activities" }}
-                {{ range $activities}}
+                {{ range $activities }}
                   <li class="nav-dropdown-item">
                     <a
-                      class="nav-dropdown-link text-dark {{ if eq .Permalink $currentPage.Permalink }}active{{ end }}"
+                      class="nav-dropdown-link text-dark {{ if eq .Permalink $currentPage.Permalink }}
+                        active
+                      {{ end }}"
                       href="{{ .RelPermalink }}">
                       {{ .Params.activity.name }}
                     </a>
@@ -72,16 +98,32 @@
                 {{ end }}
               {{ else }}
                 {{ range .Children }}
-                  {{ $childURL := .URL | absLangURL }}
-                  {{ $active := eq $childURL $pageURL }}
+                  {{ $childPage := site.GetPage .URL }}
+                  {{ $childURL := "" }}
+                  {{ if $childPage }}
+                    {{ $childURL = $childPage.RelPermalink }}
+                  {{ else }}
+                    {{ $childURL = .URL }}
+                  {{ end }}
+                  {{ $activeChild := eq $childURL $currentPageURL }}
                   <li class="nav-dropdown-item">
                     <a
-                      class="nav-dropdown-link {{ if $active }}active{{ end }}"
-                      {{ if findRE `^http` .URL }} target="_blank" rel="noopener" {{ end }}
+                      class="nav-dropdown-link {{ if $activeChild }}
+                        active
+                      {{ end }}"
+                      {{ if findRE `^http` .URL }}
+                        target="_blank" rel="noopener"
+                      {{ end }}
                       href="{{ if findRE `^#` .URL }}
-                        {{ if not $.IsHome }}{{ site.Home.RelPermalink }}{{ end }}{{ .URL }}
+                        {{ if not $.IsHome }}
+                          {{ site.Home.RelPermalink }}
+                        {{ end }}{{ .URL }}
                       {{ else }}
-                        {{ .URL | relLangURL }}
+                        {{ if $childPage }}
+                          {{ $childPage.RelPermalink }}
+                        {{ else }}
+                          {{ .URL }}
+                        {{ end }}
                       {{ end }}">
                       {{ .Name }}
                     </a>
@@ -94,11 +136,19 @@
           <li class="nav-item">
             <a
               class="nav-link {{ if $active }}active{{ end }}"
-              {{ if findRE `^http` .URL }} target="_blank" rel="noopener" {{ end }}
+              {{ if findRE `^http` .URL }}
+                target="_blank" rel="noopener"
+              {{ end }}
               href="{{ if findRE `^#` .URL }}
-                {{ if not $.IsHome }}{{ site.Home.RelPermalink }}{{ end }}{{ .URL }}
+                {{ if not $.IsHome }}
+                  {{ site.Home.RelPermalink }}
+                {{ end }}{{ .URL }}
               {{ else }}
-                {{ .URL | relLangURL }}
+                {{ if $menuPage }}
+                  {{ $menuPage.RelPermalink }}
+                {{ else }}
+                  {{ .URL }}
+                {{ end }}
               {{ end }}">
               {{ .Name }}
             </a>
@@ -148,12 +198,12 @@
     .nav-dropdown-list {
       display: none;
     }
-    @media(min-width:1024px) {
+    @media (min-width: 1024px) {
       .nav-dropdown:hover > .nav-dropdown-list {
         display: block !important;
       }
     }
-    @media(max-width:1023px) {
+    @media (max-width: 1023px) {
       li.nav-item.nav-dropdown.submenu-open > .nav-dropdown-list {
         display: block !important;
       }
@@ -161,17 +211,17 @@
   </style>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const navToggle = document.getElementById('nav-toggle');
-      const parentLinks = document.querySelectorAll('.parent-link');
+    document.addEventListener("DOMContentLoaded", () => {
+      const navToggle = document.getElementById("nav-toggle");
+      const parentLinks = document.querySelectorAll(".parent-link");
 
-      parentLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+      parentLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
           if (navToggle.checked) {
             e.preventDefault();
-            const parentLi = link.closest('li.nav-item.nav-dropdown');
+            const parentLi = link.closest("li.nav-item.nav-dropdown");
             if (parentLi) {
-              parentLi.classList.toggle('submenu-open');
+              parentLi.classList.toggle("submenu-open");
             }
           }
         });

@@ -6,7 +6,8 @@ LIBRETRANSLATE_URL = "https://libretranslate.com/translate"
 SOURCE_LANG = "en"
 TARGET_LANG = "fr"      # e.g. 'fr', 'de'
 TARGET_SUFFIX = TARGET_LANG
-SOURCE_DIR = "content"
+SOURCE_DIR = 'content/english'
+TARGET_DIR = 'content/fr'
 EXCLUDED_FIELDS = {"images", "gallery", "logo"}
 
 def translate_text(text, source_lang, target_lang):
@@ -31,8 +32,8 @@ for root, _, files in os.walk(SOURCE_DIR):
             if os.path.commonpath([src_path, os.path.join(SOURCE_DIR, TARGET_LANG)]) == os.path.join(SOURCE_DIR, TARGET_LANG):
                 continue
 
-            rel_path = os.path.relpath(src_path, SOURCE_DIR)  # like 'activities/foo.md'
-            translated_path = os.path.join(SOURCE_DIR, TARGET_LANG, rel_path)  # like 'content/fr/activities/foo.md'
+            rel_path = os.path.relpath(src_path, SOURCE_DIR)  # gives 'activities/foo.md'
+            translated_path = os.path.join(TARGET_DIR, rel_path)
 
             post = frontmatter.load(src_path)
             print(f"🔁 Translating: {src_path}")

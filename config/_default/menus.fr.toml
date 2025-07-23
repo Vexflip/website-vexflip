@@ -3,39 +3,39 @@
 # main menu
 [[main]]
 name = "Accueil"
-url = "/"
+url = "/fr"
 weight = 1
 
 [[main]]
 name = "Activités"
-url = "/activities"
+url = "/fr/activities"
 weight = 2
 
 [[main]]
 name = "Séminaire et Groupe"
-url = "/seminar_and_group"
+url = "/fr/seminar-and-group"
 weight = 4
 
 [[main]]
 name = "Actualités"
-url = "/news"
+url = "/fr/news"
 weight = 3
 
 [[main]]
 name = "Informations pratiques"
-url = "/practical_information"
+url = "/fr/practical-information"
 weight = 5
 
 
 # footer menu
 [[footer]]
 name = "À propos"
-url = "/about"
+url = "/fr/about"
 weight = 1
 
 [[footer]]
 name = "Mentions légales"
-url = "/mentions-legales"
+url = "/fr/mentions-legales"
 weight = 2
 
 
