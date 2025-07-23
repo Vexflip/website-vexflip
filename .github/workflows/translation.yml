@@ -29,6 +29,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add content/**/*.fr.md
-          git commit -m "🈯 Auto-translation via LibreTranslate"
+          git diff --quiet || git commit -m "🈯 Auto-translation via LibreTranslate"
           git push
         continue-on-error: true  # avoids errors if no new translations

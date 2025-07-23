@@ -34,7 +34,6 @@ collections:
     slug: "{{fields.activity.name}}"
     summary: "{{fields.activity.name}}"
     exclude: _index.md
-    filter: {field: visibleInCMS, value: true}
     editor:
       preview: false
     fields:
