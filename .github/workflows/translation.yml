@@ -5,6 +5,8 @@ on:
     paths:
       - 'content/**/*.md'
 
+  workflow_dispatch:
+
 jobs:
   translate:
     runs-on: ubuntu-latest
