@@ -25,18 +25,22 @@ def translate_text(text, source_lang, target_lang):
 for root, _, files in os.walk(SOURCE_DIR):
     for file in files:
         if file.endswith(".md") and not file.endswith(f".{TARGET_SUFFIX}.md"):
-
             src_path = os.path.join(root, file)
-            rel_path = os.path.relpath(src_path, SOURCE_DIR)  # path relative to 'content'
-            filename = os.path.basename(file)
 
-            # Load and translate
+            # Skip already translated folders (e.g., content/fr/)
+            if os.path.commonpath([src_path, os.path.join(SOURCE_DIR, TARGET_LANG)]) == os.path.join(SOURCE_DIR, TARGET_LANG):
+                continue
+
+            rel_path = os.path.relpath(src_path, SOURCE_DIR)  # like 'activities/foo.md'
+            translated_path = os.path.join(SOURCE_DIR, TARGET_LANG, rel_path)  # like 'content/fr/activities/foo.md'
+
             post = frontmatter.load(src_path)
             print(f"🔁 Translating: {src_path}")
 
+            # Translate content
             translated_content = translate_text(post.content, SOURCE_LANG, TARGET_LANG)
 
-            # Translate metadata (except excluded fields)
+            # Translate metadata (except excluded)
             translated_metadata = {}
             for key, value in post.metadata.items():
                 if key in EXCLUDED_FIELDS:
@@ -48,11 +52,11 @@ for root, _, files in os.walk(SOURCE_DIR):
 
             new_post = frontmatter.Post(translated_content, **translated_metadata)
 
-            # Save to content/<lang>/<original-path>.md
-            translated_output_path = os.path.join(SOURCE_DIR, TARGET_LANG, filename)
-            os.makedirs(os.path.dirname(translated_output_path), exist_ok=True)
+            # Ensure directory exists
+            os.makedirs(os.path.dirname(translated_path), exist_ok=True)
 
-            with open(translated_output_path, "wb") as f:
+            # Save translated file
+            with open(translated_path, "wb") as f:
                 frontmatter.dump(new_post, f)
 
-            print(f"✅ Saved: {translated_output_path}")
+            print(f"✅ Saved: {translated_path}")
