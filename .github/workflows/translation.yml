@@ -19,7 +19,7 @@ jobs:
           python-version: '3.x'
 
       - name: 📦 Install dependencies
-        run: pip install frontmatter requests
+        run: pip install python-frontmatter requests
 
       - name: 🌍 Run translation script
         run: python .github/scripts/translate.py
