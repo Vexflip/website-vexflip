@@ -1,49 +1,50 @@
 {{ define "main" }}
-  {{ partial "page-header" . }}  
 
-  <section class="section-sm">
-    <div class="container">
-      <!-- Contact Form and Info -->
-      <div class="mx-auto max-w-4xl">
-        <!-- Contact Form -->
+  <!-- Contact Section -->
+  <section class="container my-24 bg-white rounded-3xl pb-6 pb-12 shadow-md">
+    
+    <div class="text-center max-w-3xl mx-auto">
+      {{ partial "page-header" . }}
+      
+      {{ with $.Params.description }}
+      <p class="mt-2 mb-8 text-xl text-gray-600 max-w-xl mx-auto pb-8">
+        {{ . | markdownify }}
+      </p>
+      {{ end }}
+    </div>
+    
+    <div class="max-w-4xl mx-auto">
+      <!-- Contact Form -->
+      <div class="mb-12">
         {{ partial "components/contact_form" . }}
+      </div>
 
-        <!-- Contact Info Box -->
-        <div class="mt-12 p-6 bg-gray-100 rounded-lg text-center shadow-md">
-          <h3 class="text-3xl font-semibold mb-4">ou</h3>
+      <!-- Direct Contact Info -->
+      <div class="bg-gray-50 rounded-3xl p-8 text-center shadow-sm">
+        <h3 class="text-3xl font-bold text-gray-900 mb-2">ou</h3>
+        <h4 class="text-2xl font-semibold text-gray-800 mb-6">Contactez-nous directement :</h4>
 
-          <h3 class="text-2xl font-semibold mb-4">Contactez-nous directement :</h3>
+        <p class="mb-3 text-lg text-gray-700">
+          <strong>Téléphone :</strong>
+          <a href="tel:0479055307" class="text-primary hover:underline">04 79 05 53 07</a>
+        </p>
 
-          <p class="mb-2 text-lg">
-            <strong>Téléphone :</strong>
-            <a href="tel:0479055307" class="text-blue-600 hover:underline">
-              04 79 05 53 07
-            </a>
-          </p>
-
-          <p class="text-lg">
-            <strong>Email :</strong>
-            <a href="mailto:contact@confortmedical68.fr" class="text-blue-600 hover:underline">
-              contact@confortmedical68.fr
-            </a>
-          </p>
-        </div>
+        <p class="text-lg text-gray-700">
+          <strong>Email :</strong>
+          <a href="mailto:contact@confortmedical68.fr" class="text-primary hover:underline">contact@confortmedical68.fr</a>
+        </p>
       </div>
     </div>
+  </section>
 
-  <!-- OpenStreetMap -->
-  <div class="container">
-    <div class="bg-body p-6 rounded-4xl shadow-4xl mt-6">
-      <h2 class="text-xl font-semibold mb-4 text-center">Map</h2>
-      
-      <!-- Add height wrapper here -->
-      <div class="w-full h-[500px] md:h-[600px]">
+  <!-- Map Section -->
+  <section class="container mb-24">
+    <div class="bg-white rounded-3xl p-8 shadow-md">
+      <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">Notre emplacement</h2>
+      <div class="w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden">
         {{ partial "components/openstreet_map" .Params }}
       </div>
     </div>
-  </div>
   </section>
-
-
 
 {{ end }}

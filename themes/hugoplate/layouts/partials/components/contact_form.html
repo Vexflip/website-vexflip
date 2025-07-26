@@ -1,31 +1,114 @@
-<form action="{{site.Params.contact_form_action }}" method="POST">
-            <div class="flex flex-col md:flex-row gap-+ items-stretch">
+<form action="{{ site.Params.contact_form_action }}" method="POST">
+  <div class="flex flex-col md:flex-row gap-6 items-stretch">
 
-              <!-- Left column -->
-              <div class="flex-1 flex flex-col justify-between  p-4 rounded-md">
-                <div class="mb-6">
-                  <label for="name" class="form-label">Nom Complet <span class="text-red-500">*</span></label>
-                  <input id="name" name="name" class="form-input" placeholder="Jean-Luc Verel" type="text" />
-                </div>
-                <div class="mb-6">
-                  <label for="email" class="form-label">Email <span class="text-red-500">*</span></label>
-                  <input id="email" name="email" class="form-input" placeholder="jean.luc@email.com" type="email" />
-                </div>
-                <div class="mb-6">
-                  <label for="phone" class="form-label">Téléphone <span class="text-red-500">*</span></label>
-                  <input id="phone" name="phone" class="form-input" placeholder="0XXXXXXXXX" type="phone" />
-                </div>
-              </div>
+    <!-- Left column -->
+    <div class="flex-1 flex flex-col justify-between p-4 rounded-md">
 
-              <!-- Right column (Message) -->
-              <div class="flex-1 flex flex-col  p-4 rounded-md">
-                <div class="mb-6 flex-1 flex flex-col">
-                  <label for="message" class="form-label">Message? <span class="text-red-500">*</span></label>
-                  <textarea id="message" name="message" class="form-input flex-1" placeholder="Placez votre message ici..." rows="8"></textarea>
-                </div>
-              </div>
+      <!-- Two selects side by side -->
+      <div class="mb-6 flex space-x-6">
+        <div class="flex-1">
+          <label for="website-plan" class="block mb-2 text-lg font-medium text-gray-700 text-left">
+            Website Plan
+          </label>
+          <select
+            id="website-plan"
+            name="website_plan"
+            class="w-full px-4 py-3 rounded-xl bg-gray-200 border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none text-gray-800 shadow-sm"
+          >
+            <option value="" disabled selected>Select a website</option>
+            <option value="starter">Starter Site - €399</option>
+            <option value="professional">Professional Site - €1,199</option>
+            <option value="custom">Custom Project - €2,500+</option>
+            <option value="no_website">No Website</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
 
-            </div>
+        <div class="flex-1">
+          <label for="maintenance-plan" class="block mb-2 text-lg font-medium text-gray-700 text-left">
+            Maintenance Plan
+          </label>
+          <select
+            id="maintenance-plan"
+            name="maintenance_plan"
+            class="w-full px-4 py-3 rounded-xl bg-gray-200 border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none text-gray-800 shadow-sm"
+          >
+            <option value="" disabled selected>Select a plan</option>
+            <option value="none">No Maintenance</option>
+            <option value="interested_talk">Interested but need to talk</option>
+            <option value="essentials">Essentials - €39/month</option>
+            <option value="growth">Growth - €169/month</option>
+            <option value="premium_care">Premium Care - €699/month</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+      </div>
 
-            <button type="submit" class="btn btn-primary mt-6 ml-4">Envoyer un message</button>
-        </form>
+      <!-- Other inputs -->
+      <div class="mb-6">
+        <label for="name" class="block mb-2 text-lg font-medium text-gray-700 text-left">
+          Full Name <span class="text-red-500">*</span>
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="John Doe"
+          class="w-full px-4 py-3 rounded-xl bg-gray-200 border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none text-gray-800 placeholder-gray-500 shadow-sm"
+          required
+        />
+      </div>
+
+      <div class="mb-6">
+        <label for="email" class="block mb-2 text-lg font-medium text-gray-700 text-left">
+          Email <span class="text-red-500">*</span>
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="john.doe@email.com"
+          class="w-full px-4 py-3 rounded-xl bg-gray-200 border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none text-gray-800 placeholder-gray-500 shadow-sm"
+          required
+        />
+      </div>
+
+      <div class="mb-6">
+        <label for="phone" class="block mb-2 text-lg font-medium text-gray-700 text-left">
+          Phone <span class="text-red-500">*</span>
+        </label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          placeholder="0XXXXXXXXX"
+          class="w-full px-4 py-3 rounded-xl bg-gray-200 border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none text-gray-800 placeholder-gray-500 shadow-sm"
+          required
+        />
+      </div>
+    </div>
+
+    <!-- Right column (Message) -->
+    <div class="flex-1 flex flex-col p-4 rounded-md">
+      <div class="mb-6 flex-1 flex flex-col">
+        <label for="message" class="block mb-2 text-lg font-medium text-gray-700 text-left">
+          Message <span class="text-red-500">*</span>
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows="8"
+          placeholder="Place your message here..."
+          class="w-full px-4 py-3 rounded-xl bg-gray-200 border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none text-gray-800 shadow-sm resize-none flex-grow"
+          required
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+<div class="mt-6 text-left pl-4">
+  <button type="submit" class="btn btn-primary">
+    Send Message
+  </button>
+</div>
+</form>

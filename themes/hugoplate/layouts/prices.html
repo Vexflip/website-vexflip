@@ -1,12 +1,10 @@
 {{ define "main" }}
 
 <section class="container mt-30 bg-white rounded-3xl pb-16">
-
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center">
-  {{ partial "page-header" . }}
+      {{ partial "page-header" . }}
       {{ with .Params.plan_1.title }}
-
       {{ with $.Params.plan_1.description }}
       <p class="mt-4 text-xl text-gray-600">{{ . | markdownify }}</p>
       {{ end }}
@@ -14,47 +12,50 @@
     {{ end }}
 
     <div class="mt-16">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {{ range .Params.plan_1.plans }}
-    <div class="w-full">
-      <div
-        class="h-full flex flex-col rounded-2xl border transition-shadow transition-transform duration-300 transform relative
-        {{ if .featured }}
-          border-gray-200 bg-primary shadow-lg hover:shadow-2xl hover:scale-105
-        {{ else }}
-          border-gray-200 bg-white shadow-sm hover:shadow-2xl hover:scale-105
-        {{ end }}"
-      >
-          {{ if .featured }}
-<div class="absolute -top-3 left-1/2 transform -translate-x-1/2 rounded-full bg-yellow-400 px-4 py-1 text-sm font-semibold text-dark shadow-md">
-
-    Most Popular
-  </div>
-{{ end }}
-            <div class="p-8 flex flex-col flex-grow">
+        <div class="w-full">
+          <div
+            class="h-full flex flex-col rounded-2xl border transition-shadow transition-transform duration-300 transform relative
+            {{ if .featured }}
+              border-gray-200 bg-primary shadow-lg hover:shadow-2xl hover:scale-105
+            {{ else }}
+              border-gray-200 bg-white shadow-sm hover:shadow-2xl hover:scale-105
+            {{ end }}"
+          >
+            {{ if .featured }}
+            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 rounded-full bg-yellow-400 px-4 py-1 text-sm font-semibold text-dark shadow-md">
+              Most Popular
+            </div>
+            {{ end }}
+            <div class="p-4 md:p-8 flex flex-col flex-grow">
               <div class="mb-6">
-                <h3 class="text-2xl font-bold {{ if .featured }}text-white{{ else }}text-gray-900{{ end }}">{{ .name | markdownify  }}</h3>
-                <p class="mt-2 {{ if .featured }}text-white{{ else }}text-gray-500{{ end }}">{{ .description | markdownify  }}</p>
+                <h3 class="text-xl md:text-2xl font-bold {{ if .featured }}text-white{{ else }}text-gray-900{{ end }}">
+                  {{ .name | markdownify }}
+                </h3>
+                <p class="mt-2 {{ if .featured }}text-white{{ else }}text-gray-500{{ end }}">
+                  {{ .description | markdownify }}
+                </p>
               </div>
               <div class="mb-8">
                 <p class="flex items-baseline">
-                  <span class="text-5xl font-bold tracking-tight {{ if .featured }}text-white{{ else }}text-gray-900{{ end }}">€{{ .price }}</span>
-                  <span class="ml-2 text-base {{ if .featured }}text-white{{ else }}text-gray-500{{ end }}">/once</span>
+                  <span class="text-3xl md:text-5xl font-bold tracking-tight {{ if .featured }}text-white{{ else }}text-gray-900{{ end }}">€{{ .price }}</span>
+                  <span class="ml-2 text-sm md:text-base {{ if .featured }}text-white{{ else }}text-gray-500{{ end }}">/once</span>
                 </p>
               </div>
               <ul class="space-y-4 flex-grow {{ if .featured }}text-white{{ else }}text-gray-600{{ end }}">
                 {{ $f := .featured }}
                 {{ range .features }}
                 <li class="flex items-start">
-                  <svg class="h-6 w-6 flex-shrink-0 {{ if $f }}text-white{{ else }}text-primary{{ end }}" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                  <svg class="h-5 md:h-6 w-5 md:w-6 flex-shrink-0 {{ if $f }}text-white{{ else }}text-primary{{ end }}" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
                   </svg>
-                  <span class="ml-3">{{ . | markdownify}}</span>
+                  <span class="ml-3">{{ . | markdownify }}</span>
                 </li>
                 {{ end }}
               </ul>
               <div class="mt-8">
-                <a href="{{ .button.url }}" class=" btn btn-primary w-full {{ if .featured }}bg-white text-primary {{ else }}{{ end }}">
+                <a href="{{ "contact" | relLangURL }}" class="btn btn-primary w-full {{ if .featured }}bg-white text-primary{{ end }}">
                   {{ .button.text }}
                 </a>
               </div>
@@ -67,10 +68,8 @@
   </div>
 </section>
 
-
 <!-- Plan 2 Section -->
 <section class="container my-24 bg-white rounded-3xl pt-6 pb-16">
-
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <div class="text-center">
       {{ with .Params.plan_2.title }}
@@ -83,7 +82,7 @@
     </div>
 
     <div class="mt-16">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {{ range .Params.plan_2.plans }}
         <div class="w-full">
           <div
@@ -99,30 +98,34 @@
               Most Popular
             </div>
             {{ end }}
-            <div class="p-8 flex flex-col flex-grow">
+            <div class="p-4 md:p-8 flex flex-col flex-grow">
               <div class="mb-6">
-                <h3 class="text-2xl font-bold {{ if .featured }}text-white{{ else }}text-gray-900{{ end }}">{{ .name | markdownify }}</h3>
-                <p class="mt-2 {{ if .featured }}text-white{{ else }}text-gray-500{{ end }}">{{ .description| markdownify  }}</p>
+                <h3 class="text-xl md:text-2xl font-bold {{ if .featured }}text-white{{ else }}text-gray-900{{ end }}">
+                  {{ .name | markdownify }}
+                </h3>
+                <p class="mt-2 {{ if .featured }}text-white{{ else }}text-gray-500{{ end }}">
+                  {{ .description | markdownify }}
+                </p>
               </div>
               <div class="mb-8">
                 <p class="flex items-baseline">
-                  <span class="text-5xl font-bold tracking-tight {{ if .featured }}text-white{{ else }}text-gray-900{{ end }}">€{{ .price }}</span>
-                  <span class="ml-2 text-base {{ if .featured }}text-white{{ else }}text-gray-500{{ end }}">/month</span>
+                  <span class="text-3xl md:text-5xl font-bold tracking-tight {{ if .featured }}text-white{{ else }}text-gray-900{{ end }}">€{{ .price }}</span>
+                  <span class="ml-2 text-sm md:text-base {{ if .featured }}text-white{{ else }}text-gray-500{{ end }}">/month</span>
                 </p>
               </div>
               <ul class="space-y-4 flex-grow {{ if .featured }}text-white{{ else }}text-gray-600{{ end }}">
                 {{ $f := .featured }}
                 {{ range .features }}
                 <li class="flex items-start">
-                  <svg class="h-6 w-6 flex-shrink-0 {{ if $f }}text-white{{ else }}text-primary{{ end }}" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                  <svg class="h-5 md:h-6 w-5 md:w-6 flex-shrink-0 {{ if $f }}text-white{{ else }}text-primary{{ end }}" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
                   </svg>
                   <span class="ml-3">{{ . }}</span>
                 </li>
                 {{ end }}
               </ul>
               <div class="mt-8">
-                <a href="{{ .button.url }}" class="btn btn-primary w-full {{ if .featured }}bg-white text-primary{{ end }}">
+                <a href="{{ "contact" | relLangURL }}" class="btn btn-primary w-full {{ if .featured }}bg-white text-primary{{ end }}">
                   {{ .button.text }}
                 </a>
               </div>
@@ -134,4 +137,35 @@
     </div>
   </div>
 </section>
+
+<!-- FAQ Section -->
+<section class="container my-24 bg-white rounded-3xl pt-6 pb-16" x-data="{ open: false }">
+  <div class="max-w-full sm:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900">{{ .Params.faq.title }}</h2>
+    </div>
+
+    <div class="space-y-4">
+      {{ range $index, $item := .Params.faq.items }}
+      <div class="border border-gray-200 rounded-xl shadow-sm" x-data="{ open: false }">
+        <button
+          class="w-full text-left px-6 py-4 flex justify-between items-center text-lg font-medium text-gray-800 hover:bg-gray-50"
+          @click="open = !open"
+        >
+          <span>{{ $item.question }}</span>
+          <svg :class="open ? 'rotate-180' : ''" class="w-5 h-5 transform transition-transform duration-300 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div x-show="open" x-transition class="px-6 pb-4 text-gray-600">
+          {{ $item.answer | markdownify }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
 {{ end }}

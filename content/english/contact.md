@@ -1,7 +1,7 @@
 ---
 title: "Contact us"
-meta_title: ""
-description: "this is meta description"
+meta_title: "Get in Touch with Us – Your Trusted Partner"
+description: "Reach out to us for inquiries, place orders, or custom solutions. We're here to help you achieve your goals with personalized service and expert advice."
 layout: "contact"
 draft: false
 openstreet_map:
