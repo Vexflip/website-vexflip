@@ -6,7 +6,6 @@
     <!-- logo -->
     <div class="order-0">
       <a class="navbar-brand block" href="{{ site.Home.RelPermalink }}">
-        <!-- White logo shown on transparent header -->
         <img
           id="logo-white"
           src="{{ "images/white-logo.png" | relURL }}"
@@ -24,7 +23,11 @@
 
     <!-- navbar toggler -->
     <input id="nav-toggle" type="checkbox" class="hidden" />
-    <label for="nav-toggle" class="order-3 cursor-pointer flex items-center lg:hidden text-white lg:order-1">
+    <label
+      for="nav-toggle"
+      id="nav-toggler"
+      class="order-3 cursor-pointer flex items-center lg:hidden text-white lg:order-1 transition-colors duration-300"
+    >
       <svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20">
         <title>Menu Open</title>
         <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
@@ -54,7 +57,6 @@
         {{ end }}
         {{ $currentPageURL := $currentPage.RelPermalink }}
         {{ $active := eq $menuURL $currentPageURL }}
-
         <li class="nav-item">
           <a
             class="nav-link px-3 py-2 rounded transition-colors duration-200 hover:bg-white/10
@@ -118,37 +120,43 @@
     .nav-dropdown-list {
       display: none;
     }
+
     @media (min-width: 1024px) {
       .nav-dropdown:hover > .nav-dropdown-list {
         display: block !important;
       }
     }
+
     @media (max-width: 1023px) {
       li.nav-item.nav-dropdown.submenu-open > .nav-dropdown-list {
         display: block !important;
       }
     }
 
-    /* Button override on transparent header */
+    /* Transparent header tweaks */
     #site-header.bg-transparent .btn-primary.btn-sm {
       background-color: white !important;
       color: #1e13c0 !important;
       border-color: white !important;
     }
+
     #site-header.bg-transparent .btn-primary.btn-sm:hover {
       background-color: #74a9f5;
       color: #1e13c0;
     }
 
-    /* Hover nav link white text on transparent header */
     #site-header.bg-transparent .nav-link:hover {
       color: white !important;
       background-color: rgba(255, 255, 255, 0.1);
-      transition: color 0.3s ease, background-color 0.3s ease;
     }
 
     #site-header.bg-transparent .nav-link:hover svg {
       fill: white;
+    }
+
+    /* Blue background when mobile menu is open and transparent */
+    #site-header.menu-open {
+      background-color: rgb(36, 0, 77);
     }
   </style>
 
@@ -159,9 +167,9 @@
       const logoWhite = document.getElementById("logo-white");
       const logoDefault = document.getElementById("logo-default");
       const navToggle = document.getElementById("nav-toggle");
+      const navToggler = document.getElementById("nav-toggler");
       const parentLinks = document.querySelectorAll(".parent-link");
 
-      // Mobile submenu
       parentLinks.forEach((link) => {
         link.addEventListener("click", (e) => {
           if (navToggle.checked) {
@@ -174,23 +182,38 @@
         });
       });
 
-      // Logo and background change on scroll
-      function checkScroll() {
-        if (window.scrollY > 50) {
-          header.classList.remove("bg-transparent", "text-white");
+      function updateHeaderState() {
+        const scrolled = window.scrollY > 50;
+        const menuOpen = navToggle.checked;
+
+        if (scrolled) {
+          header.classList.remove("bg-transparent", "text-white", "menu-open");
           header.classList.add("bg-white", "text-black", "shadow-md", "backdrop-blur-sm");
           logoWhite.classList.add("hidden");
           logoDefault.classList.remove("hidden");
+          navToggler.classList.remove("text-white");
+          navToggler.classList.add("text-primary");
         } else {
-          header.classList.add("bg-transparent", "text-white");
           header.classList.remove("bg-white", "text-black", "shadow-md", "backdrop-blur-sm");
+
+          if (menuOpen) {
+            header.classList.remove("bg-transparent");
+            header.classList.add("menu-open", "text-white");
+          } else {
+            header.classList.add("bg-transparent", "text-white");
+            header.classList.remove("menu-open");
+          }
+
           logoWhite.classList.remove("hidden");
           logoDefault.classList.add("hidden");
+          navToggler.classList.remove("text-primary");
+          navToggler.classList.add("text-white");
         }
       }
 
-      window.addEventListener("scroll", checkScroll);
-      checkScroll(); // Init
+      navToggle.addEventListener("change", updateHeaderState);
+      window.addEventListener("scroll", updateHeaderState);
+      updateHeaderState(); // Init
     });
   </script>
 </header>
