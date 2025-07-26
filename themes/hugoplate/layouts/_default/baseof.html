@@ -1,53 +1,72 @@
 <!doctype html>
 <html
   itemscope
-  class="{{- if not site.Params.theme_switcher -}}
-    {{- site.Params.theme_default -}}
-  {{- end -}}"
+  class="{{- if not site.Params.theme_switcher -}}{{- site.Params.theme_default -}}{{- end -}}"
   lang="{{ site.LanguageCode | default `fr` }}"
   itemtype="http://schema.org/WebPage">
-  <head>
-    <!-- head (don't cache it) -->
-    {{ partial "essentials/head.html" . }}
+<head>
+  <!-- head (don't cache it) -->
+  {{ partial "essentials/head.html" . }}
 
+  <!-- style (always cache it) -->
+  {{ partialCached "essentials/style.html" . }}
+</head>
 
-    <!-- style (always cache it) -->
-    {{ partialCached "essentials/style.html" . }}
+<body>
+<div
+  id="background-svg"
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 z-[-1] overflow-hidden bg-[#1e3a8a]"
+>
+  <img
+    src="{{ "images/background.svg" | relURL }}"
+    alt=""
+    class="w-full h-full object-cover transition-[filter] duration-300 ease-out will-change-[filter]"
+  />
+</div>
 
-  </head>
+<!-- dark overlay on top of background svg -->
+<div
+  id="background-overlay"
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 z-[-1]"
+  style="background-color: rgba(0, 0, 0, 0.50);"
+></div>
 
-  <body>
-    <!-- cache partial only in production -->
-    {{ if hugo.IsProduction }}
-      {{ partialCached "preloader.html" . }}
-      {{ partialCached "gtm-noscript.html" . }}
-    {{ else }}
-      {{ partial "preloader.html" . }}
+  <!-- cache partial only in production -->
+  {{ if hugo.IsProduction }}
+    {{ partialCached "preloader.html" . }}
+    {{ partialCached "gtm-noscript.html" . }}
+  {{ else }}
+    {{ partial "preloader.html" . }}
+    <!-- tailwind size indicator -->
+    {{ partial "components/tw-size-indicator.html" . }}
+  {{ end }}
 
+  <!-- announcement -->
+  {{ partialCached "announcement.html" . }}
 
-      <!-- tailwind size indicator -->
-      {{ partial "components/tw-size-indicator.html" . }}
-    {{ end }}
+  <!-- header (don't cache it) -->
+  {{ partial "essentials/header.html" . }}
+  {{ partial "search-modal.html" (dict "Context" . ) }}
 
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
 
-    <!-- announcement -->
-    {{ partialCached "announcement.html" . }}
+  <!-- footer -->
+  {{ partial "essentials/footer.html" . }}
 
+  <!-- script (always cache it) -->
+  {{ partialCached "essentials/script.html" . }}
 
-    <!-- header (don't cache it) -->
-    {{ partial "essentials/header.html" . }}
-    {{ partial "search-modal.html" (dict "Context" . ) }}
-
-
-    <main>
-      {{ block "main" . }}{{ end }}
-    </main>
-
-    <!-- footer -->
-    {{ partial "essentials/footer.html" . }}
-
-
-    <!-- script (always cache it) -->
-    {{ partialCached "essentials/script.html" . }}
-  </body>
+  <!-- scroll blur effect -->
+  <script>
+    const bg = document.querySelector("#background-svg img");
+    window.addEventListener("scroll", () => {
+      const blurAmount = Math.min(window.scrollY / 100, 10); // max 10px blur
+      bg.style.filter = `blur(${blurAmount}px)`;
+    });
+  </script>
+</body>
 </html>

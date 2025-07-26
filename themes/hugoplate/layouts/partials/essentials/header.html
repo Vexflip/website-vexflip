@@ -1,17 +1,30 @@
-<header class="header {{ if site.Params.navbar_fixed }}top-0{{ end }} z-30">
+<header
+  id="site-header"
+  class="header top-0 fixed w-full z-30 bg-transparent text-white transition-colors duration-300 ease-in-out"
+>
   <nav class="navbar container flex items-center justify-between">
     <!-- logo -->
     <div class="order-0">
       <a class="navbar-brand block" href="{{ site.Home.RelPermalink }}">
-        {{ partial "logo" }}
+        <!-- White logo shown on transparent header -->
+        <img
+          id="logo-white"
+          src="{{ "images/white-logo.png" | relURL }}"
+          alt="Logo White"
+          class="block h-12"
+        />
+        <img
+          id="logo-default"
+          src="{{ "images/logo.png" | relURL }}"
+          alt="Logo Default"
+          class="hidden h-12"
+        />
       </a>
     </div>
 
     <!-- navbar toggler -->
     <input id="nav-toggle" type="checkbox" class="hidden" />
-    <label
-      for="nav-toggle"
-      class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark lg:order-1">
+    <label for="nav-toggle" class="order-3 cursor-pointer flex items-center lg:hidden text-white lg:order-1">
       <svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20">
         <title>Menu Open</title>
         <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
@@ -20,14 +33,16 @@
         <title>Menu Close</title>
         <polygon
           points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-          transform="rotate(45 10 10)"></polygon>
+          transform="rotate(45 10 10)"
+        ></polygon>
       </svg>
     </label>
 
     <!-- main navbar -->
     <ul
       id="nav-menu"
-      class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8">
+      class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8 text-inherit"
+    >
       {{ $currentPage := . }}
       {{ range site.Menus.main }}
         {{ $menuPage := site.GetPage .URL }}
@@ -37,146 +52,49 @@
         {{ else }}
           {{ $menuURL = .URL }}
         {{ end }}
-
         {{ $currentPageURL := $currentPage.RelPermalink }}
         {{ $active := eq $menuURL $currentPageURL }}
 
-        {{ if .HasChildren }}
-          <li class="nav-item nav-dropdown group relative">
-            <a
-              class="nav-link parent-link
-              {{ if eq .Name "Activities" }}
-                {{ $activities := where site.RegularPages "Section" "activities" }}
-                {{ range $activities }}
-                  {{ if eq .Permalink $currentPage.Permalink }}active{{ end }}
-                {{ end }}
-              {{ else }}
-                {{ range .Children }}
-                  {{ $childPage := site.GetPage .URL }}
-                  {{ $childURL := "" }}
-                  {{ if $childPage }}
-                    {{ $childURL = $childPage.RelPermalink }}
-                  {{ else }}
-                    {{ $childURL = .URL }}
-                  {{ end }}
-                  {{ if eq $childURL $currentPageURL }}active{{ end }}
-                {{ end }}
-              {{ end }}
-              inline-flex items-center"
-              href="{{ if findRE `^#` .URL }}
-                {{ if not $.IsHome }}
-                  {{ site.Home.RelPermalink }}
-                {{ end }}{{ .URL }}
-              {{ else }}
-                {{ if $menuPage }}
-                  {{ $menuPage.RelPermalink }}
-                {{ else }}
-                  {{ .URL }}
-                {{ end }}
-              {{ end }}">
-              {{ .Name }}
-              <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
-                <path
-                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-              </svg>
-            </a>
-
-            <ul
-              class="nav-dropdown-list lg:group-hover:visible lg:group-hover:opacity-100">
-              {{ if or (eq .Name "Activities") (eq .Name "Activités") }}
-                {{ $activities := where site.RegularPages "Section" "activities" }}
-                {{ range $activities }}
-                  <li class="nav-dropdown-item">
-                    <a
-                      class="nav-dropdown-link text-dark {{ if eq .Permalink $currentPage.Permalink }}
-                        active
-                      {{ end }}"
-                      href="{{ .RelPermalink }}">
-                      {{ .Params.activity.name }}
-                    </a>
-                  </li>
-                {{ end }}
-              {{ else }}
-                {{ range .Children }}
-                  {{ $childPage := site.GetPage .URL }}
-                  {{ $childURL := "" }}
-                  {{ if $childPage }}
-                    {{ $childURL = $childPage.RelPermalink }}
-                  {{ else }}
-                    {{ $childURL = .URL }}
-                  {{ end }}
-                  {{ $activeChild := eq $childURL $currentPageURL }}
-                  <li class="nav-dropdown-item">
-                    <a
-                      class="nav-dropdown-link {{ if $activeChild }}
-                        active
-                      {{ end }}"
-                      {{ if findRE `^http` .URL }}
-                        target="_blank" rel="noopener"
-                      {{ end }}
-                      href="{{ if findRE `^#` .URL }}
-                        {{ if not $.IsHome }}
-                          {{ site.Home.RelPermalink }}
-                        {{ end }}{{ .URL }}
-                      {{ else }}
-                        {{ if $childPage }}
-                          {{ $childPage.RelPermalink }}
-                        {{ else }}
-                          {{ .URL }}
-                        {{ end }}
-                      {{ end }}">
-                      {{ .Name }}
-                    </a>
-                  </li>
-                {{ end }}
-              {{ end }}
-            </ul>
-          </li>
-        {{ else }}
-          <li class="nav-item">
-            <a
-              class="nav-link {{ if $active }}active{{ end }}"
-              {{ if findRE `^http` .URL }}
-                target="_blank" rel="noopener"
-              {{ end }}
-              href="{{ if findRE `^#` .URL }}
-                {{ if not $.IsHome }}
-                  {{ site.Home.RelPermalink }}
-                {{ end }}{{ .URL }}
-              {{ else }}
-                {{ if $menuPage }}
-                  {{ $menuPage.RelPermalink }}
-                {{ else }}
-                  {{ .URL }}
-                {{ end }}
-              {{ end }}">
-              {{ .Name }}
-            </a>
-          </li>
-        {{ end }}
+        <li class="nav-item">
+          <a
+            class="nav-link px-3 py-2 rounded transition-colors duration-200 hover:bg-white/10
+              {{ if $active }}font-bold underline{{ end }}"
+            {{ if findRE `^http` .URL }}target="_blank" rel="noopener"{{ end }}
+            href="{{ if findRE `^#` .URL }}
+              {{ if not $.IsHome }}{{ site.Home.RelPermalink }}{{ end }}{{ .URL }}
+            {{ else }}
+              {{ if $menuPage }}{{ $menuPage.RelPermalink }}{{ else }}{{ .URL }}{{ end }}
+            {{ end }}"
+          >
+            {{ .Name }}
+          </a>
+        </li>
       {{ end }}
 
       {{ if site.Params.navigation_button.enable }}
         <li class="mt-4 inline-block lg:hidden">
           <a
             class="btn btn-primary btn-sm"
-            href="{{ site.Params.navigation_button.link | relLangURL }}">
+            href="{{ site.Params.navigation_button.link | relLangURL }}"
+          >
             {{ site.Params.navigation_button.label }}
           </a>
         </li>
       {{ end }}
     </ul>
 
+    <!-- right-side buttons -->
     <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
       {{ with site.Params.search }}
         {{ if .enable }}
           <button
             aria-label="search"
-            class="border-border text-text-dark hover:text-primary mr-5 inline-block border-r pr-5 text-xl cursor-pointer
-            {{ if not (or site.Params.navigation_button.enable site.Params.theme_switcher) }}
-              lg:border-r-0 lg:pr-0
-            {{ end }}"
-            data-target="search-modal">
+            class="border-border text-white hover:text-primary mr-5 inline-block border-r pr-5 text-xl cursor-pointer
+              {{ if not (or site.Params.navigation_button.enable site.Params.theme_switcher) }}
+                lg:border-r-0 lg:pr-0
+              {{ end }}"
+            data-target="search-modal"
+          >
             <i class="fa-solid fa-search"></i>
           </button>
         {{ end }}
@@ -187,13 +105,15 @@
       {{ if site.Params.navigation_button.enable }}
         <a
           href="{{ site.Params.navigation_button.link | relLangURL }}"
-          class="btn btn-primary btn-sm hidden lg:inline-block">
+          class="btn btn-primary btn-sm hidden lg:inline-block"
+        >
           {{ site.Params.navigation_button.label }}
         </a>
       {{ end }}
     </div>
   </nav>
 
+  <!-- STYLES -->
   <style>
     .nav-dropdown-list {
       display: none;
@@ -208,13 +128,40 @@
         display: block !important;
       }
     }
+
+    /* Button override on transparent header */
+    #site-header.bg-transparent .btn-primary.btn-sm {
+      background-color: white !important;
+      color: #1e13c0 !important;
+      border-color: white !important;
+    }
+    #site-header.bg-transparent .btn-primary.btn-sm:hover {
+      background-color: #74a9f5;
+      color: #1e13c0;
+    }
+
+    /* Hover nav link white text on transparent header */
+    #site-header.bg-transparent .nav-link:hover {
+      color: white !important;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: color 0.3s ease, background-color 0.3s ease;
+    }
+
+    #site-header.bg-transparent .nav-link:hover svg {
+      fill: white;
+    }
   </style>
 
+  <!-- SCRIPT -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      const header = document.getElementById("site-header");
+      const logoWhite = document.getElementById("logo-white");
+      const logoDefault = document.getElementById("logo-default");
       const navToggle = document.getElementById("nav-toggle");
       const parentLinks = document.querySelectorAll(".parent-link");
 
+      // Mobile submenu
       parentLinks.forEach((link) => {
         link.addEventListener("click", (e) => {
           if (navToggle.checked) {
@@ -226,6 +173,24 @@
           }
         });
       });
+
+      // Logo and background change on scroll
+      function checkScroll() {
+        if (window.scrollY > 50) {
+          header.classList.remove("bg-transparent", "text-white");
+          header.classList.add("bg-white", "text-black", "shadow-md", "backdrop-blur-sm");
+          logoWhite.classList.add("hidden");
+          logoDefault.classList.remove("hidden");
+        } else {
+          header.classList.add("bg-transparent", "text-white");
+          header.classList.remove("bg-white", "text-black", "shadow-md", "backdrop-blur-sm");
+          logoWhite.classList.remove("hidden");
+          logoDefault.classList.add("hidden");
+        }
+      }
+
+      window.addEventListener("scroll", checkScroll);
+      checkScroll(); // Init
     });
   </script>
 </header>

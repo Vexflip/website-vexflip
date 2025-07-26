@@ -1,114 +1,92 @@
 {{ define "main" }}
-  <!-- Banner -->
   {{ with .Params.banner }}
-    <section
-      class="relative overflow-hidden pt-14 h-screen flex items-center justify-center">
-      <!-- Background Video -->
-      <video
-        autoplay
-        muted
-        loop
-        playsinline
-        class="absolute top-0 left-0 w-full h-full object-cover z-0">
-        <source src="{{ "videos/banner-bg.mp4" | relURL }}" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+<section class="relative overflow-hidden h-screen flex items-center justify-center">
+  <!-- Foreground Content -->
+  <div class="container relative z-20 flex flex-col items-center text-center">
+    
+   <div class="mb-8">
+  {{ partial "image" (dict
+    "Src" .logo
+    "Alt" "Banner logo"
+    "Loading" "eager"
+    "Class" "mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+    "DisplayXL" "1200x"
+    "Style" "filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.6));"
+  ) }}
+</div>
 
-      <!-- Foreground Content -->
-      <div class="container relative z-20">
-        <div class="row justify-center">
-          <div class="lg:col-7 md:col-9 mb-8 text-center">
-            <!-- White transparent box -->
-            <div class=""></div>
-              <!-- White transparent box border-[4px] border-[#8b5e3c] text-black rounded-4xl p-8.5 shadow-lg backdrop-blur-md -->
-              <div class="col-12 mb-6">
-                {{ partial "image" (dict "Src" .logo "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[500px]" "DisplayXL" "500x") }}
-              </div>
+    <h1 class="mb-10 text-3xl sm:text-4xl md:text-5xl lg:text-7xl max-w-full sm:max-w-2xl md:max-w-3xl leading-tight font-bold text-white"
+        style="text-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);">
+      {{ .title | markdownify }}
+    </h1>
+
+    <p class="mb-10 px-6 md:px-20 lg:px-40 font-semibold text-white max-w-4xl">
+      {{ .content | markdownify }}
+    </p>
+
+    {{ with .button }}
+      {{ if .enable }}
+        <a
+          class="btn btn-primary"
+          href="{{ .link | absURL }}"
+          {{ if strings.HasPrefix .link `http` }}
+            target="_blank" rel="noopener"
+          {{ end }}>
+          {{ .label }}
+          <i class="fa fa-arrow-right pl-2"></i>
+        </a>
+      {{ end }}
+    {{ end }}
+
+  </div>
+</section>
 
 
-              {{ with .button }}
-                {{ if .enable }}
-                  <a
-                    class="btn btn-primary"
-                    href="{{ .link | absURL }}"
-                    {{ if strings.HasPrefix .link `http` }}
-                      target="_blank" rel="noopener"
-                    {{ end }}>
-                    {{ .label }}
-                    <i class="fa fa-arrow-right pl-2"></i>
-                  </a>
-                {{ end }}
-              {{ end }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   {{ end }}
   <!-- /Banner -->
 
+<!-- Features -->
+{{ range $i, $e := .Params.features }}
+<section class="section-sm relative overflow-hidden">
 
-  <section class="py-12">
-    <div class="container mx-auto px-4">
-<div class="text-center mt-16 mb-30">
-  <h1 class="mb-4 text-3xl lg:text-8xl">
-    {{ .Params.banner.title | markdownify }}
-  </h1>
+  <div class="container relative z-10">
+    <div class="row items-center justify-between rounded-2xl overflow-hidden shadow-2xl bg-white p-4">
 
-  <p class="mb-8">
-    {{ .Params.banner.content | markdownify }}
-  </p>
-</div>
-
-      {{ $authors := site.GetPage "section" "activities" }}
-      <!-- Centered Container -->
-      <div class="flex justify-center">
-        <!-- Section Title -->
-        <h2
-          class="text-5xl font-bold mb-8 cursor-pointer text-center text-primary"
-          onclick="window.location.href='{{ $authors.Permalink }}'">
-          {{ $authors.Title }}
-        </h2>
+      <!-- Image -->
+      <div class="{{ if not (modBool $i 2) }}md:order-2{{ end }} md:col-5 mb-6">
+          <img src="{{ $e.image | relURL }}" alt="{{ $e.title }}" class="w-full h-auto rounded-md">
       </div>
 
-      <div
-        class="grid gap-8 justify-items-center"
-        style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-        <!-- Section Cards -->
-        {{ range $authors.RegularPages }}
-          <div class="w-full max-w-sm">
-            {{ partial "components/card/activity-card" . }}
-          </div>
-        {{ end }}
+      <!-- Text -->
+      <div class="{{ if not (modBool $i 2) }}md:order-1{{ end }} md:col-7 lg:col-6">
+          <h2 class="mb-4 text-2xl lg:text-4xl font-bold text-black">{{ $e.title }}</h2>
+          <p class="mb-6 text-lg text-gray/90">{{ $e.content | markdownify }}</p>
 
+          {{ with $e.bulletpoints }}
+          <ul class="mb-6 text-gray/90">
+            {{ range . }}
+            <li class="relative mb-4 pl-6">
+              <i class="fa fa-check absolute left-0 top-1.5 text-green-400"></i>
+              {{ . | markdownify }}
+            </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+
+          {{ with $e.button }}
+          {{ if .enable }}
+          <a class="btn btn-primary mt-4 inline-block" href="{{ .link | absURL }}">
+            {{ .label }}
+            <i class="fa fa-arrow-right pl-2"></i>
+          </a>
+          {{ end }}
+          {{ end }}
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
+{{ end }}
+<!-- /Features -->
 
-  <!-- Event -->
-  <section class="py-12">
-    <div class="container mx-auto px-4">
-      {{ $authors := site.GetPage "section" "news" }}
-
-
-      <!-- Centered Container -->
-      <div class="flex justify-center">
-        <!-- Section Title -->
-        <h2
-          class="text-5xl font-bold mb-8 cursor-pointer text-center text-primary"
-          onclick="window.location.href='{{ $authors.Permalink }}'">
-          {{ $authors.Title }}
-        </h2>
-      </div>
-
-      <div class="flex flex-wrap justify-center gap-8 text-primary">
-        <!-- Section Cards -->
-        {{ range sort (where $authors.RegularPages "Params.event.archive" "ne" true) "Params.event.date_start" "desc" }}
-        <div class="w-auto max-w-none">
-          {{ partial "components/card/event-card" . }}
-        </div>
-      {{ end }}
-      </div>
-    </div>
-  </section>
 {{ end }}

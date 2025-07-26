@@ -7,31 +7,25 @@ url = "/"
 weight = 1
 
 [[main]]
-name = "Activities"
-url = "/en/activities"
+name = "Showcase"
+url = "/en/showcase"
 weight = 2
 
-
 [[main]]
-name = "Seminar and Group"
-url = "/en/seminar-and-group"
+name = "Prices"
+url = "/en/prices"
 weight = 4
 
 
 [[main]]
-name = "News"
-url = "/en/news"
+name = "About Us"
+url = "/en/about"
 weight = 3
-
-[[main]]
-name = "Practical information"
-url = "/en/practical-information"
-weight = 5
 
 
 # footer menu
 [[footer]]
-name = "About"
+name = "About Us"
 url = "/en/about"
 weight = 1
 
@@ -39,43 +33,6 @@ weight = 1
 name = "Mentions légales "
 url = "/en/mentions-legales "
 weight = 2
-
-# drop down for activities
-[[main]]
-parent = "Activities"
-name = "Norma Loops"
-url = "activities/norma-loops"
-weight = 1
-
-[[main]]
-parent = "Activities"
-name = "Norma Zen"
-url = "activities/norma-zen"
-weight = 2
-
-[[main]]
-parent = "Activities"
-name = "Norma Kids"
-url = "activities/norma-kids"
-weight = 3
-
-[[main]]
-parent = "Activities"
-name = "Baignade"
-url = "activities/baignade"
-weight = 4
-
-[[main]]
-parent = "Activities"
-name = "Tennis"
-url = "activities/tennis"
-weight = 5
-
-[[main]]
-parent = "Activities"
-name = "Cinéma"
-url = "activities/cinema"
-weight = 6
 
 
 
