@@ -6,6 +6,6 @@ layout: "photos"
 draft: false  
 ---
 
-{{< gallery dir="images/gallery" height="400" width="400" zoomable="true" command="Fit" >}}
+{{< gallery dir="images/gallery" height="400" width="400" zoomable="true" command="Fit"  class="pt-10">}}
 
 

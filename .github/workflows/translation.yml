@@ -2,8 +2,6 @@ name: Translate Markdown
 
 on:
   push:
-    paths:
-      - 'content/**/*.md'
 
   workflow_dispatch:
 
