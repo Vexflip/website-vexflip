@@ -1,8 +1,6 @@
 name: Translate Markdown
 
 on:
-  push:
-
   workflow_dispatch:
 
 permissions:
