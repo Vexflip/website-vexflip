@@ -1,8 +1,9 @@
 ---
-description: this is meta description
+description: Reach out to us for inquiries, place orders, or custom solutions. We're
+  here to help you achieve your goals with personalized service and expert advice.
 draft: false
 layout: contact
-meta_title: ''
+meta_title: Get in Touch with Us – Your Trusted Partner
 openstreet_map:
   enable: true
   latitude: 45.2011768133446
