@@ -28,11 +28,11 @@ features:
     label: Explore Design Options
     link: /services/design
   content: 'Every site I build uses TailwindCSS and is customized to reflect your
-    brand. Clean design, modern UI, and fully responsive layouts.
-
-    '
+    brand. Clean design, modern UI, and fully responsive layouts.'
   image: /images/feature-design.svg
   title: Tailored Design for Your Brand
+
+
 - bulletpoints:
   - Optional CMS
   - Version-controlled code
@@ -46,6 +46,7 @@ features:
     optional CMS integration if needed (e.g. DecapCMS).
   image: /images/feature-maintenance.svg
   title: Easy to Maintain and Extend
+
 testimonials:
 - avatar: /images/testimonial-1.svg
   name: John Smith
@@ -62,5 +63,6 @@ testimonials:
   quote: This theme made it easy to create a professional SaaS website. The build
     times are incredibly fast, and the code is clean and maintainable.
   title: Lead Developer at CloudTech
+  
 title: Home
 ---

@@ -2,7 +2,7 @@
 banner:
   title: "You build the Brand<br>We build Visibility"
   content: "Create stunning, responsive websites that load instantly. Built with Hugo and TailwindCSS for maximum performance and flexibility. This is the moment to renew your brand with a state-of-the-art website. — Perfect for small businesses, startups, and personal brands."
-  logo: images/white-favicon.png
+  logo: images/favicon.png
 
 title: Home
 client_logos:
