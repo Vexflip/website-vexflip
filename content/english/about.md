@@ -1,12 +1,20 @@
 ---
 title: "About Us"
-image: "images/testimony/about-creators.jpg"
-description: "Learn more about our mission, values, and the team behind our success."
+image: "images/founder.jpg"
+description: "Discover our mission, our values, and the exceptional team driving innovation and excellence."
 layout: "about"
 draft: false
+school_logo:
+  - image: "images/school/EPFL.jpg"
+    url: "https://www.epfl.ch/"
+    description: "École Polytechnique Fédérale de Lausanne (EPFL), a top Swiss tech university known for innovation and research."
+  - image: "images/school/TUM.jpg"
+    url: "https://www.tum.de/"
+    description: "Technical University of Munich (TUM), a leading German university recognized for excellence and industry ties."
 ---
-Welcome to our company! We are passionate about delivering the best service and solutions to our customers.
+## <span class="text-4xl font-bold text-gray-800">Hello! I am Sylvain 😄</span>
+I'm a solo developer passionate about creating fast, reliable, and beautiful websites.
 
-Our team consists of dedicated professionals with years of experience in the industry. We believe in innovation, quality, and customer satisfaction.
+With a background in technology and a strong focus on user experience, I help individuals and small businesses bring their ideas to life on the web. Every project I take on is treated with care, attention to detail, and a personal commitment to quality.
 
-Thank you for visiting us. We look forward to working with you and helping you achieve your goals.
+I handle everything from planning and design to development and long-term maintenance. My goal is to deliver not just a website, but a platform that helps you succeed. I am looking forward to working together :D

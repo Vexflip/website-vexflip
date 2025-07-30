@@ -8,7 +8,7 @@ plan_1:
   plans:
     - name: "Starter Site"
       description: "Perfect for individuals or freelancers needing a clean web presence."
-      price: 399
+      price: 499
       features:
         - Website (up to 5 pages)
         - Mobile-responsive layout
@@ -23,7 +23,7 @@ plan_1:
 
     - name: "Professional Site"
       description: "Ideal for small businesses or growing teams."
-      price: 1,199
+      price: 1,299
       features:
         - Up to 15 pages
         - Advanced SEO optimization
@@ -37,7 +37,7 @@ plan_1:
 
     - name: "Custom Project"
       description: "End-to-end solutions for businesses with specific needs."
-      price: 2,500+
+      price: 2,800+
       features:
         - Custom Hugo theme development
         - API integrations or dynamic features
@@ -56,7 +56,7 @@ plan_2:
   plans:
     - name: "Essentials"
       description: "Reliable upkeep and basic support for stable sites."
-      price: 39
+      price: 49
       features:
         - Hosting and Monthly dependency updates
         - Security & uptime monitoring
@@ -70,7 +70,7 @@ plan_2:
 
     - name: "Growth"
       description: "For businesses needing frequent updates and SEO performance tracking."
-      price: 169
+      price: 189
       features:
         - Includes all Essentials features
         - Up to 5 content changes/month
