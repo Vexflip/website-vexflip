@@ -1,12 +1,12 @@
 {{ define "main" }}
 
-  <section class="container my-24 bg-white rounded-3xl pb-6 py-12 shadow-md">
+  <section class="container my-30 bg-white rounded-3xl pb-16 shadow-md">
 
     <div class="text-center max-w-3xl mx-auto">
       {{ partial "page-header" . }}
 
       {{ with .Params.description }}
-      <p class="mt-2 mb-8 text-xl text-gray-600 max-w-xl mx-auto pb-8">
+      <p class="mb-8 text-xl text-gray-600 max-w-xl mx-auto pb-8">
         {{ . | markdownify }}
       </p>
       {{ end }}

@@ -1,10 +1,20 @@
 {{ define "main" }}
-  <section class="section-sm">
-    <div class="container">
+  <section class="container my-30 bg-white rounded-3xl pb-16 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="row justify-center">
         <div class="md:col-12 lg:col-10 text-center">
-          <h2 class="h3 mb-6">{{ .Title }}</h2>
-          <div class="content">{{ .Content }}</div>
+          <div class="text-center max-w-3xl mx-auto">
+            {{ partial "page-header" . }}
+
+            {{ with .Params.description }}
+              <p class="mb-8 text-xl text-gray-600 max-w-xl mx-auto pb-8">
+                {{ . | markdownify }}
+              </p>
+            {{ end }}
+          </div>
+          <div class="content text-gray-700 text-lg leading-relaxed space-y-6">
+            {{ .Content }}
+          </div>
         </div>
       </div>
     </div>
