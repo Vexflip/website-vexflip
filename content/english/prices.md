@@ -4,18 +4,18 @@ layout: "prices"
 
 plan_1:
   title: "Website Creation Plans"
-  description: "One-time packages for fast, secure, and modern static websites.<br> **- Hosting available for 39€/month -**"
+  description: "One-time packages for fast, secure, and modern static websites.<br> **- Hosting available for 29€/month -**"
   plans:
     - name: "Starter Site"
       description: "Perfect for individuals or freelancers needing a clean web presence."
-      price: 499
+      price: 399
       features:
-        - Website (up to 5 pages)
+        - Website (up to 3 pages)
         - Mobile-responsive layout
         - Basic SEO setup
         - 1 round of content revisions
         - Delivered in 1–2 weeks
-        - Addiontal 59€ per language 
+        - Additional €59 per language
       button:
         text: "Get Started"
         url: /contact
@@ -23,11 +23,11 @@ plan_1:
 
     - name: "Professional Site"
       description: "Ideal for small businesses or growing teams."
-      price: 1,299
+      price: 999
       features:
-        - Up to 15 pages
+        - Up to 10 pages
         - Advanced SEO optimization
-        - Addiontal 29€ per languages 
+        - Additional €39 per language
         - 2 rounds of revisions
         - Delivery in 2–4 weeks
       button:
@@ -50,34 +50,41 @@ plan_1:
         url: /contact
       featured: false
 
+  add_ons:
+    title: "Available Add-ons"
+    items:
+      - "CMS integration: €99"
+      - "Advanced SEO package: €149"
+      - "Another round of revision: €149"
+      - "Additional page: €99"
+
+
 plan_2:
   title: "Website Maintenance Plans"
   description: "Monthly care plans to keep your website updated, optimized, and secure."
   plans:
     - name: "Essentials"
       description: "Reliable upkeep and basic support for stable sites."
-      price: 49
+      price: 29
       features:
-        - Hosting and Monthly dependency updates
+        - Free domain name
+        - Hosting and monthly dependency updates
         - Security & uptime monitoring
-        - One content update/month
+        - No content changes
         - Email support (72h response)
-        - Add Analytics for +19€/month
       button:
         text: "Subscribe"
         url: /contact
       featured: false
 
     - name: "Growth"
-      description: "For businesses needing frequent updates and SEO performance tracking."
-      price: 189
+      description: "For businesses needing frequent updates."
+      price: 59
       features:
         - Includes all Essentials features
-        - Up to 5 content changes/month
-        - Monthly SEO report
+        - Up to 2 content changes/month
         - Priority email support (24h)
-        - Analytics included
-        - Add CMS for +29€/month
+        - Monthly SEO report
       button:
         text: "Join Now"
         url: /contact
@@ -85,18 +92,25 @@ plan_2:
 
     - name: "Premium Care"
       description: "Hands-on support for high-impact or evolving websites."
-      price: 699
+      price: 299
       features:
         - All Growth features
-        - 15 hours/month dev time
-        - CMS included (unlimited edits)
+        - Up to 5 content changes/month
         - Real-time performance monitoring
-        - Custom feature requests
+        - Monthly analytics included
         - Slack/Phone direct support
       button:
         text: "Contact Us"
         url: /contact
       featured: false
+
+  add_ons:
+    title: "Available Add-ons"
+    items:
+      - "Additional content updates: €29 "
+      - "SEO Report: €29"
+      - "Analytic Report: €29"
+      - "Priority email support (24h): €29"
 
 faq:
   title: Frequently Asked Questions
@@ -117,12 +131,11 @@ faq:
       answer: "Not necessarily. Hugo is great for static sites without a database. But if you prefer editing content yourself, I offer optional CMS integration (+€29/month) using DecapCMS or similar."
 
     - question: "What analytics do you offer?"
-      answer: "I use lightweight, privacy-friendly tools like Plausible, Umami or Google Anlaytics. These are GDPR-compliant and give you clear visitor insights without invasive tracking."
+      answer: "I use lightweight, privacy-friendly tools like Plausible, Umami or Google Analytics. These are GDPR-compliant and give you clear visitor insights without invasive tracking."
 
     - question: "What does 'Custom Project' mean?"
       answer: "If you need something unique—multilingual support, form integrations, client portals, or custom features—I’ll scope the project with you and build exactly what you need."
 
     - question: "Can I cancel anytime?"
       answer: "Yes. Maintenance plans are monthly and can be canceled with a 7-day notice. Website builds are one-time unless we agree on a retainer."
-
 ---

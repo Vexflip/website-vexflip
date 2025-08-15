@@ -1,5 +1,5 @@
 ---
-title: "Mentions Légals"
+title: "Legal Notice"
 image: none
 date: 2025-07-11T12:00:00+00:00
 layout: "mentions-legales"
@@ -7,28 +7,37 @@ draft: false
 ---
 
 
-**Ce site est édité par :**  CONFORT MEDICAL 68
+#### Site Publisher
+**Company name:** Vexflip  
+**Legal form:** Entreprise Individuelle (Auto Entrepreneur)  
+**RCS / SIREN:** 989 830 989  
+**VAT number:** TBD  
+**Registered office:** Not Disclosed   
+**Email:** sylvain.pichot@vexflip.com  
+**Phone:** Not Disclosed  
 
-**Capital :** 10 000,00 €  
+**Publication Director:** TBD   
+**Editor in charge:** Sylvain Pichot
 
-**Adresse :** 2 RUE DU LAURIER 68700 CERNAY FRANCE
+#### Hosting Provider
+**Company name:** {{ HOST_NAME }}  
+**Address:** {{ HOST_ADDRESS }}  
+**Phone:** {{ HOST_PHONE }}  
+**Website:** {{ HOST_URL }}
 
-**Adresse électronique :** cernay@confortmedical68.f
+#### Intellectual Property
+All content on this site (texts, images, graphics, logos, videos, icons, code, etc.) is protected by copyright and/or trademark law. Any reproduction, representation, modification, publication, or adaptation, in whole or in part, is prohibited without prior written consent.
 
-**Téléphone :** 03 67 26 20 20
+Third-party images/resources are credited when applicable. All mentioned trademarks belong to their respective owners.
 
-**N° Registre du Commerce ou Répertoire des métiers :**  8559B
+#### Hyperlinks
+Links to this site are allowed provided they do not harm the publisher's interests and make it possible to identify the origin of the document. External links are provided for convenience and do not imply responsibility by the publisher.
 
-**N° SIRET de l’établissement :** 81949633200027
+#### Liability
+The publisher strives to ensure the accuracy and update of the information but cannot guarantee it. The user is solely responsible for their use of the site and information.
 
-**N° d’assujettissement à la TVA :** FR49819496332
+#### Accessibility
+The publisher is committed to improving site accessibility. For any difficulty accessing content, contact us at: customer.service@vexflip.com .
 
-**Titre professionnel–Autorisation :**
-
-**Référence aux règles professionnelles applicables :**
-
-**Qualité de locataire gérant ou gérant mandataire :**
-
-**Mentions légales spécifiques :**
-
-**Directeur de rédaction et de publication :** CONFORT MEDICAL 68
+#### Governing Law
+This site is subject to French law. In case of dispute and failing amicable resolution, jurisdiction is granted to the competent French courts.

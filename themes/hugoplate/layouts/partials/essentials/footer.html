@@ -22,7 +22,7 @@
                     {{ site.Home.RelPermalink }}
                   {{ end }}{{ .URL }}
                 {{ else }}
-                  {{ .URL | relLangURL }}
+                  {{ .URL | relURL }}
                 {{ end }}"
                 >{{ .Name }}</a
               >

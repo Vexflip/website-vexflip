@@ -30,7 +30,7 @@ url = "/en/about"
 weight = 1
 
 [[footer]]
-name = "Mentions légales "
+name = "Legal Notice"
 url = "/en/mentions-legales "
 weight = 2
 
