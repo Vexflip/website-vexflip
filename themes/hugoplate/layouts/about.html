@@ -11,24 +11,25 @@
     </div>
 
     <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col lg:flex-row gap-8 items-start">
+      <div class="flex flex-col lg:flex-row gap-8 items-stretch">
         <!-- Left: Image -->
         <div class="flex-shrink-0 lg:w-1/2 w-full">
-          {{ partial "image" (dict "Src" .Params.image "Context" .Page "Alt" .Title "Class" "rounded-lg shadow-lg w-full h-auto") }}
+          <img
+            src="{{ .Params.image | relURL }}"
+            alt="{{ .Title }}"
+            class="rounded-lg shadow-lg w-full h-full object-cover" />
         </div>
 
-        <!-- Right: Text on top, logos pushed to bottom -->
-        <div
-          class="lg:w-1/2 w-full flex flex-col justify-between min-h-[500px]">
-          <!-- Text Content -->
+        <!-- Right: Text -->
+        <div class="lg:w-1/2 w-full flex flex-col justify-between">
           <div class="content text-gray-700 text-lg leading-relaxed space-y-6">
             {{ .Content }}
           </div>
 
-          <!-- Logos at the bottom -->
           {{ with .Params.school_logo }}
             <div class="mt-10">
-              <h3 class="text-xl font-semibold text-center mb-4 text-dark italic">
+              <h3
+                class="text-xl font-semibold text-center mb-4 text-dark italic">
                 Studied at:
               </h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">

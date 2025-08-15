@@ -1,10 +1,10 @@
 {{ define "main" }}
   {{ with .Params.banner }}
-<section class="relative overflow-hidden h-screen flex items-center justify-center pt-10">
+<section class="relative overflow-hidden h-screen flex items-center justify-center my-30">
   <!-- Foreground Content -->
   <div class="container relative z-20 flex flex-col items-center text-center">
     
-<div class="mb-8">
+<div class="mb-8 pt-10">
   {{ partial "image" (dict
     "Src" .logo
     "Alt" "Banner logo"

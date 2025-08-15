@@ -58,4 +58,17 @@ features:
       enable: true
       label: "Learn About Maintenance"
       link: "/services/maintenance"
+
+  - title: "International Touch"
+    content: "Expand your reach by making your website multilingual. We integrate DeepL translations for accurate, natural-sounding content in multiple languages, with easy updates as your site grows."
+    image: images/deepL_logo.png
+    bulletpoints:
+      - "Seamless DeepL integration"
+      - "Accurate, natural translations"
+      - "Support for 30+ languages"
+      - "Easy to update and manage"
+    button:
+      enable: true
+      label: "What is DeepL?"
+      link: "/services/multilingual"
 ---
