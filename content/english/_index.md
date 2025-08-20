@@ -33,7 +33,7 @@ testimonials:
 
 features:
   - title: "Tailored Design for Your Brand"
-    image: "/images/feature-design.svg"
+    image: "/videos/home_1"
     content: >
       Every site I build uses TailwindCSS and is customized to reflect your brand. Clean design, modern UI, and fully responsive layouts.
     bulletpoints:

@@ -65,7 +65,7 @@ plan_2:
   plans:
     - name: "Essentials"
       description: "Reliable upkeep and basic support for stable sites."
-      price: 29
+      price: 49
       features:
         - Free domain name
         - Hosting and monthly dependency updates
@@ -79,7 +79,7 @@ plan_2:
 
     - name: "Growth"
       description: "For businesses needing frequent updates."
-      price: 59
+      price: 199
       features:
         - Includes all Essentials features
         - Up to 2 content changes/month
@@ -92,7 +92,7 @@ plan_2:
 
     - name: "Premium Care"
       description: "Hands-on support for high-impact or evolving websites."
-      price: 299
+      price: 599
       features:
         - All Growth features
         - Up to 5 content changes/month
